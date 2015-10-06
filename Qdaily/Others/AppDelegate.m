@@ -2,11 +2,12 @@
 //  AppDelegate.m
 //  Qdaily
 //
-//  Created by Envy15 on 15/10/6.
+//  Created by Envy15 on 15/10/4.
 //  Copyright (c) 2015年 c344081. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "QDMainRootViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    QDMainRootViewController *mainRootViewController = [[QDMainRootViewController alloc] init];
+    
+    self.window.rootViewController = mainRootViewController;
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

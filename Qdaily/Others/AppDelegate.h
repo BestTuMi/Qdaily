@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  Qdaily
+//  v
 //
-//  Created by Envy15 on 15/10/6.
+//  Created by Envy15 on 15/10/4.
 //  Copyright (c) 2015年 c344081. All rights reserved.
 //
 
