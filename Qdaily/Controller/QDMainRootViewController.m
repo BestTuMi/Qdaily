@@ -7,9 +7,18 @@
 //
 
 #import "QDMainRootViewController.h"
+#import "QDNavigationController.h"
+#import "QDHomeViewController.h"
+#import "QDMessageViewController.h"
+#import "QDFavouriteViewController.h"
+#import "QDCategoryFeedViewController.h"
+#import "QDSideMenuCategory.h"
+#import "QDSideMenuCell.h"
+
+
 #define SideMenuKeyPath @"frame"
 
-@interface QDMainRootViewController () <UIGestureRecognizerDelegate>
+@interface QDMainRootViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate>
 /** 侧边菜单视图 */
 @property (nonatomic, weak)  UIView *sideMenuView;
 /** 中间主视图 */
@@ -18,6 +27,22 @@
 @property (nonatomic, weak)  UIButton *sideMenuButton;
 /** 菜单是否在屏幕上 */
 @property (nonatomic, assign) BOOL isMenuVisibele;
+/** 当前添加到主视图上的 View */
+@property (nonatomic, weak) UIViewController *mainViewChildVc;
+/** 主页控制器 */
+@property (nonatomic, strong) QDHomeViewController *homeVc;
+/** 消息控制器 */
+@property (nonatomic, strong)  QDMessageViewController *messageVc;
+/** 收藏控制器 */
+@property (nonatomic, strong)  QDFavouriteViewController *favouriteVc;
+/** 信息流控制器 */
+@property (nonatomic, strong)  QDCategoryFeedViewController *categoryFeedVc;
+
+/*********** tableView相关 **********/
+/** 目录模型数组 */
+@property (nonatomic, strong)  NSMutableArray *categories;
+/** 侧边的 tableView */
+@property (nonatomic, weak) UITableView *sideMenuTablleView;
 @end
 
 @implementation QDMainRootViewController
@@ -28,11 +53,53 @@
     [self setupsideMenuView];
     // 侧边按钮如果跟菜单在同一 View 会影响边缘手势范围.因此独立出来
     [self setupSideMenuButton];
+
 }
 
 - (void)dealloc {
     // 移除监听
     [self.sideMenuView removeObserver:self forKeyPath:SideMenuKeyPath];
+}
+
+#pragma mark - lazyload
+- (QDHomeViewController *)homeVc {
+    if (!_homeVc) {
+        _homeVc = [[QDHomeViewController alloc] init];
+        [self addChildViewController:_homeVc];
+    }
+    return _homeVc;
+}
+
+- (QDMessageViewController *)messageVc {
+    if (!_messageVc) {
+        _messageVc = [[QDMessageViewController alloc] init];
+        [self addChildViewController:_messageVc];
+    }
+    return _messageVc;
+}
+
+- (QDFavouriteViewController *)favouriteVc {
+    if (!_favouriteVc) {
+        _favouriteVc = [[QDFavouriteViewController alloc] init];
+        [self addChildViewController:_favouriteVc];
+    }
+    return _favouriteVc;
+}
+
+- (QDCategoryFeedViewController *)categoryFeedVc {
+    if (!_categoryFeedVc) {
+        _categoryFeedVc = [[QDCategoryFeedViewController alloc] init];
+        [self addChildViewController:_categoryFeedVc];
+    }
+    return _categoryFeedVc;
+}
+
+// 目录模型数组
+- (NSMutableArray *)categories {
+    if (!_categories) {
+        _categories = [NSMutableArray array];
+    }
+    return _categories;
 }
 
 #pragma mark - 设置主视图
@@ -48,6 +115,10 @@
 
     [self.view addSubview:mainView];
     _mainView = mainView;
+    
+    // 默认显示首页
+    QDHomeViewController *homeVc = [[QDHomeViewController alloc] init];
+    [self setMainViewChildVc:homeVc];
 }
 
 #pragma mark - 设置左侧菜单视图
@@ -69,6 +140,24 @@
     [self.view addSubview:sideMenuView];
     sideMenuView.backgroundColor = QDRandomColor;
     _sideMenuView = sideMenuView;
+    
+    // 设置tableView
+    [self setupSideMenuTableView];
+}
+
+#pragma mark - 设置 tableView
+- (void)setupSideMenuTableView {
+    UITableView *sideMenuTableView = [[UITableView alloc] initWithFrame:_sideMenuView.bounds style:UITableViewStylePlain];
+    [self.sideMenuView addSubview:sideMenuTableView];
+    self.sideMenuTablleView = sideMenuTableView;
+    
+    // 设置相关属性
+    self.sideMenuTablleView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    // tableView 的代理和数据源
+    self.sideMenuTablleView.dataSource = self;
+    self.sideMenuTablleView.delegate = self;
+    // 设置数据源
+    [self setupCategories];
 }
 
 #pragma mark - 侧边菜单按钮
@@ -85,6 +174,14 @@
     
     [self.view addSubview:sideMenuButton];
     _sideMenuButton = sideMenuButton;
+}
+
+#pragma mark - 添加主视图上的子控制器
+- (void)setMainViewChildVc:(UIViewController *)mainViewChildVc {
+    _mainViewChildVc = mainViewChildVc;;
+    // 设置 Frame
+    mainViewChildVc.view.frame = self.mainView.bounds;
+    [self.mainView addSubview:mainViewChildVc.view];
 }
 
 #pragma mark - KVO
@@ -161,6 +258,82 @@
         }
     }
 }
+
+#pragma mark - tableview数据源
+
+- (void)setupCategories {
+    QDSideMenuCategory *categoryHome = [[QDSideMenuCategory alloc] init];
+    categoryHome.title = @"首页";
+    categoryHome.destVcClass = [QDHomeViewController class];
+    
+    QDSideMenuCategory *categoryLab = [[QDSideMenuCategory alloc] init];
+    categoryLab.title = @"好奇心实验室";
+    categoryLab.destVcClass = [QDHomeViewController class];
+    
+    QDSideMenuCategory *categoryFavourite = [[QDSideMenuCategory alloc] init];
+    categoryFavourite.title = @"收藏";
+    categoryFavourite.destVcClass = [QDFavouriteViewController class];
+    
+    QDSideMenuCategory *categoryMsg = [[QDSideMenuCategory alloc] init];
+    categoryMsg.title = @"消息";
+    categoryMsg.destVcClass = [QDMessageViewController class];
+    
+    [self.categories addObjectsFromArray:@[categoryHome, categoryLab, categoryFavourite, categoryMsg]];
+    
+    // 剩下的从网络获取
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.categories.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *const identifier = @"sideMenuCell";
+    QDSideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    
+    // 取模型
+    QDSideMenuCategory *category = self.categories[indexPath.row];
+    cell.category = category;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 隐藏菜单
+    [UIView animateWithDuration:0.25 animations:^{
+        self.sideMenuView.x = - self.sideMenuView.width;
+    }];
+    
+    // 取出模型
+    QDSideMenuCategory *category = self.categories[indexPath.row];
+    
+    // 移除之前的视图
+    [self.mainViewChildVc.view removeFromSuperview];
+    
+    // 添加新的视图
+    if (category.destVcClass == [self.categoryFeedVc class]) { // 是信息流界面
+        
+        if ([self.mainViewChildVc isKindOfClass:category.destVcClass]) {
+            // 切数据源即可
+            
+        } else { // 切换控制器
+            [self setMainViewChildVc:self.categoryFeedVc];
+        }
+        
+    } else if (category.destVcClass == [self.homeVc class]) { // 切换首页
+        [self setMainViewChildVc:self.homeVc];
+    } else if (category.destVcClass == [self.favouriteVc class]) { // 切换到收藏
+        [self setMainViewChildVc:self.favouriteVc];
+    } else if (category.destVcClass == [self.messageVc class]) { // 切换消息页面
+        [self setMainViewChildVc:self.messageVc];
+    }
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 

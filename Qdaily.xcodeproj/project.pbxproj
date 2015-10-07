@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02E5C7F2857120930112B889 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A32B7A4A5AC712876EF90E3 /* libPods.a */; };
+		8B0078BE1BC4CB3200C444AE /* QDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078BD1BC4CB3200C444AE /* QDNavigationController.m */; };
+		8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078C01BC4CD0800C444AE /* QDHomeViewController.m */; };
+		8B0078C41BC4CF0300C444AE /* QDMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078C31BC4CF0300C444AE /* QDMessageViewController.m */; };
+		8B0078C71BC511D900C444AE /* QDFavouriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078C61BC511D900C444AE /* QDFavouriteViewController.m */; };
+		8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078C91BC5121F00C444AE /* QDCategoryFeedViewController.m */; };
+		8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */; };
+		8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */; };
 		8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A61BC3ED9900E2BD2B /* Images.xcassets */; };
 		8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A81BC3ED9900E2BD2B /* LaunchScreen.xib */; };
 		8B6699B61BC3ED9900E2BD2B /* QdailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */; };
@@ -29,6 +37,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27C70DC8084DE44075A9787A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6A32B7A4A5AC712876EF90E3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B0078BC1BC4CB3200C444AE /* QDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNavigationController.h; sourceTree = "<group>"; };
+		8B0078BD1BC4CB3200C444AE /* QDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNavigationController.m; sourceTree = "<group>"; };
+		8B0078BF1BC4CD0800C444AE /* QDHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeViewController.h; sourceTree = "<group>"; };
+		8B0078C01BC4CD0800C444AE /* QDHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeViewController.m; sourceTree = "<group>"; };
+		8B0078C21BC4CF0300C444AE /* QDMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMessageViewController.h; sourceTree = "<group>"; };
+		8B0078C31BC4CF0300C444AE /* QDMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMessageViewController.m; sourceTree = "<group>"; };
+		8B0078C51BC511D900C444AE /* QDFavouriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFavouriteViewController.h; sourceTree = "<group>"; };
+		8B0078C61BC511D900C444AE /* QDFavouriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFavouriteViewController.m; sourceTree = "<group>"; };
+		8B0078C81BC5121F00C444AE /* QDCategoryFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCategoryFeedViewController.h; sourceTree = "<group>"; };
+		8B0078C91BC5121F00C444AE /* QDCategoryFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCategoryFeedViewController.m; sourceTree = "<group>"; };
+		8B0078CB1BC5179900C444AE /* QDSideMenuCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSideMenuCategory.h; sourceTree = "<group>"; };
+		8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCategory.m; sourceTree = "<group>"; };
+		8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSideMenuCell.h; sourceTree = "<group>"; };
+		8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCell.m; sourceTree = "<group>"; };
 		8B6699961BC3ED9900E2BD2B /* Qdaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Qdaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B66999A1BC3ED9900E2BD2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6699A61BC3ED9900E2BD2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -48,6 +72,7 @@
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BC735781BC431990045226E /* QDMainRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMainRootViewController.h; sourceTree = "<group>"; };
 		8BC735791BC431990045226E /* QDMainRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMainRootViewController.m; sourceTree = "<group>"; };
+		FC01364B3B075AD566E3C5CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E5C7F2857120930112B889 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +100,8 @@
 				8B6699981BC3ED9900E2BD2B /* Qdaily */,
 				8B6699B21BC3ED9900E2BD2B /* QdailyTests */,
 				8B6699971BC3ED9900E2BD2B /* Products */,
+				B88177FFF21D6A566272BDA9 /* Pods */,
+				A01EE72F0959400C23B026E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +183,16 @@
 			children = (
 				8BC735781BC431990045226E /* QDMainRootViewController.h */,
 				8BC735791BC431990045226E /* QDMainRootViewController.m */,
+				8B0078BC1BC4CB3200C444AE /* QDNavigationController.h */,
+				8B0078BD1BC4CB3200C444AE /* QDNavigationController.m */,
+				8B0078BF1BC4CD0800C444AE /* QDHomeViewController.h */,
+				8B0078C01BC4CD0800C444AE /* QDHomeViewController.m */,
+				8B0078C21BC4CF0300C444AE /* QDMessageViewController.h */,
+				8B0078C31BC4CF0300C444AE /* QDMessageViewController.m */,
+				8B0078C51BC511D900C444AE /* QDFavouriteViewController.h */,
+				8B0078C61BC511D900C444AE /* QDFavouriteViewController.m */,
+				8B0078C81BC5121F00C444AE /* QDCategoryFeedViewController.h */,
+				8B0078C91BC5121F00C444AE /* QDCategoryFeedViewController.m */,
 			);
 			name = Controller;
 			path = Qdaily/Controller;
@@ -163,6 +201,8 @@
 		8BC735761BC431810045226E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8B0078CB1BC5179900C444AE /* QDSideMenuCategory.h */,
+				8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */,
 			);
 			name = Model;
 			path = Qdaily/Model;
@@ -171,10 +211,29 @@
 		8BC735771BC431810045226E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */,
+				8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */,
 			);
 			name = View;
 			path = Qdaily/View;
 			sourceTree = SOURCE_ROOT;
+		};
+		A01EE72F0959400C23B026E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A32B7A4A5AC712876EF90E3 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B88177FFF21D6A566272BDA9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FC01364B3B075AD566E3C5CF /* Pods.debug.xcconfig */,
+				27C70DC8084DE44075A9787A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -183,9 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B6699B91BC3ED9900E2BD2B /* Build configuration list for PBXNativeTarget "Qdaily" */;
 			buildPhases = (
+				D79CBCCB899D2512851DE16F /* Check Pods Manifest.lock */,
 				8B6699921BC3ED9900E2BD2B /* Sources */,
 				8B6699931BC3ED9900E2BD2B /* Frameworks */,
 				8B6699941BC3ED9900E2BD2B /* Resources */,
+				7775670EECEBDF5098B3CD2D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,17 +332,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7775670EECEBDF5098B3CD2D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D79CBCCB899D2512851DE16F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8B6699921BC3ED9900E2BD2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */,
 				8BC7356C1BC421F30045226E /* main.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
+				8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */,
+				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
 				8BC735691BC421F30045226E /* UIView+Extension.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
+				8B0078BE1BC4CB3200C444AE /* QDNavigationController.m in Sources */,
 				8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */,
 				8BC735671BC421F30045226E /* QDConst.m in Sources */,
+				8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */,
+				8B0078C41BC4CF0300C444AE /* QDMessageViewController.m in Sources */,
+				8B0078C71BC511D900C444AE /* QDFavouriteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +498,7 @@
 		};
 		8B6699BA1BC3ED9900E2BD2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC01364B3B075AD566E3C5CF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
@@ -408,6 +510,7 @@
 		};
 		8B6699BB1BC3ED9900E2BD2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27C70DC8084DE44075A9787A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
