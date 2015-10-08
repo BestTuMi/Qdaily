@@ -14,7 +14,9 @@
 #import "QDCategoryFeedViewController.h"
 #import "QDSideMenuCategory.h"
 #import "QDSideMenuCell.h"
-
+#import <AFNetworking.h>
+#import <MJRefresh.h>
+#import <MJExtension.h>
 
 #define SideMenuKeyPath @"frame"
 
@@ -43,17 +45,19 @@
 @property (nonatomic, strong)  NSMutableArray *categories;
 /** 侧边的 tableView */
 @property (nonatomic, weak) UITableView *sideMenuTablleView;
+/** AFN 管理者 */
+@property (nonatomic, strong)  AFHTTPSessionManager *manager;
 @end
 
 @implementation QDMainRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupNavi];
     [self setupMainView];
     [self setupsideMenuView];
     // 侧边按钮如果跟菜单在同一 View 会影响边缘手势范围.因此独立出来
     [self setupSideMenuButton];
-
 }
 
 - (void)dealloc {
@@ -102,6 +106,19 @@
     return _categories;
 }
 
+#pragma mark - AFN 管理者懒加载
+- (AFHTTPSessionManager *)manager {
+    if (!_manager) {
+        _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:QDBaseURL];
+    }
+    return _manager;
+}
+
+#pragma mark - 设置导航条
+- (void)setupNavi {
+    self.navigationController.navigationBarHidden = YES;
+}
+
 #pragma mark - 设置主视图
 - (void)setupMainView {
     UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -130,6 +147,18 @@
     CGFloat sideMenuViewX = - sideMenuViewW;
     sideMenuView.frame = CGRectMake(sideMenuViewX, 0, sideMenuViewW, QDScreenH);
     
+    // 添加模糊特效层
+    sideMenuView.backgroundColor = [UIColor clearColor];
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    visualEffectView.frame = sideMenuView.bounds;
+    
+    UIView *maskView = [[UIView alloc] initWithFrame:visualEffectView.bounds];
+    maskView.backgroundColor = [UIColor blackColor];
+    maskView.alpha = 0.8;
+    [visualEffectView.contentView addSubview:maskView];
+    [sideMenuView addSubview:visualEffectView];
+    
     // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
     [sideMenuView addObserver:self forKeyPath:SideMenuKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
@@ -138,10 +167,10 @@
     [sideMenuView addGestureRecognizer:panGesture];
     
     [self.view addSubview:sideMenuView];
-    sideMenuView.backgroundColor = QDRandomColor;
+
     _sideMenuView = sideMenuView;
     
-    // 设置tableView
+    // 设置tableView(添加为 zikongji)
     [self setupSideMenuTableView];
 }
 
@@ -153,6 +182,13 @@
     
     // 设置相关属性
     self.sideMenuTablleView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.sideMenuTablleView.showsHorizontalScrollIndicator = NO;
+    self.sideMenuTablleView.showsVerticalScrollIndicator = NO;
+    self.sideMenuTablleView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 背景色透明
+    self.sideMenuTablleView.backgroundColor = [UIColor clearColor];
+    
     // tableView 的代理和数据源
     self.sideMenuTablleView.dataSource = self;
     self.sideMenuTablleView.delegate = self;
@@ -178,7 +214,7 @@
 
 #pragma mark - 添加主视图上的子控制器
 - (void)setMainViewChildVc:(UIViewController *)mainViewChildVc {
-    _mainViewChildVc = mainViewChildVc;;
+    _mainViewChildVc = mainViewChildVc;
     // 设置 Frame
     mainViewChildVc.view.frame = self.mainView.bounds;
     [self.mainView addSubview:mainViewChildVc.view];
@@ -264,23 +300,45 @@
 - (void)setupCategories {
     QDSideMenuCategory *categoryHome = [[QDSideMenuCategory alloc] init];
     categoryHome.title = @"首页";
+    categoryHome.image = @"slidebar_cell_home_normal";
+    categoryHome.image_highlighted = @"slidebar_cell_home_highlighted";
     categoryHome.destVcClass = [QDHomeViewController class];
     
     QDSideMenuCategory *categoryLab = [[QDSideMenuCategory alloc] init];
     categoryLab.title = @"好奇心实验室";
+    categoryLab.image = @"slidebar_cell_lab_normal";
+    categoryLab.image_highlighted = @"slidebar_cell_lab_highlighted";
     categoryLab.destVcClass = [QDHomeViewController class];
     
     QDSideMenuCategory *categoryFavourite = [[QDSideMenuCategory alloc] init];
     categoryFavourite.title = @"收藏";
+    categoryFavourite.image = @"slidebar_cell_fav_normal";
+    categoryFavourite.image_highlighted = @"slidebar_cell_fav_highlighted";
     categoryFavourite.destVcClass = [QDFavouriteViewController class];
     
     QDSideMenuCategory *categoryMsg = [[QDSideMenuCategory alloc] init];
     categoryMsg.title = @"消息";
+    categoryMsg.image = @"slidebar_cell_notify_normal";
+    categoryMsg.image_highlighted = @"slidebar_cell_notify_highlighted";
     categoryMsg.destVcClass = [QDMessageViewController class];
     
     [self.categories addObjectsFromArray:@[categoryHome, categoryLab, categoryFavourite, categoryMsg]];
     
-    // 剩下的从网络获取
+    // 剩下的从网络抓取
+    [self.manager GET:@"app/homes/left_sidebar.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        // 字典转模型
+        NSArray *categories = [QDSideMenuCategory objectArrayWithKeyValuesArray:responseObject[@"response"]];
+        [self.categories addObjectsFromArray:categories];
+        // 刷新表格
+        [self.sideMenuTablleView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+
+#pragma mark - 设置状态栏颜色
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Table view data source
@@ -293,7 +351,7 @@
     static NSString *const identifier = @"sideMenuCell";
     QDSideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     
     // 取模型

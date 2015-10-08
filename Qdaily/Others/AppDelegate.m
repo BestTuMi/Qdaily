@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "QDMainRootViewController.h"
+#import "QDNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -21,9 +22,12 @@
     
     QDMainRootViewController *mainRootViewController = [[QDMainRootViewController alloc] init];
     
-    self.window.rootViewController = mainRootViewController;
+    QDNavigationController *navi = [[QDNavigationController alloc] initWithRootViewController:mainRootViewController];
+    
+    self.window.rootViewController = navi;
     
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

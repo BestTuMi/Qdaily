@@ -7,7 +7,13 @@
 //
 
 #import "QDSideMenuCategory.h"
+#import "QDCategoryFeedViewController.h"
 
 @implementation QDSideMenuCategory
+
+- (Class)destVcClass {
+    // 默认目标控制器为信息流控制器
+    return _destVcClass ? _destVcClass : [QDCategoryFeedViewController class];
+}
 
 @end

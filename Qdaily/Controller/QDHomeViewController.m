@@ -9,7 +9,8 @@
 #import "QDHomeViewController.h"
 
 @interface QDHomeViewController ()
-
+/** ScrollView */
+@property (nonatomic, weak) UIView *scrollView;
 @end
 
 @implementation QDHomeViewController
@@ -17,22 +18,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = QDRGBWhiteColor(0.5, 1);
+    [self setupScrollView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - 设置 ScrollView
+- (void)setupScrollView {
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.frame = self.view.bounds;
+    [self.view addSubview:scrollView];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

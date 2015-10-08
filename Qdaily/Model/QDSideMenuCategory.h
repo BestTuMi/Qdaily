@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface QDSideMenuCategory : NSObject
+/** 目录的 ID 号 */
+@property (nonatomic, copy) NSString *ID;
 /** 目录标题 */
 @property (nonatomic, copy)  NSString *title;
 /** 图标 */
-@property (nonatomic, copy)  NSString *iconName;
+@property (nonatomic, copy)  NSString *image;
+/** 高亮图标 */
+@property (nonatomic, copy)  NSString *image_highlighted;
 /** 目标控制器 */
 @property (nonatomic, assign)  Class destVcClass;
 /** 信息流模型数组 */

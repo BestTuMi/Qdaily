@@ -15,6 +15,7 @@
 		8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078C91BC5121F00C444AE /* QDCategoryFeedViewController.m */; };
 		8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */; };
 		8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */; };
+		8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */; };
 		8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A61BC3ED9900E2BD2B /* Images.xcassets */; };
 		8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A81BC3ED9900E2BD2B /* LaunchScreen.xib */; };
 		8B6699B61BC3ED9900E2BD2B /* QdailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */; };
@@ -53,6 +54,8 @@
 		8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCategory.m; sourceTree = "<group>"; };
 		8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSideMenuCell.h; sourceTree = "<group>"; };
 		8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCell.m; sourceTree = "<group>"; };
+		8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConfig.h; sourceTree = "<group>"; };
+		8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConfig.m; sourceTree = "<group>"; };
 		8B6699961BC3ED9900E2BD2B /* Qdaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Qdaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B66999A1BC3ED9900E2BD2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6699A61BC3ED9900E2BD2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				8BC7354D1BC421F30045226E /* AppDelegate.h */,
 				8BC7354E1BC421F30045226E /* AppDelegate.m */,
 				8BC7355E1BC421F30045226E /* main.m */,
+				8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */,
+				8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */,
 				8BC735511BC421F30045226E /* QDConst.h */,
 				8BC735521BC421F30045226E /* QDConst.m */,
 				8BC735531BC421F30045226E /* QDPrefixHeader.pch */,
@@ -372,6 +377,7 @@
 			files = (
 				8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */,
 				8BC7356C1BC421F30045226E /* main.m in Sources */,
+				8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
 				8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */,
 				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
@@ -501,6 +507,7 @@
 			baseConfigurationReference = FC01364B3B075AD566E3C5CF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -513,6 +520,7 @@
 			baseConfigurationReference = 27C70DC8084DE44075A9787A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

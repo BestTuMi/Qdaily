@@ -15,6 +15,8 @@
 #import "QDConst.h"
 
 #define QDWeakSelf __weak typeof(self) weakSelf = self
+/** Base Url */
+#define QDBaseURL [NSURL URLWithString: @"http://app.qdaily.com"]
 
 // 颜色
 #define QDRGBAColor(r, g, b, a) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:(a) / 1.0]
@@ -22,8 +24,8 @@
 #define QDRGBWhiteColor(white, a) [UIColor colorWithWhite:(white) alpha:(a)]
 #define QDRandomColor QDRGBColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 // 标准色
-#define QDLightColor QDRGBWhiteColor(0.57, 1.0)
-#define QDHighlightColor QDRGBColor(255, 69, 130)
+#define QDNormalColor QDRGBColor(89, 89, 89)
+#define QDHighlightColor QDRGBColor(254, 190, 30)
 
 // 宽高
 /** 屏幕宽 */
