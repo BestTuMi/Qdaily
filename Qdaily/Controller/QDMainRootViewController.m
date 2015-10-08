@@ -128,6 +128,9 @@
     // 滑动范围为左侧
     edgePanGesture.edges = UIRectEdgeLeft;
     [mainView addGestureRecognizer:edgePanGesture];
+    
+    // 设置手势代理
+    edgePanGesture.delegate = self;
 
     [self.view addSubview:mainView];
     _mainView = mainView;

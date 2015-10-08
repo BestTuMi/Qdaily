@@ -25,6 +25,8 @@
 		8BC735691BC421F30045226E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735581BC421F30045226E /* UIView+Extension.m */; };
 		8BC7356C1BC421F30045226E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7355E1BC421F30045226E /* main.m */; };
 		8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735791BC431990045226E /* QDMainRootViewController.m */; };
+		8BFE5B211BC6B87B00811B4E /* QDHomeFeedArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE5B201BC6B87B00811B4E /* QDHomeFeedArticleViewController.m */; };
+		8BFE5B241BC6B89200811B4E /* QDHomeLabFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE5B231BC6B89200811B4E /* QDHomeLabFeedViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,10 @@
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BC735781BC431990045226E /* QDMainRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMainRootViewController.h; sourceTree = "<group>"; };
 		8BC735791BC431990045226E /* QDMainRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMainRootViewController.m; sourceTree = "<group>"; };
+		8BFE5B1F1BC6B87B00811B4E /* QDHomeFeedArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeFeedArticleViewController.h; sourceTree = "<group>"; };
+		8BFE5B201BC6B87B00811B4E /* QDHomeFeedArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeFeedArticleViewController.m; sourceTree = "<group>"; };
+		8BFE5B221BC6B89200811B4E /* QDHomeLabFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeLabFeedViewController.h; sourceTree = "<group>"; };
+		8BFE5B231BC6B89200811B4E /* QDHomeLabFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeLabFeedViewController.m; sourceTree = "<group>"; };
 		FC01364B3B075AD566E3C5CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +198,10 @@
 				8B0078BD1BC4CB3200C444AE /* QDNavigationController.m */,
 				8B0078BF1BC4CD0800C444AE /* QDHomeViewController.h */,
 				8B0078C01BC4CD0800C444AE /* QDHomeViewController.m */,
+				8BFE5B1F1BC6B87B00811B4E /* QDHomeFeedArticleViewController.h */,
+				8BFE5B201BC6B87B00811B4E /* QDHomeFeedArticleViewController.m */,
+				8BFE5B221BC6B89200811B4E /* QDHomeLabFeedViewController.h */,
+				8BFE5B231BC6B89200811B4E /* QDHomeLabFeedViewController.m */,
 				8B0078C21BC4CF0300C444AE /* QDMessageViewController.h */,
 				8B0078C31BC4CF0300C444AE /* QDMessageViewController.m */,
 				8B0078C51BC511D900C444AE /* QDFavouriteViewController.h */,
@@ -383,12 +393,14 @@
 				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
 				8BC735691BC421F30045226E /* UIView+Extension.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
+				8BFE5B211BC6B87B00811B4E /* QDHomeFeedArticleViewController.m in Sources */,
 				8B0078BE1BC4CB3200C444AE /* QDNavigationController.m in Sources */,
 				8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */,
 				8BC735671BC421F30045226E /* QDConst.m in Sources */,
 				8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */,
 				8B0078C41BC4CF0300C444AE /* QDMessageViewController.m in Sources */,
 				8B0078C71BC511D900C444AE /* QDFavouriteViewController.m in Sources */,
+				8BFE5B241BC6B89200811B4E /* QDHomeLabFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

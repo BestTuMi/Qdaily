@@ -7,10 +7,12 @@
 //
 
 #import "QDHomeViewController.h"
+#import "QDHomeFeedArticleViewController.h"
+#import "QDHomeLabFeedViewController.h"
 
-@interface QDHomeViewController ()
+@interface QDHomeViewController () <UIScrollViewDelegate>
 /** ScrollView */
-@property (nonatomic, weak) UIView *scrollView;
+@property (nonatomic, weak) UIScrollView *scrollView;
 /** Q 选项 */
 @property (nonatomic, weak)  UIButton *qButton;
 /** Lab 选项 */
@@ -19,25 +21,91 @@
 @property (nonatomic, weak)  UIView *indicator;
 /** 记录当前选中按钮 */
 @property (nonatomic, weak)  UIButton *selectedButton;
+/** 首页文章控制器 */
+@property (nonatomic, strong)  QDHomeFeedArticleViewController *homeFeedVc;
+/** 实验室控制器 */
+@property (nonatomic, strong)  QDHomeLabFeedViewController *labFeedVc;
+/** 将要显示的控制器 */
+@property (nonatomic, weak)  UIViewController *willShowVc;
+/** 选项卡按钮数组 */
+@property (nonatomic, strong) NSMutableArray *tabButtons;
 @end
 
 @implementation QDHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    // 设置背景色
+    self.view.backgroundColor = QDLightGrayColor;
+    
+    [self setupChildVc];
+    
     [self setupScrollView];
     
     [self setupNaviBar];
 
 }
 
+#pragma mark -
+#pragma mark - lazyload
+- (QDHomeFeedArticleViewController *)homeFeedVc {
+    if (!_homeFeedVc) {
+        _homeFeedVc = [[QDHomeFeedArticleViewController alloc] init];
+    }
+    return _homeFeedVc;
+}
+
+- (QDHomeLabFeedViewController *)labFeedVc {
+    if (!_labFeedVc) {
+        _labFeedVc = [[QDHomeLabFeedViewController alloc] init];
+    }
+    return _labFeedVc;
+}
+
+- (NSMutableArray *)tabButtons {
+    if (!_tabButtons) {
+        _tabButtons = [NSMutableArray array];
+    }
+    return _tabButtons;
+}
+
+#pragma mark -
+#pragma mark - 添加子控制器
+- (void)setupChildVc {
+    [self addChildViewController:self.homeFeedVc];
+    [self addChildViewController:self.labFeedVc];
+}
+
 #pragma mark - 设置 ScrollView
 - (void)setupScrollView {
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.frame = self.view.bounds;
-    scrollView.backgroundColor = QDRGBWhiteColor(1.0, 1.0);
+    
+    // 隐藏滚动条
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+    
+    // 取消回弹
+    scrollView.bounces = 0;
+    
+    // 取消自动内边距
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    // 设置分页
+    scrollView.pagingEnabled = YES;
+    
+    // 设置代理
+    scrollView.delegate = self;
+    
     [self.view addSubview:scrollView];
+    self.scrollView = scrollView;
+    
+    NSInteger count = self.childViewControllers.count;
+    scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
+    
+    // 默认选中首页,下面这个方法懒加载视图
+    [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
 #pragma mark - 设置顶部自定义导航条
@@ -53,37 +121,37 @@
     UIButton *qButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [qButton setImage:[UIImage imageNamed:@"home_tab_q"] forState:UIControlStateNormal];
     [qButton setImage:[UIImage imageNamed:@"home_tab_q_h"] forState:UIControlStateDisabled];
-    
-    // 取消按钮高亮
-    qButton.adjustsImageWhenHighlighted = NO;
-    
     [naviBar addSubview:qButton];
+    [self.tabButtons addObject:qButton];
     self.qButton = qButton;
-    
-    // 添加点击事件
-    [qButton addTarget:self action:@selector(updateTabStatus:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     UIButton *labButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [labButton setImage:[UIImage imageNamed:@"home_tab_lab"] forState:UIControlStateNormal];
     [labButton setImage:[UIImage imageNamed:@"home_tab_lab_h"] forState:UIControlStateDisabled];
-    
-    // 取消按钮高亮
-    labButton.adjustsImageWhenHighlighted = NO;
-    
     [naviBar addSubview:labButton];
+    [self.tabButtons addObject:labButton];
     self.labButton = labButton;
     
-    // 添加点击事件
-    [labButton addTarget:self action:@selector(updateTabStatus:) forControlEvents:UIControlEventTouchUpInside];
     
-
     // 设置按钮的 Frame
-    CGFloat buttonW = QDScreenW * 0.5;
+    NSInteger count = self.childViewControllers.count;
+    CGFloat buttonW = 1.0 * QDScreenW / count;
     CGFloat buttonH = QDNaviBarH;
     CGFloat buttonY = QDStatusBarH;
     CGFloat buttonX = 0;
-    qButton.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
-    labButton.frame = CGRectMake(buttonW, buttonY, buttonW, buttonH);
+    
+    for (NSInteger i = 0; i < count; i++) {
+        
+        UIButton *button = self.tabButtons[i];
+        buttonX = buttonW * i;
+        button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+        
+        // 取消按钮高亮
+        button.adjustsImageWhenHighlighted = NO;
+        
+        // 添加点击事件
+        [button addTarget:self action:@selector(updateTabStatus:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     // 设置指示器
     UIView *indicator = [[UIView alloc] init];
@@ -102,10 +170,11 @@
 
 #pragma mark - 更新选项卡状态(包括指示器位置)
 - (void)updateTabStatus: (UIButton *)button {
+    
     // 更改按钮选中状态
     button.enabled = !button.enabled;
     // 修改之前选中按钮的状态
-    self.selectedButton.enabled = YES;
+    self.selectedButton.enabled = !self.selectedButton.enabled;
     
     // 更改指示器的位置
     [UIView animateWithDuration:0.25 animations:^{
@@ -114,7 +183,45 @@
     
     // 记录当前选中按钮
     self.selectedButton = button;
+    
+    // 计算 offset
+    NSInteger index = [self.tabButtons indexOfObject:button];
+    CGFloat offsetX = self.scrollView.width * index;
+    
+    // 更改Offset, 切换子控制器
+    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
+#pragma mark - ScrollView Delegate
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    // 获取偏移值
+    CGFloat offsetX = scrollView.contentOffset.x;
+    
+    // 计算 index
+    NSInteger index = offsetX / scrollView.width;
+    
+    // 获取将要显示的控制器
+    self.willShowVc = self.childViewControllers[index];
+    
+    // 懒加载视图
+    if (self.willShowVc.isViewLoaded) { // 视图加载过
+        return;
+    } else {
+        // Frame
+        self.willShowVc.view.frame = scrollView.bounds;
+        // 添加到 ScrollView 上
+        [scrollView addSubview:self.willShowVc.view];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // 懒加载子控制器视图
+    [self scrollViewDidEndScrollingAnimation:scrollView];
+    
+    // 取出 index, 加快选项卡状态更新
+    CGFloat offsetX = scrollView.contentOffset.x;
+    NSInteger index = 1.0 * offsetX / scrollView.width;
+    [self updateTabStatus:self.tabButtons[index]];
+}
 
 @end
