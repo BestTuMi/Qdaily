@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN CGFloat const BDNMineAccountViewH;
-UIKIT_EXTERN CGFloat const BDNNaviBarH;
-UIKIT_EXTERN CGFloat const BDNNaviBarMaxY;
-UIKIT_EXTERN CGFloat const BDNStatusBarH;
-UIKIT_EXTERN CGFloat const BDNCommonMargin;
-UIKIT_EXTERN CGFloat const BDNCommonSmallMargin;
+UIKIT_EXTERN CGFloat const QDMineAccountViewH;
+UIKIT_EXTERN CGFloat const QDNaviBarH;
+UIKIT_EXTERN CGFloat const QDNaviBarMaxY;
+UIKIT_EXTERN CGFloat const QDStatusBarH;
+UIKIT_EXTERN CGFloat const QDCommonMargin;
+UIKIT_EXTERN CGFloat const QDCommonSmallMargin;

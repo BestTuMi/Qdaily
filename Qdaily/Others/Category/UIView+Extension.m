@@ -68,4 +68,25 @@
 - (CGFloat)centerY {
     return self.center.y;
 }
+
+/*!
+ *  @brief  添加一个半透明模糊层,需要设置后面层级的背景为透明
+ *
+ *  @param alpha 透明程度
+ */
+- (void)addBlurViewWithAlpha: (CGFloat)alpha {
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    visualEffectView.frame = self.bounds;
+    
+    // 黑色遮罩
+    UIView *maskView = [[UIView alloc] initWithFrame:visualEffectView.bounds];
+    maskView.backgroundColor = [UIColor blackColor];
+    maskView.alpha = alpha;
+    [visualEffectView.contentView addSubview:maskView];
+    
+    // 添加为子控件
+    [self addSubview:visualEffectView];
+}
+
 @end

@@ -29,7 +29,7 @@
 @property (nonatomic, weak)  UIButton *sideMenuButton;
 /** 菜单是否在屏幕上 */
 @property (nonatomic, assign) BOOL isMenuVisibele;
-/** 当前添加到主视图上的 View */
+/** 当前添加到主视图上的 控制器 */
 @property (nonatomic, weak) UIViewController *mainViewChildVc;
 /** 主页控制器 */
 @property (nonatomic, strong) QDHomeViewController *homeVc;
@@ -44,7 +44,7 @@
 /** 目录模型数组 */
 @property (nonatomic, strong)  NSMutableArray *categories;
 /** 侧边的 tableView */
-@property (nonatomic, weak) UITableView *sideMenuTablleView;
+@property (nonatomic, weak) UITableView *sideMenuTableView;
 /** AFN 管理者 */
 @property (nonatomic, strong)  AFHTTPSessionManager *manager;
 @end
@@ -122,7 +122,6 @@
 #pragma mark - 设置主视图
 - (void)setupMainView {
     UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    mainView.backgroundColor = QDRandomColor;
     
     // 添加边缘滑动手势
     UIScreenEdgePanGestureRecognizer *edgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -132,10 +131,6 @@
 
     [self.view addSubview:mainView];
     _mainView = mainView;
-    
-    // 默认显示首页
-    QDHomeViewController *homeVc = [[QDHomeViewController alloc] init];
-    [self setMainViewChildVc:homeVc];
 }
 
 #pragma mark - 设置左侧菜单视图
@@ -147,17 +142,11 @@
     CGFloat sideMenuViewX = - sideMenuViewW;
     sideMenuView.frame = CGRectMake(sideMenuViewX, 0, sideMenuViewW, QDScreenH);
     
-    // 添加模糊特效层
+    // 背景现设为透明,方便透出背景
     sideMenuView.backgroundColor = [UIColor clearColor];
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    visualEffectView.frame = sideMenuView.bounds;
     
-    UIView *maskView = [[UIView alloc] initWithFrame:visualEffectView.bounds];
-    maskView.backgroundColor = [UIColor blackColor];
-    maskView.alpha = 0.8;
-    [visualEffectView.contentView addSubview:maskView];
-    [sideMenuView addSubview:visualEffectView];
+    // 添加模糊特效层
+    [sideMenuView addBlurViewWithAlpha:0.8];
     
     // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
     [sideMenuView addObserver:self forKeyPath:SideMenuKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -170,7 +159,7 @@
 
     _sideMenuView = sideMenuView;
     
-    // 设置tableView(添加为 zikongji)
+    // 设置tableView(添加为 子控件)
     [self setupSideMenuTableView];
 }
 
@@ -178,22 +167,26 @@
 - (void)setupSideMenuTableView {
     UITableView *sideMenuTableView = [[UITableView alloc] initWithFrame:_sideMenuView.bounds style:UITableViewStylePlain];
     [self.sideMenuView addSubview:sideMenuTableView];
-    self.sideMenuTablleView = sideMenuTableView;
+    self.sideMenuTableView = sideMenuTableView;
     
     // 设置相关属性
-    self.sideMenuTablleView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.sideMenuTablleView.showsHorizontalScrollIndicator = NO;
-    self.sideMenuTablleView.showsVerticalScrollIndicator = NO;
-    self.sideMenuTablleView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    sideMenuTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    sideMenuTableView.showsHorizontalScrollIndicator = NO;
+    sideMenuTableView.showsVerticalScrollIndicator = NO;
+    sideMenuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 背景色透明
-    self.sideMenuTablleView.backgroundColor = [UIColor clearColor];
+    sideMenuTableView.backgroundColor = [UIColor clearColor];
     
     // tableView 的代理和数据源
-    self.sideMenuTablleView.dataSource = self;
-    self.sideMenuTablleView.delegate = self;
+    sideMenuTableView.dataSource = self;
+    sideMenuTableView.delegate = self;
     // 设置数据源
     [self setupCategories];
+    
+    // 默认选中首页
+    [sideMenuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 #pragma mark - 侧边菜单按钮
@@ -330,7 +323,7 @@
         NSArray *categories = [QDSideMenuCategory objectArrayWithKeyValuesArray:responseObject[@"response"]];
         [self.categories addObjectsFromArray:categories];
         // 刷新表格
-        [self.sideMenuTablleView reloadData];
+        [self.sideMenuTableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

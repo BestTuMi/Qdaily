@@ -21,4 +21,11 @@
 @property (nonatomic, assign)  CGFloat centerX;
 /** 中点的 y 值 */
 @property (nonatomic, assign)  CGFloat centerY;
+
+/*!
+ *  @brief  添加一个半透明模糊层
+ *
+ *  @param alpha 透明程度
+ */
+- (void)addBlurViewWithAlpha: (CGFloat)alpha;
 @end
