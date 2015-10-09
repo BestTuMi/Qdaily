@@ -75,18 +75,16 @@
  *  @param alpha 透明程度
  */
 - (void)addBlurViewWithAlpha: (CGFloat)alpha {
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    visualEffectView.frame = self.bounds;
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:self.bounds];
     
     // 黑色遮罩
-    UIView *maskView = [[UIView alloc] initWithFrame:visualEffectView.bounds];
+    UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
     maskView.backgroundColor = [UIColor blackColor];
     maskView.alpha = alpha;
-    [visualEffectView.contentView addSubview:maskView];
+    [toolBar addSubview:maskView];
     
     // 添加为子控件
-    [self addSubview:visualEffectView];
+    [self addSubview:toolBar];
 }
 
 @end
