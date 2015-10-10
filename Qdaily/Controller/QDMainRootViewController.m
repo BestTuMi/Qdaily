@@ -8,12 +8,19 @@
 
 #import "QDMainRootViewController.h"
 #import "QDNavigationController.h"
+
+// 目录
 #import "QDHomeViewController.h"
+#import "QDHomeFeedArticleViewController.h"
+#import "QDHomeLabFeedViewController.h"
 #import "QDMessageViewController.h"
 #import "QDFavouriteViewController.h"
 #import "QDCategoryFeedViewController.h"
+
 #import "QDSideMenuCategory.h"
 #import "QDSideMenuCell.h"
+
+// 第三方框架
 #import <AFNetworking.h>
 #import <MJRefresh.h>
 #import <MJExtension.h>
@@ -121,6 +128,9 @@
 
 #pragma mark - 设置主视图
 - (void)setupMainView {
+    // 取消自动内边距
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // 添加边缘滑动手势
@@ -149,7 +159,7 @@
     sideMenuView.backgroundColor = [UIColor clearColor];
     
     // 添加模糊特效层
-    [sideMenuView addBlurViewWithAlpha:0.8];
+    [sideMenuView addBlurViewWithAlpha:0.5];
     
     // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
     [sideMenuView addObserver:self forKeyPath:SideMenuKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -177,6 +187,7 @@
     sideMenuTableView.showsHorizontalScrollIndicator = NO;
     sideMenuTableView.showsVerticalScrollIndicator = NO;
     sideMenuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    sideMenuTableView.rowHeight = 55;
     
     // 背景色透明
     sideMenuTableView.backgroundColor = [UIColor clearColor];
@@ -186,10 +197,6 @@
     sideMenuTableView.delegate = self;
     // 设置数据源
     [self setupCategories];
-    
-    // 默认选中首页
-    [sideMenuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 #pragma mark - 侧边菜单按钮
@@ -327,6 +334,11 @@
         [self.categories addObjectsFromArray:categories];
         // 刷新表格
         [self.sideMenuTableView reloadData];
+        
+        // 默认选中首页
+        [self tableView:self.sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        // 更改默认选中菜单的状态
+        [self.sideMenuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
@@ -347,7 +359,7 @@
     static NSString *const identifier = @"sideMenuCell";
     QDSideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
     // 取模型
@@ -371,16 +383,13 @@
     
     // 添加新的视图
     if (category.destVcClass == [self.categoryFeedVc class]) { // 是信息流界面
-        
-        if ([self.mainViewChildVc isKindOfClass:category.destVcClass]) {
-            // 切数据源即可
-            
-        } else { // 切换控制器
-            [self setMainViewChildVc:self.categoryFeedVc];
-        }
-        
+        [self setMainViewChildVc:self.categoryFeedVc];
     } else if (category.destVcClass == [self.homeVc class]) { // 切换首页
         [self setMainViewChildVc:self.homeVc];
+        
+        // 菜单中顺序与首页选项卡一致时有效
+        [self.homeVc selectTabAtIndex:indexPath.row];
+
     } else if (category.destVcClass == [self.favouriteVc class]) { // 切换到收藏
         [self setMainViewChildVc:self.favouriteVc];
     } else if (category.destVcClass == [self.messageVc class]) { // 切换消息页面

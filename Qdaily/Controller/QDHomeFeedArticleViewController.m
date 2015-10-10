@@ -16,15 +16,19 @@
 
 static NSString * const reuseIdentifier = @"Cell";
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor purpleColor];
+    
+//    [self setupCollectionView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+//- (void)setupCollectionView {
+//    UICollectionViewLayout *
+//    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+//    // 设置内边距
+//    self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
+//    self.collectionView.backgroundColor = QDRandomColor;
+//}
 
 @end

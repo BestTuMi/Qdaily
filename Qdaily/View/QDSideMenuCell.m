@@ -47,6 +47,9 @@
         text_label.textColor = QDNormalColor;
         text_label.highlightedTextColor = QDHighlightColor;
         _text_Label = text_label;
+        
+        // 设置 Cell 选中后的效果
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -78,8 +81,9 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    // 改变 cell 中子控件的状态
+    self.image_view.highlighted = selected;
+    self.text_Label.highlighted = selected;
 }
 
 @end

@@ -9,10 +9,11 @@
 #import "QDHomeViewController.h"
 #import "QDHomeFeedArticleViewController.h"
 #import "QDHomeLabFeedViewController.h"
+#import "QDScrollView.h"
 
 @interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 /** ScrollView */
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) QDScrollView *scrollView;
 /** Q 选项 */
 @property (nonatomic, weak)  UIButton *qButton;
 /** Lab 选项 */
@@ -29,13 +30,6 @@
 @property (nonatomic, weak)  UIViewController *willShowVc;
 /** 选项卡按钮数组 */
 @property (nonatomic, strong) NSMutableArray *tabButtons;
-
-/** q 选项卡手势拦截层 */
-@property (nonatomic, strong) UIView *qPlaceholderV;
-/** 实验室选项卡手势拦截层 */
-@property (nonatomic, strong) UIView *labPlaceholderV;
-/** 手势拦截层数组 */
-@property (nonatomic, strong)  NSMutableArray *gestureVArray;
 
 @end
 
@@ -78,13 +72,6 @@
     return _tabButtons;
 }
 
-- (NSMutableArray *)gestureVArray {
-    if (!_gestureVArray) {
-        _gestureVArray = [NSMutableArray array];
-    }
-    return _gestureVArray;
-}
-
 #pragma mark -
 #pragma mark - 添加子控制器
 - (void)setupChildVc {
@@ -94,7 +81,7 @@
 
 #pragma mark - 设置 ScrollView
 - (void)setupScrollView {
-    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    QDScrollView *scrollView = [[QDScrollView alloc] init];
     scrollView.frame = self.view.bounds;
     
     // 隐藏滚动条
@@ -102,10 +89,7 @@
     scrollView.showsVerticalScrollIndicator = NO;
     
     // 取消回弹
-    scrollView.bounces = 0;
-    
-    // 取消自动内边距
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    scrollView.bounces = NO;
     
     // 设置分页
     scrollView.pagingEnabled = YES;
@@ -116,10 +100,6 @@
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     
-    
-    // 手势拦截层
-    [self setupGestureV];
-    
     NSInteger count = self.childViewControllers.count;
     scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
     
@@ -127,54 +107,12 @@
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
-#pragma mark - 手势拦截层手势
-- (void)setupGestureV {
-    // 添加手势拦截层
-    // 创建两个占位容器视图,方便添加额外的手势
-    // 通过 addsubView 提到最前
-    UIView *qPlaceholderV = [[UIView alloc] init];
-    qPlaceholderV.frame = CGRectMake(0, 0, self.scrollView.width, self.scrollView.height);
-    
-    //添加手势
-    UIScreenEdgePanGestureRecognizer *qEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    qEdgePanGesture.edges = UIRectEdgeLeft;
-    
-    // 设置手势代理
-    qEdgePanGesture.delegate = self;
-    [qPlaceholderV addGestureRecognizer:qEdgePanGesture];
-    
-    [self.scrollView addSubview:qPlaceholderV];
-    self.qPlaceholderV = qPlaceholderV;
-    [self.gestureVArray addObject:qPlaceholderV];
-    
-    UIView *labPlaceholderV = [[UIView alloc] init];
-    labPlaceholderV.frame = CGRectMake(self.scrollView.width, 0, self.scrollView.width, self.scrollView.height);
-    [self.scrollView addSubview:labPlaceholderV];
-    
-    //添加手势
-    UIScreenEdgePanGestureRecognizer *labEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    labEdgePanGesture.edges = UIRectEdgeLeft;
-    
-    // 设置手势代理
-    labEdgePanGesture.delegate = self;
-    [labPlaceholderV addGestureRecognizer:labEdgePanGesture];
-    
-    self.labPlaceholderV = labPlaceholderV;
-    [self.gestureVArray addObject:labPlaceholderV];
-
-}
-
-#pragma mark - 拦截手势调用此方法
-- (void)pan: (UIPanGestureRecognizer *)panGesture {
-    [self.parentViewController performSelector:@selector(pan:) withObject:panGesture];
-}
-
 #pragma mark - 设置顶部自定义导航条
 - (void)setupNaviBar {
     UIView *naviBar = [[UIView alloc] init];
     naviBar.frame = CGRectMake(0, 0, QDScreenW, QDNaviBarMaxY);
     [self.view addSubview:naviBar];
-    
+    naviBar.alpha = 0;
     // 添加透明模糊层
     [naviBar addBlurViewWithAlpha:0.7];
     
@@ -211,7 +149,7 @@
         button.adjustsImageWhenHighlighted = NO;
         
         // 添加点击事件
-        [button addTarget:self action:@selector(updateTabStatus:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(selectTabButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     // 设置指示器
@@ -230,7 +168,7 @@
 }
 
 #pragma mark - 更新选项卡状态(包括指示器位置)
-- (void)updateTabStatus: (UIButton *)button {
+- (void)selectTabButton: (UIButton *)button {
     
     // 更改按钮选中状态
     button.enabled = !button.enabled;
@@ -250,7 +188,12 @@
     CGFloat offsetX = self.scrollView.width * index;
     
     // 更改Offset, 切换子控制器
-    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(offsetX, self.scrollView.contentOffset.y) animated:YES];
+}
+
+#pragma mark - 选择指定 Index 的选项
+- (void)selectTabAtIndex:(NSInteger)index {
+    [self selectTabButton:self.tabButtons[index]];
 }
 
 #pragma mark - ScrollView Delegate
@@ -266,19 +209,13 @@
     
     // 懒加载视图
     if (self.willShowVc.isViewLoaded) { // 视图加载过
-        // 把手势拦截层提到最前
-        [scrollView addSubview:self.gestureVArray[index]];
         return;
     } else {
         // Frame
         self.willShowVc.view.frame = scrollView.bounds;
+        
         // 添加到 ScrollView 上
         [scrollView addSubview:self.willShowVc.view];
-        
-        // 把手势拦截层提到最前
-        if (self.gestureVArray.count) {
-            [scrollView addSubview:self.gestureVArray[index]];
-        }
     }
 }
 
@@ -289,21 +226,10 @@
     // 取出 index, 加快选项卡状态更新
     CGFloat offsetX = scrollView.contentOffset.x;
     NSInteger index = 1.0 * offsetX / scrollView.width;
-    [self updateTabStatus:self.tabButtons[index]];
+    [self selectTabButton:self.tabButtons[index]];
 }
 
 #pragma mark - Gesture Delegate
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-//    // ScrollView 滚动后,即不在第一页
-//    // 而且手势是边缘滑动时时只执行边缘滑动
-//    QDLogVerbose(@"%@", gestureRecognizer);
-//    QDLogVerbose(@"+++++++%@", self.gestureVArray[1]);
-//    if ([gestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
-//        otherGestureRecognizer.enabled = NO;
-//    } else {
-//        otherGestureRecognizer.enabled = YES;
-//    }
-//    return YES;
-//}
+
 
 @end

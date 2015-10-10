@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface QDHomeViewController : UIViewController
-
+- (void)selectTabAtIndex:(NSInteger)index;
 @end

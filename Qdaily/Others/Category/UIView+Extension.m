@@ -76,6 +76,7 @@
  */
 - (void)addBlurViewWithAlpha: (CGFloat)alpha {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:self.bounds];
+    toolBar.barStyle = UIBarStyleBlack;
     
     // 黑色遮罩
     UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];

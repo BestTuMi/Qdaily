@@ -19,6 +19,7 @@
 		8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A61BC3ED9900E2BD2B /* Images.xcassets */; };
 		8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A81BC3ED9900E2BD2B /* LaunchScreen.xib */; };
 		8B6699B61BC3ED9900E2BD2B /* QdailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */; };
+		8B7D26BF1BC7D06A0056DCAA /* QDScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7D26BE1BC7D06A0056DCAA /* QDScrollView.m */; };
 		8BC735651BC421F30045226E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7354E1BC421F30045226E /* AppDelegate.m */; };
 		8BC735671BC421F30045226E /* QDConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735521BC421F30045226E /* QDConst.m */; };
 		8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */; };
@@ -65,6 +66,8 @@
 		8B6699AF1BC3ED9900E2BD2B /* QdailyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QdailyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6699B41BC3ED9900E2BD2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QdailyTests.m; sourceTree = "<group>"; };
+		8B7D26BD1BC7D06A0056DCAA /* QDScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDScrollView.h; sourceTree = "<group>"; };
+		8B7D26BE1BC7D06A0056DCAA /* QDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDScrollView.m; sourceTree = "<group>"; };
 		8BC7354D1BC421F30045226E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8BC7354E1BC421F30045226E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8BC735511BC421F30045226E /* QDConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConst.h; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 		8BC735771BC431810045226E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8B7D26BD1BC7D06A0056DCAA /* QDScrollView.h */,
+				8B7D26BE1BC7D06A0056DCAA /* QDScrollView.m */,
 				8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */,
 				8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */,
 			);
@@ -262,6 +267,7 @@
 				8B6699931BC3ED9900E2BD2B /* Frameworks */,
 				8B6699941BC3ED9900E2BD2B /* Resources */,
 				7775670EECEBDF5098B3CD2D /* Copy Pods Resources */,
+				8B7D26B91BC7CE340056DCAA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -363,6 +369,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8B7D26B91BC7CE340056DCAA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then /Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\";\nfi";
+		};
 		D79CBCCB899D2512851DE16F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -388,6 +407,7 @@
 				8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */,
 				8BC7356C1BC421F30045226E /* main.m in Sources */,
 				8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */,
+				8B7D26BF1BC7D06A0056DCAA /* QDScrollView.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
 				8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */,
 				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
@@ -451,7 +471,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -494,7 +514,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -522,6 +542,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -535,6 +556,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
