@@ -19,7 +19,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = QDRandomColor;
 //    [self setupCollectionView];
 }
 

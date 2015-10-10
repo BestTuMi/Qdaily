@@ -197,6 +197,9 @@
     sideMenuTableView.delegate = self;
     // 设置数据源
     [self setupCategories];
+    
+    // 默认选中首页(懒加载首页视图)
+    [self tableView:self.sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 #pragma mark - 侧边菜单按钮
@@ -335,8 +338,6 @@
         // 刷新表格
         [self.sideMenuTableView reloadData];
         
-        // 默认选中首页
-        [self tableView:self.sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         // 更改默认选中菜单的状态
         [self.sideMenuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
