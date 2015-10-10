@@ -112,9 +112,9 @@
     UIView *naviBar = [[UIView alloc] init];
     naviBar.frame = CGRectMake(0, 0, QDScreenW, QDNaviBarMaxY);
     [self.view addSubview:naviBar];
-    naviBar.alpha = 0;
+
     // 添加透明模糊层
-    [naviBar addBlurViewWithAlpha:0.7];
+    [naviBar addBlurViewWithAlpha:0.5];
     
     // 添加选项卡按钮
     UIButton *qButton = [UIButton buttonWithType:UIButtonTypeCustom];

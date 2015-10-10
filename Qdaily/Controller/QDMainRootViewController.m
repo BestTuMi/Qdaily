@@ -159,7 +159,7 @@
     sideMenuView.backgroundColor = [UIColor clearColor];
     
     // 添加模糊特效层
-    [sideMenuView addBlurViewWithAlpha:0.5];
+    [sideMenuView addBlurViewWithAlpha:0.8];
     
     // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
     [sideMenuView addObserver:self forKeyPath:SideMenuKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];

@@ -78,7 +78,11 @@
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:self.bounds];
     toolBar.barStyle = UIBarStyleBlack;
     
-    toolBar.backgroundColor = QDRGBWhiteColor(0, alpha);
+    // 黑色遮罩
+    UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
+    maskView.backgroundColor = [UIColor blackColor];
+    maskView.alpha = alpha;
+    [toolBar addSubview:maskView];
     
     // 添加为子控件
     [self addSubview:toolBar];
