@@ -105,6 +105,7 @@
     
     // 默认选中首页,下面这个方法懒加载视图
     [self scrollViewDidEndScrollingAnimation:scrollView];
+    
 }
 
 #pragma mark - 设置顶部自定义导航条

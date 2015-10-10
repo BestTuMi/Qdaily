@@ -16,6 +16,15 @@
 		8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */; };
 		8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */; };
 		8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */; };
+		8B5415D31BC8A8E600D47357 /* QDFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415D21BC8A8E600D47357 /* QDFeed.m */; };
+		8B5415D61BC8A8F600D47357 /* QDPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415D51BC8A8F600D47357 /* QDPost.m */; };
+		8B5415D91BC8A92A00D47357 /* QDCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415D81BC8A92A00D47357 /* QDCategory.m */; };
+		8B5415E01BC8B96100D47357 /* QDFeedSmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415DE1BC8B96100D47357 /* QDFeedSmallCell.m */; };
+		8B5415E11BC8B96100D47357 /* QDFeedSmallCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */; };
+		8B5415E51BC8B97D00D47357 /* QDFeedBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */; };
+		8B5415E61BC8B97D00D47357 /* QDFeedBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */; };
+		8B5415EA1BC8B9CA00D47357 /* QDFeedCompactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */; };
+		8B5415EB1BC8B9CA00D47357 /* QDFeedCompactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */; };
 		8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A61BC3ED9900E2BD2B /* Images.xcassets */; };
 		8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A81BC3ED9900E2BD2B /* LaunchScreen.xib */; };
 		8B6699B61BC3ED9900E2BD2B /* QdailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */; };
@@ -59,6 +68,21 @@
 		8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCell.m; sourceTree = "<group>"; };
 		8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConfig.h; sourceTree = "<group>"; };
 		8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConfig.m; sourceTree = "<group>"; };
+		8B5415D11BC8A8E600D47357 /* QDFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeed.h; sourceTree = "<group>"; };
+		8B5415D21BC8A8E600D47357 /* QDFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeed.m; sourceTree = "<group>"; };
+		8B5415D41BC8A8F600D47357 /* QDPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPost.h; sourceTree = "<group>"; };
+		8B5415D51BC8A8F600D47357 /* QDPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDPost.m; sourceTree = "<group>"; };
+		8B5415D71BC8A92A00D47357 /* QDCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCategory.h; sourceTree = "<group>"; };
+		8B5415D81BC8A92A00D47357 /* QDCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCategory.m; sourceTree = "<group>"; };
+		8B5415DD1BC8B96100D47357 /* QDFeedSmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedSmallCell.h; sourceTree = "<group>"; };
+		8B5415DE1BC8B96100D47357 /* QDFeedSmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedSmallCell.m; sourceTree = "<group>"; };
+		8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedSmallCell.xib; sourceTree = "<group>"; };
+		8B5415E21BC8B97D00D47357 /* QDFeedBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedBannerCell.h; sourceTree = "<group>"; };
+		8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedBannerCell.m; sourceTree = "<group>"; };
+		8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedBannerCell.xib; sourceTree = "<group>"; };
+		8B5415E71BC8B9CA00D47357 /* QDFeedCompactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedCompactCell.h; sourceTree = "<group>"; };
+		8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedCompactCell.m; sourceTree = "<group>"; };
+		8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedCompactCell.xib; sourceTree = "<group>"; };
 		8B6699961BC3ED9900E2BD2B /* Qdaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Qdaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B66999A1BC3ED9900E2BD2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6699A61BC3ED9900E2BD2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -221,6 +245,12 @@
 			children = (
 				8B0078CB1BC5179900C444AE /* QDSideMenuCategory.h */,
 				8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */,
+				8B5415D11BC8A8E600D47357 /* QDFeed.h */,
+				8B5415D21BC8A8E600D47357 /* QDFeed.m */,
+				8B5415D41BC8A8F600D47357 /* QDPost.h */,
+				8B5415D51BC8A8F600D47357 /* QDPost.m */,
+				8B5415D71BC8A92A00D47357 /* QDCategory.h */,
+				8B5415D81BC8A92A00D47357 /* QDCategory.m */,
 			);
 			name = Model;
 			path = Qdaily/Model;
@@ -233,6 +263,15 @@
 				8B7D26BE1BC7D06A0056DCAA /* QDScrollView.m */,
 				8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */,
 				8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */,
+				8B5415E21BC8B97D00D47357 /* QDFeedBannerCell.h */,
+				8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */,
+				8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */,
+				8B5415DD1BC8B96100D47357 /* QDFeedSmallCell.h */,
+				8B5415DE1BC8B96100D47357 /* QDFeedSmallCell.m */,
+				8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */,
+				8B5415E71BC8B9CA00D47357 /* QDFeedCompactCell.h */,
+				8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */,
+				8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */,
 			);
 			name = View;
 			path = Qdaily/View;
@@ -339,7 +378,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5415E61BC8B97D00D47357 /* QDFeedBannerCell.xib in Resources */,
+				8B5415EB1BC8B9CA00D47357 /* QDFeedCompactCell.xib in Resources */,
 				8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */,
+				8B5415E11BC8B96100D47357 /* QDFeedSmallCell.xib in Resources */,
 				8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,13 +451,19 @@
 				8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */,
 				8B7D26BF1BC7D06A0056DCAA /* QDScrollView.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
+				8B5415D91BC8A92A00D47357 /* QDCategory.m in Sources */,
 				8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */,
 				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
 				8BC735691BC421F30045226E /* UIView+Extension.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
 				8BFE5B211BC6B87B00811B4E /* QDHomeFeedArticleViewController.m in Sources */,
 				8B0078BE1BC4CB3200C444AE /* QDNavigationController.m in Sources */,
+				8B5415EA1BC8B9CA00D47357 /* QDFeedCompactCell.m in Sources */,
+				8B5415D31BC8A8E600D47357 /* QDFeed.m in Sources */,
 				8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */,
+				8B5415E51BC8B97D00D47357 /* QDFeedBannerCell.m in Sources */,
+				8B5415E01BC8B96100D47357 /* QDFeedSmallCell.m in Sources */,
+				8B5415D61BC8A8F600D47357 /* QDPost.m in Sources */,
 				8BC735671BC421F30045226E /* QDConst.m in Sources */,
 				8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */,
 				8B0078C41BC4CF0300C444AE /* QDMessageViewController.m in Sources */,

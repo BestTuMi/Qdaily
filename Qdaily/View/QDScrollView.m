@@ -16,7 +16,7 @@
 
 @implementation QDScrollView
 
-#pragma mark - 手势拦截层手势
+#pragma mark - 手势拦截层手势(已废弃)
 - (void)setupGestureV {
     // 添加手势拦截层
     // 通过 addsubView 提到最前
@@ -47,6 +47,21 @@
     [mainRootVc performSelector:@selector(pan:) withObject:panGesture];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (gestureRecognizer.view == self) {
+        CGPoint currentP = [touch locationInView:self.window];
+        
+        if (currentP.x <= 20) {
+            QDLogFunc;
+            return NO;
+        }
+        
+    }
+    
+    return YES;
+}
+
+
 /*!
  *  @brief  调用 Pan 的时候禁用边缘滑动
  *
@@ -55,12 +70,13 @@
  *
  *  @return 是否需要另外的手势进入失败状态
  */
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ([gestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
-        return NO;
-    } else {
-        return YES;
-    }
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    if ([gestureRecognizer isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+//        return NO;
+//    } else {
+//        QDLogVerbose(@"+++++++++%@", otherGestureRecognizer);
+//        return YES;
+//    }
+//}
 
 @end
