@@ -13,5 +13,8 @@
 /** 新闻信息 */
 @property (nonatomic, strong) QDFeed *feed;
 
+@end
+
+@interface QDFeedCellSmallButton : UIButton
 
 @end

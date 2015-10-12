@@ -41,8 +41,9 @@
         
         // 获取当前位置的模型,并根据类型属性判断应该返回什么样的 Cell
         QDFeed *feed = self.feeds[i];
+        QDFeed *previousFeed = (i == 0 || i == 1 ) ? nil : self.feeds[i - 1];
         
-        int numberOfItemsPerRow = 2;
+        int numberOfItemsPerRow = 4;
         CGFloat feedMargin = 3;
         CGFloat itemX = 0;
         CGFloat itemY = 0;
@@ -52,7 +53,7 @@
         if (i != 0) {
 
             if (feed.type == QDFeedCellTypeSmall) { // 类型是小图
-                itemW = (QDScreenW - feedMargin) / numberOfItemsPerRow;
+                itemW = (QDScreenW - feedMargin * (numberOfItemsPerRow - 1)) / numberOfItemsPerRow;
                 itemH = itemW * 195 / 158.5;
                 // 获取最后一个attrs
                 UICollectionViewLayoutAttributes *lastAttrs = self.attrsArray[i - 1];
@@ -64,35 +65,53 @@
                     itemY = lastAttrs.frame.origin.y;
                 } else {
                     itemX = 0;
-                    itemY = CGRectGetMaxY(lastAttrs.frame) + feedMargin;
+                    itemY = CGRectGetMaxY(lastAttrs.frame);
+                    if (previousFeed.type != QDFeedCellTypeSmall) {
+                        itemY += feedMargin;
+                    }
                 }
             } else { // 大图
-
+                
                 UICollectionViewLayoutAttributes *lastAttrs = self.attrsArray[i - 1];
+                itemY = CGRectGetMaxY(lastAttrs.frame) + feedMargin;
+
                 // 计算右边剩余空间
                 CGFloat leftMaxX = CGRectGetMaxX(lastAttrs.frame) + feedMargin;
                 CGFloat rightSpace = QDScreenW - leftMaxX;
-                // 计算 Frame
-                itemY = CGRectGetMaxY(lastAttrs.frame) + feedMargin;
                 
-                // 如果计算后的 大 Cell是因为空间不足而换行,即空缺出一段距离
-                if (rightSpace >= lastAttrs.frame.size.width && lastAttrs.frame.size.width != itemW) { // 可以容纳小 Cell且不是大 Cell
+                // 计算 Frame
+                int row = i / numberOfItemsPerRow;
+                    
+                // 如果可以容纳小 Cell,即空缺出一段距离,将此行替换显示大 Cell, 并更新当前行其他 Item 位置
+                if (rightSpace >= (QDScreenW - feedMargin * (numberOfItemsPerRow - 1)) / numberOfItemsPerRow) { // 可以容纳小 Cell且不是大 Cell
+                    
+                    itemY = lastAttrs.frame.origin.y + feedMargin;
+                    
                     // 获取应该在的行,下移此行所有 cell
                     // 遍历此行前面的 attrs
-                    int row = i / numberOfItemsPerRow;
-                    int index = 0;
-                    for (index = row * numberOfItemsPerRow; index < i; index++) {
-                        UICollectionViewLayoutAttributes *attrs = self.attrsArray[index];
-                        CGRect F = attrs.frame;
-                        F.origin.y = attrs.frame.origin.y + itemH + feedMargin;
-                        attrs.frame = F;
-                    }
-                    // 将 Frame 设为当前行,即不换行
-                    itemY = lastAttrs.frame.origin.y;
                     
-                    // 对模型也进行调整,将大 Cell 的模型放到行首位置
-                    [self.attrsArray removeObject:attrs];
-                    [self.attrsArray insertObject:attrs atIndex:row *numberOfItemsPerRow];
+//                    NSInteger index = 0;
+//                    // 计算行首 index
+//                    NSInteger firstIndexOfRow = row * numberOfItemsPerRow;
+                    
+//                    for (index = firstIndexOfRow; index < i ; index++) {
+//                        UICollectionViewLayoutAttributes *currentAttrs = self.attrsArray[index];
+//                        CGRect F = currentAttrs.frame;
+//                        itemY = F.origin.y + feedMargin;
+//                        
+//                        F.origin.y  = itemY + itemH + feedMargin;
+//                        currentAttrs.frame = F;
+//                    }
+//                    // 对模型也进行调整,将大 Cell 的模型放到行首位置
+//                    if (![self.attrsArray containsObject:attrs]) {
+//                        [self.attrsArray insertObject:attrs atIndex:firstIndexOfRow];
+//                    }
+                    CGRect F = lastAttrs.frame;
+                    F.origin.y = itemY + itemH + feedMargin;
+                    lastAttrs.frame = F;
+                    
+                    // 插入
+                    [self.attrsArray insertObject:attrs atIndex:0];
                 }
             }
         }
@@ -128,7 +147,7 @@
  *  @return  返回每一个 cell 的布局
  */
 //- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
+//
 //    // 获取当前位置的模型,并根据类型属性判断应该返回什么样的 Cell
 //    QDFeed *feed = self.feeds[indexPath.item];
 //    

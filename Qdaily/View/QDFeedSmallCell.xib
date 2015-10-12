@@ -29,7 +29,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQW-1H-WX3" userLabel="tag 标签">
                                 <rect key="frame" x="8" y="74" width="48" height="20"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ep4-vp-SXS">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ep4-vp-SXS">
                                         <rect key="frame" x="3" y="0.0" width="15" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="Hy5-av-F9Y"/>
@@ -60,28 +60,27 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMw-X0-77I" userLabel="评论数">
-                                <rect key="frame" x="79" y="77" width="30" height="15"/>
-                                <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="Vvj-Uk-ric"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HF-SU-HEj" userLabel="点赞数" customClass="QDFeedCellSmallButton">
+                                <rect key="frame" x="118" y="77" width="31" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
-                                <state key="normal" title="99" image="articlefeed_cell_comment_normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="999" image="articlefeed_cell_praise_normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HF-SU-HEj" userLabel="点赞数">
-                                <rect key="frame" x="121" y="77" width="30" height="15"/>
-                                <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMw-X0-77I" userLabel="评论数" customClass="QDFeedCellSmallButton">
+                                <rect key="frame" x="79" y="77" width="31" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="Vvj-Uk-ric"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
-                                <state key="normal" title="99" image="articlefeed_cell_praise_normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="999" image="articlefeed_cell_comment_normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Vvj-Uk-ric"/>
+                                    </mask>
+                                </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,7 +103,7 @@
                             <constraint firstAttribute="bottom" secondItem="A00-MD-qnL" secondAttribute="bottom" id="rfG-c8-lgM"/>
                             <constraint firstAttribute="trailing" secondItem="A00-MD-qnL" secondAttribute="trailing" id="tGC-GJ-FKE"/>
                             <constraint firstItem="7HF-SU-HEj" firstAttribute="centerY" secondItem="LQW-1H-WX3" secondAttribute="centerY" id="tWk-Ze-PEu"/>
-                            <constraint firstItem="7HF-SU-HEj" firstAttribute="leading" secondItem="QMw-X0-77I" secondAttribute="trailing" constant="10" id="wk7-v1-Ccy"/>
+                            <constraint firstItem="7HF-SU-HEj" firstAttribute="leading" secondItem="QMw-X0-77I" secondAttribute="trailing" constant="8" id="wk7-v1-Ccy"/>
                             <constraint firstItem="LQW-1H-WX3" firstAttribute="height" secondItem="QMw-X0-77I" secondAttribute="height" id="yw2-4G-BhO"/>
                         </constraints>
                         <variation key="default">
@@ -117,6 +116,7 @@
                                 <exclude reference="Vbp-oa-Wsi"/>
                                 <exclude reference="1QM-HR-wWi"/>
                                 <exclude reference="PAF-xL-Qg6"/>
+                                <exclude reference="eRh-ef-0Yq"/>
                             </mask>
                         </variation>
                     </view>

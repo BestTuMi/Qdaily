@@ -16,9 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="352" height="160"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-7p-2B0" userLabel="tag 标签">
-                        <rect key="frame" x="15" y="75" width="48" height="20"/>
+                        <rect key="frame" x="10" y="75" width="48" height="20"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="krD-LU-hps">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="krD-LU-hps">
                                 <rect key="frame" x="3" y="0.0" width="15" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="vnF-wf-gmL"/>
@@ -49,34 +49,35 @@
                             </mask>
                         </variation>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZc-rW-rij" userLabel="点赞数">
-                        <rect key="frame" x="15" y="135" width="30" height="15"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZc-rW-rij" userLabel="点赞数" customClass="QDFeedCellSmallButton">
+                        <rect key="frame" x="48" y="135" width="35" height="15"/>
                         <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="MML-EW-QVS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
-                        <state key="normal" title="99" image="articlefeed_cell_praise_normal">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="999" image="articlefeed_cell_praise_normal">
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="MML-EW-QVS"/>
+                            </mask>
+                        </variation>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9VC-wp-0S6" userLabel="评论数">
-                        <rect key="frame" x="55" y="135" width="30" height="15"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9VC-wp-0S6" userLabel="评论数" customClass="QDFeedCellSmallButton">
+                        <rect key="frame" x="10" y="135" width="35" height="15"/>
                         <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="mpv-v8-VPl"/>
+                            <constraint firstAttribute="width" constant="35" id="mpv-v8-VPl"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
-                        <state key="normal" title="99" image="articlefeed_cell_comment_normal">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="999" image="articlefeed_cell_comment_normal">
+                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfX-uI-bGp" userLabel="标题">
-                        <rect key="frame" x="15" y="105" width="307" height="20"/>
+                        <rect key="frame" x="10" y="105" width="312" height="20"/>
                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -86,22 +87,42 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="9VC-wp-0S6" secondAttribute="bottom" constant="10" id="2BZ-fg-6cf"/>
                 <constraint firstItem="o3H-Xz-erx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="7Xb-uN-2Lz"/>
                 <constraint firstAttribute="bottom" secondItem="eZc-rW-rij" secondAttribute="bottom" constant="10" id="HZx-tc-dJE"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="width" secondItem="eZc-rW-rij" secondAttribute="width" id="LjT-yQ-kxe"/>
                 <constraint firstItem="OfX-uI-bGp" firstAttribute="leading" secondItem="SCa-7p-2B0" secondAttribute="leading" id="LqT-BT-p8P"/>
                 <constraint firstAttribute="trailing" secondItem="OfX-uI-bGp" secondAttribute="trailing" constant="30" id="MHX-5L-Y6F"/>
                 <constraint firstItem="eZc-rW-rij" firstAttribute="width" secondItem="9VC-wp-0S6" secondAttribute="width" id="VSX-CB-6tL"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="VXZ-Ri-OOv"/>
                 <constraint firstItem="eZc-rW-rij" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="Vo3-Xu-fJN"/>
                 <constraint firstAttribute="trailing" secondItem="o3H-Xz-erx" secondAttribute="trailing" id="WBY-1f-OjZ"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="top" secondItem="OfX-uI-bGp" secondAttribute="bottom" constant="10" id="ae3-QQ-DDq"/>
                 <constraint firstItem="eZc-rW-rij" firstAttribute="top" secondItem="OfX-uI-bGp" secondAttribute="bottom" constant="10" id="azJ-8a-ZMo"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="leading" secondItem="9VC-wp-0S6" secondAttribute="trailing" constant="3" id="b2O-L1-P6I"/>
                 <constraint firstItem="o3H-Xz-erx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cvP-7q-TqE"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="leading" secondItem="OfX-uI-bGp" secondAttribute="leading" id="d1m-ry-qZ5"/>
                 <constraint firstItem="eZc-rW-rij" firstAttribute="leading" secondItem="OfX-uI-bGp" secondAttribute="leading" id="g4f-no-3HD"/>
                 <constraint firstItem="eZc-rW-rij" firstAttribute="centerY" secondItem="9VC-wp-0S6" secondAttribute="centerY" id="h2C-td-3OJ"/>
                 <constraint firstItem="OfX-uI-bGp" firstAttribute="top" secondItem="SCa-7p-2B0" secondAttribute="bottom" constant="10" id="qRk-ux-taB"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="centerY" secondItem="eZc-rW-rij" secondAttribute="centerY" id="ruq-hg-KWd"/>
                 <constraint firstAttribute="bottom" secondItem="o3H-Xz-erx" secondAttribute="bottom" id="uPB-Lk-Hxx"/>
+                <constraint firstItem="OfX-uI-bGp" firstAttribute="leading" secondItem="9VC-wp-0S6" secondAttribute="leading" id="x3Q-aT-w1B"/>
                 <constraint firstItem="9VC-wp-0S6" firstAttribute="leading" secondItem="eZc-rW-rij" secondAttribute="trailing" constant="10" id="xuv-ZB-sOM"/>
             </constraints>
             <size key="customSize" width="352" height="160"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="xuv-ZB-sOM"/>
+                    <exclude reference="x3Q-aT-w1B"/>
+                    <exclude reference="HZx-tc-dJE"/>
+                    <exclude reference="VSX-CB-6tL"/>
+                    <exclude reference="Vo3-Xu-fJN"/>
+                    <exclude reference="azJ-8a-ZMo"/>
+                    <exclude reference="g4f-no-3HD"/>
+                    <exclude reference="h2C-td-3OJ"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="categoryIcon" destination="krD-LU-hps" id="3xZ-GS-9GX"/>
                 <outlet property="categoryTitle" destination="vuq-d1-via" id="Xt1-q8-8L9"/>
