@@ -11,8 +11,9 @@
 
 typedef NS_ENUM(NSUInteger, QDGenre) {
     QDGenreNormal = 1,
+    QDGenreBestOnTheWeb = 6,
     QDGenreVote = 1000,
-    QDGenreAD = 16,
+    QDGenreAD = 16
 };
 
 /*!
@@ -46,6 +47,8 @@ typedef NS_ENUM(NSUInteger, QDPageStyle){
 @property (nonatomic, assign) NSInteger comment_count;
 /** 点赞数量 */
 @property (nonatomic, assign) NSInteger praise_count;
+/** 发布时间 */
+@property (nonatomic, assign) NSInteger  publish_time;
 /** 所属分类 */
 @property (nonatomic, strong) QDCategory *category;
 /** 文章排版风格 */

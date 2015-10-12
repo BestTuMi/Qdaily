@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class QDPost;
+@class QDFeed;
 
 @interface QDFeedSmallCell : UICollectionViewCell
-/** 文章模型 */
-@property (nonatomic, strong)  QDPost *post;
+/** 新闻信息 */
+@property (nonatomic, strong) QDFeed *feed;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @end

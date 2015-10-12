@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class QDFeed;
 
 @interface QDFeedCompactCell : UICollectionViewCell
-
+/** 新闻信息 */
+@property (nonatomic, strong) QDFeed *feed;
 @end

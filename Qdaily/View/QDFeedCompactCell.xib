@@ -7,12 +7,114 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="feedCompactCell" id="gTV-IL-0wX" customClass="QDFeedCompactCell">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="352" height="160"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="352" height="160"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o3H-Xz-erx" userLabel="封面图">
+                        <rect key="frame" x="0.0" y="0.0" width="352" height="160"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-7p-2B0" userLabel="tag 标签">
+                        <rect key="frame" x="15" y="75" width="48" height="20"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="krD-LU-hps">
+                                <rect key="frame" x="3" y="0.0" width="15" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="vnF-wf-gmL"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="城市" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuq-d1-via">
+                                <rect key="frame" x="21" y="0.0" width="24" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.7843137255" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vuq-d1-via" firstAttribute="top" secondItem="SCa-7p-2B0" secondAttribute="top" id="0EP-hh-NeO"/>
+                            <constraint firstAttribute="width" constant="100" id="7kz-1Q-ac7"/>
+                            <constraint firstItem="krD-LU-hps" firstAttribute="leading" secondItem="SCa-7p-2B0" secondAttribute="leading" constant="3" id="Bu3-NT-bec"/>
+                            <constraint firstAttribute="trailing" secondItem="vuq-d1-via" secondAttribute="trailing" constant="3" id="EDj-mT-WV7"/>
+                            <constraint firstAttribute="height" constant="20" id="Iwz-gB-TP0"/>
+                            <constraint firstAttribute="bottom" secondItem="krD-LU-hps" secondAttribute="bottom" id="LLK-Q7-Gsd"/>
+                            <constraint firstAttribute="bottom" secondItem="vuq-d1-via" secondAttribute="bottom" id="RuX-q4-fcx"/>
+                            <constraint firstItem="vuq-d1-via" firstAttribute="leading" secondItem="krD-LU-hps" secondAttribute="trailing" constant="3" id="dLf-AT-P9H"/>
+                            <constraint firstItem="krD-LU-hps" firstAttribute="top" secondItem="SCa-7p-2B0" secondAttribute="top" id="o4R-ka-W7d"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7kz-1Q-ac7"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZc-rW-rij" userLabel="点赞数">
+                        <rect key="frame" x="15" y="135" width="30" height="15"/>
+                        <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="MML-EW-QVS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                        <state key="normal" title="99" image="articlefeed_cell_praise_normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9VC-wp-0S6" userLabel="评论数">
+                        <rect key="frame" x="55" y="135" width="30" height="15"/>
+                        <color key="backgroundColor" red="0.98594671489999997" green="0.0" blue="0.039444990460000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="mpv-v8-VPl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                        <state key="normal" title="99" image="articlefeed_cell_comment_normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfX-uI-bGp" userLabel="标题">
+                        <rect key="frame" x="15" y="105" width="307" height="20"/>
+                        <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <constraints>
+                <constraint firstItem="o3H-Xz-erx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="7Xb-uN-2Lz"/>
+                <constraint firstAttribute="bottom" secondItem="eZc-rW-rij" secondAttribute="bottom" constant="10" id="HZx-tc-dJE"/>
+                <constraint firstItem="OfX-uI-bGp" firstAttribute="leading" secondItem="SCa-7p-2B0" secondAttribute="leading" id="LqT-BT-p8P"/>
+                <constraint firstAttribute="trailing" secondItem="OfX-uI-bGp" secondAttribute="trailing" constant="30" id="MHX-5L-Y6F"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="width" secondItem="9VC-wp-0S6" secondAttribute="width" id="VSX-CB-6tL"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="Vo3-Xu-fJN"/>
+                <constraint firstAttribute="trailing" secondItem="o3H-Xz-erx" secondAttribute="trailing" id="WBY-1f-OjZ"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="top" secondItem="OfX-uI-bGp" secondAttribute="bottom" constant="10" id="azJ-8a-ZMo"/>
+                <constraint firstItem="o3H-Xz-erx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cvP-7q-TqE"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="leading" secondItem="OfX-uI-bGp" secondAttribute="leading" id="g4f-no-3HD"/>
+                <constraint firstItem="eZc-rW-rij" firstAttribute="centerY" secondItem="9VC-wp-0S6" secondAttribute="centerY" id="h2C-td-3OJ"/>
+                <constraint firstItem="OfX-uI-bGp" firstAttribute="top" secondItem="SCa-7p-2B0" secondAttribute="bottom" constant="10" id="qRk-ux-taB"/>
+                <constraint firstAttribute="bottom" secondItem="o3H-Xz-erx" secondAttribute="bottom" id="uPB-Lk-Hxx"/>
+                <constraint firstItem="9VC-wp-0S6" firstAttribute="leading" secondItem="eZc-rW-rij" secondAttribute="trailing" constant="10" id="xuv-ZB-sOM"/>
+            </constraints>
+            <size key="customSize" width="352" height="160"/>
+            <connections>
+                <outlet property="categoryIcon" destination="krD-LU-hps" id="3xZ-GS-9GX"/>
+                <outlet property="categoryTitle" destination="vuq-d1-via" id="Xt1-q8-8L9"/>
+                <outlet property="commentCountButton" destination="9VC-wp-0S6" id="e7G-L0-UXW"/>
+                <outlet property="image_view" destination="o3H-Xz-erx" id="brq-7m-Vsi"/>
+                <outlet property="praiseCountButton" destination="eZc-rW-rij" id="RBB-eW-ff3"/>
+                <outlet property="titleLabel" destination="OfX-uI-bGp" id="I6V-uA-THC"/>
+            </connections>
+            <point key="canvasLocation" x="418" y="225"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="articlefeed_cell_comment_normal" width="10" height="10"/>
+        <image name="articlefeed_cell_praise_normal" width="10" height="9"/>
+    </resources>
 </document>

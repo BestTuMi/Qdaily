@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface QDFeedBannerCell : UICollectionViewCell
-
+/** 轮播图模型数组 */
+@property (nonatomic, copy) NSArray *banners;
 @end

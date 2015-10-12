@@ -47,17 +47,22 @@
     [mainRootVc performSelector:@selector(pan:) withObject:panGesture];
 }
 
+/*!
+ *  @brief  如果触摸点在屏幕左侧20以内,而且手势在 ScrollView 上,就不接收这个触摸点,这样,会调用父控件上的手势
+ *
+ *  @param gestureRecognizer 当前识别到的手势
+ *  @param touch             当前触摸点
+ *
+ *  @return 是否接收当前触摸
+ */
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if (gestureRecognizer.view == self) {
         CGPoint currentP = [touch locationInView:self.window];
         
         if (currentP.x <= 20) {
-            QDLogFunc;
             return NO;
         }
-        
     }
-    
     return YES;
 }
 
