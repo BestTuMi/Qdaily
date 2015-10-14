@@ -7,11 +7,30 @@
 //
 
 #import "QDFeedBannerCell.h"
+#import "QDCarouselView.h"
+
+@interface QDFeedBannerCell ()
+
+@property (weak, nonatomic) IBOutlet QDCarouselView *carouselView;
+
+@end
 
 @implementation QDFeedBannerCell
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+/*!
+ *  @brief  设置模型
+ *
+ *  @param banners 模型数组
+ */
+- (void)setBanners:(NSArray *)banners {
+    _banners = banners;
+    
+    // 将数组传给轮播器
+    _carouselView.banners = banners;
 }
 
 @end

@@ -14,3 +14,5 @@ CGFloat const QDNaviBarMaxY = 64;
 CGFloat const QDStatusBarH = 20;
 CGFloat const QDCommonMargin = 10;
 CGFloat const QDCommonSmallMargin = 5;
+CGFloat const QDPaperImageH = 150;
+CGFloat const QDPaperTextLeftMargin = 15;

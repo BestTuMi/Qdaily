@@ -16,12 +16,21 @@
 		8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CC1BC5179900C444AE /* QDSideMenuCategory.m */; };
 		8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */; };
 		8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */; };
+		8B501F981BCC9DA8004AEC12 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F7F1BCC9DA8004AEC12 /* MASCompositeConstraint.m */; };
+		8B501F991BCC9DA8004AEC12 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F821BCC9DA8004AEC12 /* MASConstraint.m */; };
+		8B501F9A1BCC9DA8004AEC12 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F841BCC9DA8004AEC12 /* MASConstraintMaker.m */; };
+		8B501F9B1BCC9DA8004AEC12 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F861BCC9DA8004AEC12 /* MASLayoutConstraint.m */; };
+		8B501F9C1BCC9DA8004AEC12 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F8A1BCC9DA8004AEC12 /* MASViewAttribute.m */; };
+		8B501F9D1BCC9DA8004AEC12 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F8C1BCC9DA8004AEC12 /* MASViewConstraint.m */; };
+		8B501F9E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F8E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m */; };
+		8B501F9F1BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F911BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		8B501FA01BCC9DA8004AEC12 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F931BCC9DA8004AEC12 /* View+MASAdditions.m */; };
+		8B501FA11BCC9DA8004AEC12 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B501F961BCC9DA8004AEC12 /* ViewController+MASAdditions.m */; };
 		8B5415D61BC8A8F600D47357 /* QDPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415D51BC8A8F600D47357 /* QDPost.m */; };
 		8B5415D91BC8A92A00D47357 /* QDCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415D81BC8A92A00D47357 /* QDCategory.m */; };
 		8B5415E01BC8B96100D47357 /* QDFeedSmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415DE1BC8B96100D47357 /* QDFeedSmallCell.m */; };
 		8B5415E11BC8B96100D47357 /* QDFeedSmallCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */; };
 		8B5415E51BC8B97D00D47357 /* QDFeedBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */; };
-		8B5415E61BC8B97D00D47357 /* QDFeedBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */; };
 		8B5415EA1BC8B9CA00D47357 /* QDFeedCompactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */; };
 		8B5415EB1BC8B9CA00D47357 /* QDFeedCompactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */; };
 		8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */; };
@@ -40,6 +49,10 @@
 		8BC735691BC421F30045226E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735581BC421F30045226E /* UIView+Extension.m */; };
 		8BC7356C1BC421F30045226E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7355E1BC421F30045226E /* main.m */; };
 		8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735791BC431990045226E /* QDMainRootViewController.m */; };
+		8BC764091BCC2CF100AF3151 /* QDFeedBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BC764081BCC2CF100AF3151 /* QDFeedBannerCell.xib */; };
+		8BC7640C1BCC2EE100AF3151 /* QDCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7640B1BCC2EE100AF3151 /* QDCarouselView.m */; };
+		8BDF2A1E1BCD51A0006A429F /* QDFeedPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDF2A1C1BCD51A0006A429F /* QDFeedPaperCell.m */; };
+		8BDF2A1F1BCD51A0006A429F /* QDFeedPaperCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BDF2A1D1BCD51A0006A429F /* QDFeedPaperCell.xib */; };
 		8BFE5B211BC6B87B00811B4E /* QDHomeFeedArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE5B201BC6B87B00811B4E /* QDHomeFeedArticleViewController.m */; };
 		8BFE5B241BC6B89200811B4E /* QDHomeLabFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE5B231BC6B89200811B4E /* QDHomeLabFeedViewController.m */; };
 /* End PBXBuildFile section */
@@ -73,6 +86,31 @@
 		8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSideMenuCell.m; sourceTree = "<group>"; };
 		8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConfig.h; sourceTree = "<group>"; };
 		8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConfig.m; sourceTree = "<group>"; };
+		8B501F7E1BCC9DA8004AEC12 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		8B501F7F1BCC9DA8004AEC12 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		8B501F801BCC9DA8004AEC12 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		8B501F811BCC9DA8004AEC12 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		8B501F821BCC9DA8004AEC12 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		8B501F831BCC9DA8004AEC12 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		8B501F841BCC9DA8004AEC12 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		8B501F851BCC9DA8004AEC12 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		8B501F861BCC9DA8004AEC12 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		8B501F871BCC9DA8004AEC12 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		8B501F881BCC9DA8004AEC12 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		8B501F891BCC9DA8004AEC12 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		8B501F8A1BCC9DA8004AEC12 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		8B501F8B1BCC9DA8004AEC12 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		8B501F8C1BCC9DA8004AEC12 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		8B501F8D1BCC9DA8004AEC12 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		8B501F8E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		8B501F8F1BCC9DA8004AEC12 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		8B501F901BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		8B501F911BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		8B501F921BCC9DA8004AEC12 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		8B501F931BCC9DA8004AEC12 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		8B501F941BCC9DA8004AEC12 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		8B501F951BCC9DA8004AEC12 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		8B501F961BCC9DA8004AEC12 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		8B5415D41BC8A8F600D47357 /* QDPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPost.h; sourceTree = "<group>"; };
 		8B5415D51BC8A8F600D47357 /* QDPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDPost.m; sourceTree = "<group>"; };
 		8B5415D71BC8A92A00D47357 /* QDCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCategory.h; sourceTree = "<group>"; };
@@ -82,7 +120,6 @@
 		8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedSmallCell.xib; sourceTree = "<group>"; };
 		8B5415E21BC8B97D00D47357 /* QDFeedBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedBannerCell.h; sourceTree = "<group>"; };
 		8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedBannerCell.m; sourceTree = "<group>"; };
-		8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedBannerCell.xib; sourceTree = "<group>"; };
 		8B5415E71BC8B9CA00D47357 /* QDFeedCompactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedCompactCell.h; sourceTree = "<group>"; };
 		8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedCompactCell.m; sourceTree = "<group>"; };
 		8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedCompactCell.xib; sourceTree = "<group>"; };
@@ -118,6 +155,12 @@
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BC735781BC431990045226E /* QDMainRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMainRootViewController.h; sourceTree = "<group>"; };
 		8BC735791BC431990045226E /* QDMainRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMainRootViewController.m; sourceTree = "<group>"; };
+		8BC764081BCC2CF100AF3151 /* QDFeedBannerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedBannerCell.xib; sourceTree = "<group>"; };
+		8BC7640A1BCC2EE100AF3151 /* QDCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCarouselView.h; sourceTree = "<group>"; };
+		8BC7640B1BCC2EE100AF3151 /* QDCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCarouselView.m; sourceTree = "<group>"; };
+		8BDF2A1B1BCD51A0006A429F /* QDFeedPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedPaperCell.h; sourceTree = "<group>"; };
+		8BDF2A1C1BCD51A0006A429F /* QDFeedPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedPaperCell.m; sourceTree = "<group>"; };
+		8BDF2A1D1BCD51A0006A429F /* QDFeedPaperCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedPaperCell.xib; sourceTree = "<group>"; };
 		8BFE5B1F1BC6B87B00811B4E /* QDHomeFeedArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeFeedArticleViewController.h; sourceTree = "<group>"; };
 		8BFE5B201BC6B87B00811B4E /* QDHomeFeedArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeFeedArticleViewController.m; sourceTree = "<group>"; };
 		8BFE5B221BC6B89200811B4E /* QDHomeLabFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeLabFeedViewController.h; sourceTree = "<group>"; };
@@ -144,6 +187,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B501F551BCC9BE0004AEC12 /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				8B501F7C1BCC9DA8004AEC12 /* Masonry */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
+		8B501F7C1BCC9DA8004AEC12 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				8B501F7E1BCC9DA8004AEC12 /* MASCompositeConstraint.h */,
+				8B501F7F1BCC9DA8004AEC12 /* MASCompositeConstraint.m */,
+				8B501F801BCC9DA8004AEC12 /* MASConstraint+Private.h */,
+				8B501F811BCC9DA8004AEC12 /* MASConstraint.h */,
+				8B501F821BCC9DA8004AEC12 /* MASConstraint.m */,
+				8B501F831BCC9DA8004AEC12 /* MASConstraintMaker.h */,
+				8B501F841BCC9DA8004AEC12 /* MASConstraintMaker.m */,
+				8B501F851BCC9DA8004AEC12 /* MASLayoutConstraint.h */,
+				8B501F861BCC9DA8004AEC12 /* MASLayoutConstraint.m */,
+				8B501F871BCC9DA8004AEC12 /* Masonry.h */,
+				8B501F881BCC9DA8004AEC12 /* MASUtilities.h */,
+				8B501F891BCC9DA8004AEC12 /* MASViewAttribute.h */,
+				8B501F8A1BCC9DA8004AEC12 /* MASViewAttribute.m */,
+				8B501F8B1BCC9DA8004AEC12 /* MASViewConstraint.h */,
+				8B501F8C1BCC9DA8004AEC12 /* MASViewConstraint.m */,
+				8B501F8D1BCC9DA8004AEC12 /* NSArray+MASAdditions.h */,
+				8B501F8E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m */,
+				8B501F8F1BCC9DA8004AEC12 /* NSArray+MASShorthandAdditions.h */,
+				8B501F901BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				8B501F911BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				8B501F921BCC9DA8004AEC12 /* View+MASAdditions.h */,
+				8B501F931BCC9DA8004AEC12 /* View+MASAdditions.m */,
+				8B501F941BCC9DA8004AEC12 /* View+MASShorthandAdditions.h */,
+				8B501F951BCC9DA8004AEC12 /* ViewController+MASAdditions.h */,
+				8B501F961BCC9DA8004AEC12 /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
 		8B5B783F1BC9E93300AC0AF1 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				8B5B783F1BC9E93300AC0AF1 /* Tool */,
+				8B501F551BCC9BE0004AEC12 /* Third */,
 				8BC7354D1BC421F30045226E /* AppDelegate.h */,
 				8BC7354E1BC421F30045226E /* AppDelegate.m */,
 				8BC7355E1BC421F30045226E /* main.m */,
@@ -286,6 +370,8 @@
 			children = (
 				8B7D26BD1BC7D06A0056DCAA /* QDScrollView.h */,
 				8B7D26BE1BC7D06A0056DCAA /* QDScrollView.m */,
+				8BC7640A1BCC2EE100AF3151 /* QDCarouselView.h */,
+				8BC7640B1BCC2EE100AF3151 /* QDCarouselView.m */,
 				8B0078CE1BC518C500C444AE /* QDSideMenuCell.h */,
 				8B0078CF1BC518C500C444AE /* QDSideMenuCell.m */,
 				8B5A7EFE1BCBA73A001D3F46 /* QDSideMenuHeaderView.h */,
@@ -296,13 +382,16 @@
 				8BB91F911BC97CA200CB53BE /* QDFeedLayout.m */,
 				8B5415E21BC8B97D00D47357 /* QDFeedBannerCell.h */,
 				8B5415E31BC8B97D00D47357 /* QDFeedBannerCell.m */,
-				8B5415E41BC8B97D00D47357 /* QDFeedBannerCell.xib */,
+				8BC764081BCC2CF100AF3151 /* QDFeedBannerCell.xib */,
 				8B5415DD1BC8B96100D47357 /* QDFeedSmallCell.h */,
 				8B5415DE1BC8B96100D47357 /* QDFeedSmallCell.m */,
 				8B5415DF1BC8B96100D47357 /* QDFeedSmallCell.xib */,
 				8B5415E71BC8B9CA00D47357 /* QDFeedCompactCell.h */,
 				8B5415E81BC8B9CA00D47357 /* QDFeedCompactCell.m */,
 				8B5415E91BC8B9CA00D47357 /* QDFeedCompactCell.xib */,
+				8BDF2A1B1BCD51A0006A429F /* QDFeedPaperCell.h */,
+				8BDF2A1C1BCD51A0006A429F /* QDFeedPaperCell.m */,
+				8BDF2A1D1BCD51A0006A429F /* QDFeedPaperCell.xib */,
 			);
 			name = View;
 			path = Qdaily/View;
@@ -409,11 +498,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B5415E61BC8B97D00D47357 /* QDFeedBannerCell.xib in Resources */,
 				8B5415EB1BC8B9CA00D47357 /* QDFeedCompactCell.xib in Resources */,
 				8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */,
+				8BC764091BCC2CF100AF3151 /* QDFeedBannerCell.xib in Resources */,
 				8B5415E11BC8B96100D47357 /* QDFeedSmallCell.xib in Resources */,
 				8B6699A71BC3ED9900E2BD2B /* Images.xcassets in Resources */,
+				8BDF2A1F1BCD51A0006A429F /* QDFeedPaperCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,32 +567,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B501FA01BCC9DA8004AEC12 /* View+MASAdditions.m in Sources */,
 				8B0078D01BC518C500C444AE /* QDSideMenuCell.m in Sources */,
 				8BC7356C1BC421F30045226E /* main.m in Sources */,
 				8B5A7F031BCBA782001D3F46 /* QDSideMenuFooterView.m in Sources */,
 				8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */,
+				8B501F981BCC9DA8004AEC12 /* MASCompositeConstraint.m in Sources */,
+				8B501F9A1BCC9DA8004AEC12 /* MASConstraintMaker.m in Sources */,
 				8B7D26BF1BC7D06A0056DCAA /* QDScrollView.m in Sources */,
+				8B501FA11BCC9DA8004AEC12 /* ViewController+MASAdditions.m in Sources */,
+				8B501F9B1BCC9DA8004AEC12 /* MASLayoutConstraint.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
 				8B5415D91BC8A92A00D47357 /* QDCategory.m in Sources */,
 				8B0078C11BC4CD0800C444AE /* QDHomeViewController.m in Sources */,
 				8B5B78421BC9E95F00AC0AF1 /* QDFeedTool.m in Sources */,
 				8B0078CA1BC5121F00C444AE /* QDCategoryFeedViewController.m in Sources */,
+				8BC7640C1BCC2EE100AF3151 /* QDCarouselView.m in Sources */,
 				8BC735691BC421F30045226E /* UIView+Extension.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
 				8B5A7F001BCBA73A001D3F46 /* QDSideMenuHeaderView.m in Sources */,
 				8BFE5B211BC6B87B00811B4E /* QDHomeFeedArticleViewController.m in Sources */,
 				8B5B78451BC9ECA500AC0AF1 /* QDFeed.m in Sources */,
+				8BDF2A1E1BCD51A0006A429F /* QDFeedPaperCell.m in Sources */,
 				8B0078BE1BC4CB3200C444AE /* QDNavigationController.m in Sources */,
 				8B5415EA1BC8B9CA00D47357 /* QDFeedCompactCell.m in Sources */,
+				8B501F9C1BCC9DA8004AEC12 /* MASViewAttribute.m in Sources */,
+				8B501F991BCC9DA8004AEC12 /* MASConstraint.m in Sources */,
 				8BC7357A1BC431990045226E /* QDMainRootViewController.m in Sources */,
 				8B5415E51BC8B97D00D47357 /* QDFeedBannerCell.m in Sources */,
+				8B501F9D1BCC9DA8004AEC12 /* MASViewConstraint.m in Sources */,
 				8BB91F921BC97CA200CB53BE /* QDFeedLayout.m in Sources */,
 				8B5415E01BC8B96100D47357 /* QDFeedSmallCell.m in Sources */,
 				8B5415D61BC8A8F600D47357 /* QDPost.m in Sources */,
 				8BC735671BC421F30045226E /* QDConst.m in Sources */,
 				8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */,
 				8B0078CD1BC5179900C444AE /* QDSideMenuCategory.m in Sources */,
+				8B501F9E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m in Sources */,
 				8B0078C41BC4CF0300C444AE /* QDMessageViewController.m in Sources */,
+				8B501F9F1BCC9DA8004AEC12 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8B0078C71BC511D900C444AE /* QDFavouriteViewController.m in Sources */,
 				8BFE5B241BC6B89200811B4E /* QDHomeLabFeedViewController.m in Sources */,
 			);

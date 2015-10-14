@@ -15,7 +15,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bql-61-DSs" userLabel="题图 View">
                         <rect key="frame" x="0.0" y="0.0" width="159" height="104"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A00-MD-qnL" userLabel="封面图">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A00-MD-qnL" userLabel="封面图">
                                 <rect key="frame" x="0.0" y="0.0" width="159" height="104"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="104" id="EGi-n3-DgX"/>
@@ -26,29 +26,32 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article_feed_mask_normal" translatesAutoresizingMaskIntoConstraints="NO" id="7kF-jZ-h9D" userLabel="Mask">
+                                <rect key="frame" x="0.0" y="0.0" width="159" height="104"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQW-1H-WX3" userLabel="tag 标签">
-                                <rect key="frame" x="8" y="74" width="48" height="20"/>
+                                <rect key="frame" x="8" y="81" width="48" height="15"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ep4-vp-SXS">
-                                        <rect key="frame" x="3" y="0.0" width="15" height="20"/>
+                                        <rect key="frame" x="3" y="0.0" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="Hy5-av-F9Y"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="城市" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cwm-lC-Sf4">
-                                        <rect key="frame" x="21" y="0.0" width="24" height="20"/>
+                                        <rect key="frame" x="21" y="0.0" width="24" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="1" green="0.78431372549019607" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Cwm-lC-Sf4" secondAttribute="bottom" id="7fF-Yn-UbP"/>
                                     <constraint firstAttribute="bottom" secondItem="ep4-vp-SXS" secondAttribute="bottom" id="D3G-wT-mPD"/>
                                     <constraint firstAttribute="width" constant="100" id="IS4-wO-rKR"/>
                                     <constraint firstItem="ep4-vp-SXS" firstAttribute="leading" secondItem="LQW-1H-WX3" secondAttribute="leading" constant="3" id="Jic-ue-AFj"/>
-                                    <constraint firstAttribute="height" constant="20" id="LF7-E3-AeW"/>
+                                    <constraint firstAttribute="height" constant="15" id="LF7-E3-AeW"/>
                                     <constraint firstItem="Cwm-lC-Sf4" firstAttribute="top" secondItem="LQW-1H-WX3" secondAttribute="top" id="jCY-Mb-baF"/>
                                     <constraint firstAttribute="trailing" secondItem="Cwm-lC-Sf4" secondAttribute="trailing" constant="3" id="jTz-0P-znl"/>
                                     <constraint firstItem="ep4-vp-SXS" firstAttribute="top" secondItem="LQW-1H-WX3" secondAttribute="top" id="oZB-JH-dcT"/>
@@ -61,14 +64,14 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HF-SU-HEj" userLabel="点赞数" customClass="QDFeedCellSmallButton">
-                                <rect key="frame" x="118" y="77" width="31" height="15"/>
+                                <rect key="frame" x="118" y="81" width="31" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="999" image="articlefeed_cell_praise_normal">
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMw-X0-77I" userLabel="评论数" customClass="QDFeedCellSmallButton">
-                                <rect key="frame" x="79" y="77" width="31" height="15"/>
+                                <rect key="frame" x="79" y="81" width="31" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="Vvj-Uk-ric"/>
                                 </constraints>
@@ -89,13 +92,17 @@
                             <constraint firstItem="LQW-1H-WX3" firstAttribute="centerY" secondItem="QMw-X0-77I" secondAttribute="centerY" id="21H-Fd-LYd"/>
                             <constraint firstItem="LQW-1H-WX3" firstAttribute="centerX" secondItem="QMw-X0-77I" secondAttribute="centerX" id="8r1-0r-Lrr"/>
                             <constraint firstAttribute="height" constant="104" id="98H-53-XRT"/>
+                            <constraint firstAttribute="bottom" secondItem="7kF-jZ-h9D" secondAttribute="bottom" id="9xh-dR-y30"/>
+                            <constraint firstAttribute="trailing" secondItem="7kF-jZ-h9D" secondAttribute="trailing" id="ALf-Db-PEa"/>
                             <constraint firstAttribute="trailing" secondItem="7HF-SU-HEj" secondAttribute="trailing" constant="10" id="Art-l3-yVb"/>
                             <constraint firstItem="LQW-1H-WX3" firstAttribute="centerY" secondItem="QMw-X0-77I" secondAttribute="centerY" id="B3U-oN-1h7"/>
                             <constraint firstItem="LQW-1H-WX3" firstAttribute="leading" secondItem="Bql-61-DSs" secondAttribute="leading" constant="8" id="Ddp-N4-GWH"/>
+                            <constraint firstItem="7kF-jZ-h9D" firstAttribute="leading" secondItem="Bql-61-DSs" secondAttribute="leading" id="Iy6-wa-f35"/>
                             <constraint firstItem="7HF-SU-HEj" firstAttribute="height" secondItem="LQW-1H-WX3" secondAttribute="height" id="PAF-xL-Qg6"/>
                             <constraint firstAttribute="trailing" secondItem="QMw-X0-77I" secondAttribute="trailing" constant="10" id="PLu-Ds-MBm"/>
-                            <constraint firstAttribute="bottom" secondItem="LQW-1H-WX3" secondAttribute="bottom" constant="10" id="RJ8-Ub-YYi"/>
+                            <constraint firstAttribute="bottom" secondItem="LQW-1H-WX3" secondAttribute="bottom" constant="8" id="RJ8-Ub-YYi"/>
                             <constraint firstAttribute="bottom" secondItem="QMw-X0-77I" secondAttribute="bottom" constant="8" id="Vbp-oa-Wsi"/>
+                            <constraint firstItem="7kF-jZ-h9D" firstAttribute="top" secondItem="Bql-61-DSs" secondAttribute="top" id="b9a-zk-NH8"/>
                             <constraint firstItem="A00-MD-qnL" firstAttribute="top" secondItem="Bql-61-DSs" secondAttribute="top" id="c66-sT-ufs"/>
                             <constraint firstItem="7HF-SU-HEj" firstAttribute="width" secondItem="QMw-X0-77I" secondAttribute="width" id="eRh-ef-0Yq"/>
                             <constraint firstItem="A00-MD-qnL" firstAttribute="leading" secondItem="Bql-61-DSs" secondAttribute="leading" id="kIE-Uu-Fwo"/>
@@ -125,7 +132,6 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zeq-Ei-xDn" userLabel="标题">
                                 <rect key="frame" x="8" y="10" width="143" height="20"/>
-                                <color key="backgroundColor" red="0.58879009049999997" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -187,6 +193,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="article_feed_mask_normal" width="150" height="90"/>
         <image name="articlefeed_cell_comment_normal" width="10" height="10"/>
         <image name="articlefeed_cell_praise_normal" width="10" height="9"/>
     </resources>

@@ -11,6 +11,7 @@
 #import "QDFeedBannerCell.h"
 #import "QDFeedSmallCell.h"
 #import "QDFeedCompactCell.h"
+#import "QDFeedPaperCell.h"
 #import "QDFeed.h"
 #import <MJExtension.h>
 #import "QDFeedLayout.h"
@@ -41,7 +42,7 @@
 static NSString * const bannerIdentifier = @"feedBannerCell";
 static NSString * const smallIdentifier = @"feedSmallCell";
 static NSString * const compactIdentifier = @"feedCompactCell";
-
+static NSString * const paperIdentifier = @"feedPaperCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,6 +83,7 @@ static NSString * const compactIdentifier = @"feedCompactCell";
 #pragma mark - 设置刷新组件
 - (void)setupRefresh {
     self.collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
+    self.collectionView.footer.automaticallyChangeAlpha = YES;
 }
 
 #pragma mark - setupFeeds
@@ -186,11 +188,11 @@ static NSString * const compactIdentifier = @"feedCompactCell";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedSmallCell class]) bundle:nil] forCellWithReuseIdentifier:smallIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedCompactCell class]) bundle:nil] forCellWithReuseIdentifier:compactIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedBannerCell class]) bundle:nil] forCellWithReuseIdentifier:bannerIdentifier];
-    
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedPaperCell class]) bundle:nil] forCellWithReuseIdentifier:paperIdentifier];
     
     // 设置内边距
     self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
-    self.collectionView.backgroundColor = QDRandomColor;
+    self.collectionView.backgroundColor = QDLightGrayColor;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -214,6 +216,10 @@ static NSString * const compactIdentifier = @"feedCompactCell";
         return cell;
     } else if (feed.type == QDFeedCellTypeSmall) {
         QDFeedSmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:smallIdentifier forIndexPath:indexPath];
+        cell.feed = feed;
+        return cell;
+    } else if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) {
+        QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
         cell.feed = feed;
         return cell;
     } else { // QDFeedCellTypeCompact

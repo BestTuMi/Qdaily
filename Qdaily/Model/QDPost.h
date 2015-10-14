@@ -11,8 +11,10 @@
 
 typedef NS_ENUM(NSUInteger, QDGenre) {
     QDGenreNormal = 1,
+    QDGenreReport = 14,
     QDGenreBestOnTheWeb = 6,
     QDGenreVote = 1000,
+    QDGenrePaper = 1001,
     QDGenreAD = 16
 };
 
@@ -55,4 +57,6 @@ typedef NS_ENUM(NSUInteger, QDPageStyle){
 @property (nonatomic, assign) QDPageStyle page_style;
 /** 文章地址 */
 @property (nonatomic, copy)  NSString *appview;
+/** 图片地址 */
+@property (nonatomic, copy)  NSString *image;
 @end

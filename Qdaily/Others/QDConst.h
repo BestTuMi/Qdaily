@@ -14,3 +14,5 @@ UIKIT_EXTERN CGFloat const QDNaviBarMaxY;
 UIKIT_EXTERN CGFloat const QDStatusBarH;
 UIKIT_EXTERN CGFloat const QDCommonMargin;
 UIKIT_EXTERN CGFloat const QDCommonSmallMargin;
+UIKIT_EXTERN CGFloat const QDPaperImageH;
+UIKIT_EXTERN CGFloat const QDPaperTextLeftMargin;

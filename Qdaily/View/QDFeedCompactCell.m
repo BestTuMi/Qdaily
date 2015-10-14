@@ -26,6 +26,10 @@
     // Initialization code
 }
 
++ (instancetype)feedCompactCell {
+    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil].lastObject;
+}
+
 - (void)setFeed:(QDFeed *)feed {
     _feed = feed;
     
