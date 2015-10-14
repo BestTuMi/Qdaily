@@ -166,6 +166,15 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 设置内边距
     self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
     self.collectionView.backgroundColor = QDLightGrayColor;
+    // KVO 监听 contentOffset 的改变
+    [self.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if ([self.delegate respondsToSelector:@selector(homeLabFeedViewCollectionView:offsetChannged:)]) {
+        [self.delegate homeLabFeedViewCollectionView:self.collectionView offsetChannged:change];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -181,6 +190,31 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
     cell.feed = feed;
     return cell;
+}
+
+#pragma mark - 处理松手时的状况
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (decelerate == NO) {
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGPoint offset = self.collectionView.contentOffset;
+    CGFloat offsetY = offset.y;
+    if ( offsetY >= - QDNaviBarMaxY * 0.5 && offsetY <= 0) { // 顶部上一半
+        [UIView animateWithDuration:0.25 animations:^{
+            CGPoint offset = self.collectionView.contentOffset;
+            offset.y = 0;
+            self.collectionView.contentOffset = offset;
+        }];
+    } else if ( offsetY > - QDNaviBarMaxY && offsetY < - QDNaviBarMaxY + QDNaviBarMaxY * 0.5) { // 顶部下一半
+        [UIView animateWithDuration:0.25 animations:^{
+            CGPoint offset = self.collectionView.contentOffset;
+            offset.y = - QDNaviBarMaxY;
+            self.collectionView.contentOffset = offset;
+        }];
+    }
 }
 
 @end

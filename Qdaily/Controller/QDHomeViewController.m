@@ -11,7 +11,7 @@
 #import "QDHomeLabFeedViewController.h"
 #import "QDScrollView.h"
 
-@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, QDHomeFeedArticleViewCollectionViewDelegate>
+@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, QDHomeFeedArticleViewCollectionViewDelegate, QDHomeLabFeedViewCollectionViewDelegate>
 /** ScrollView */
 @property (nonatomic, weak) QDScrollView *scrollView;
 /** 自定义的NaviBar */
@@ -65,6 +65,7 @@
 - (QDHomeLabFeedViewController *)labFeedVc {
     if (!_labFeedVc) {
         _labFeedVc = [[QDHomeLabFeedViewController alloc] init];
+        _labFeedVc.delegate = self;
     }
     return _labFeedVc;
 }
@@ -288,9 +289,42 @@
         
         self.indicator.alpha = 1.0;
     }
-    
-    QDLogVerbose(@"%f******%f", self.naviBar.height, self.indicator.alpha);
    
+}
+
+- (void)homeLabFeedViewCollectionView:(UICollectionView *)collectionView offsetChannged:(NSDictionary *)change {
+    CGPoint newOffset = [change[NSKeyValueChangeNewKey] CGPointValue];
+    
+    CGPoint oldOffset = [change[NSKeyValueChangeOldKey] CGPointValue];
+    
+    CGFloat offsetY = newOffset.y - oldOffset.y;
+    
+    if (newOffset.y > -QDNaviBarMaxY) {
+        // 变化比例
+        CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
+        
+        self.qButton.transform = CGAffineTransformMakeScale(1.0, sy);
+        self.qButton.alpha = sy;
+        
+        self.labButton.transform = CGAffineTransformMakeScale(sy, sy);
+        self.labButton.alpha = sy;
+        
+        self.indicator.alpha = sy;
+        
+        self.naviBar.y -= offsetY;
+        
+    } else {
+        // 恢复
+        self.naviBar.y = 0;
+        
+        self.qButton.transform = CGAffineTransformIdentity;
+        self.qButton.alpha = 1.0;
+        
+        self.labButton.transform = CGAffineTransformIdentity;
+        self.labButton.alpha = 1.0;
+        
+        self.indicator.alpha = 1.0;
+    }
 }
 
 
