@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QDHomeFeedArticleViewController : UIViewController
+@protocol QDHomeFeedArticleViewCollectionViewDelegate <NSObject>
 
+@optional
+- (void)homeFeedArticleViewCollectionView: (UICollectionView *)collectionView offsetChannged: (NSDictionary *)change;
+
+@end
+
+@interface QDHomeFeedArticleViewController : UIViewController
+/** 代理 */
+@property (nonatomic, weak)  id<QDHomeFeedArticleViewCollectionViewDelegate> delegate;
 @end

@@ -11,9 +11,11 @@
 #import "QDHomeLabFeedViewController.h"
 #import "QDScrollView.h"
 
-@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, QDHomeFeedArticleViewCollectionViewDelegate>
 /** ScrollView */
 @property (nonatomic, weak) QDScrollView *scrollView;
+/** 自定义的NaviBar */
+@property (nonatomic, weak) UIView *naviBar;
 /** Q 选项 */
 @property (nonatomic, weak)  UIButton *qButton;
 /** Lab 选项 */
@@ -31,6 +33,8 @@
 /** 选项卡按钮数组 */
 @property (nonatomic, strong) NSMutableArray *tabButtons;
 
+/** 定时器 */
+@property (nonatomic, weak) NSTimer *timer;
 @end
 
 @implementation QDHomeViewController
@@ -46,7 +50,6 @@
     [self setupScrollView];
     
     [self setupNaviBar];
-
 }
 
 #pragma mark -
@@ -54,6 +57,7 @@
 - (QDHomeFeedArticleViewController *)homeFeedVc {
     if (!_homeFeedVc) {
         _homeFeedVc = [[QDHomeFeedArticleViewController alloc] init];
+        _homeFeedVc.delegate = self;
     }
     return _homeFeedVc;
 }
@@ -105,7 +109,6 @@
     
     // 默认选中首页,下面这个方法懒加载视图
     [self scrollViewDidEndScrollingAnimation:scrollView];
-    
 }
 
 #pragma mark - 设置顶部自定义导航条
@@ -113,6 +116,7 @@
     UIView *naviBar = [[UIView alloc] init];
     naviBar.frame = CGRectMake(0, 0, QDScreenW, QDNaviBarMaxY);
     [self.view addSubview:naviBar];
+    self.naviBar = naviBar;
 
     // 添加透明模糊层
     [naviBar addBlurViewWithAlpha:0.5];
@@ -192,6 +196,26 @@
     [self.scrollView setContentOffset:CGPointMake(offsetX, self.scrollView.contentOffset.y) animated:YES];
 }
 
+#pragma mark - 定时器相关
+- (void)startTimer {
+    // 停掉上一个定时器
+    [self stopTimer];
+    // 开启新的定时器
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(showMenuButton) userInfo:nil repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    _timer = timer;
+}
+
+- (void)stopTimer {
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)showMenuButton {
+    
+}
+
+#pragma mark -
 #pragma mark - 选择指定 Index 的选项
 - (void)selectTabAtIndex:(NSInteger)index {
     [self selectTabButton:self.tabButtons[index]];
@@ -230,7 +254,44 @@
     [self selectTabButton:self.tabButtons[index]];
 }
 
-#pragma mark - Gesture Delegate
+#pragma mark - QDHomeFeedArticleViewCollectionViewDelegate
+- (void)homeFeedArticleViewCollectionView:(UICollectionView *)collectionView offsetChannged:(NSDictionary *)change {
+    CGPoint newOffset = [change[NSKeyValueChangeNewKey] CGPointValue];
+    
+    CGPoint oldOffset = [change[NSKeyValueChangeOldKey] CGPointValue];
+    
+    CGFloat offsetY = newOffset.y - oldOffset.y;
+    
+    if (newOffset.y > -QDNaviBarMaxY) {
+        // 变化比例
+        CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
+        
+        self.qButton.transform = CGAffineTransformMakeScale(1.0, sy);
+        self.qButton.alpha = sy;
+    
+        self.labButton.transform = CGAffineTransformMakeScale(sy, sy);
+        self.labButton.alpha = sy;
+        
+        self.indicator.alpha = sy;
+        
+        self.naviBar.y -= offsetY;
+        
+    } else {
+        // 恢复
+        self.naviBar.y = 0;
+        
+        self.qButton.transform = CGAffineTransformIdentity;
+        self.qButton.alpha = 1.0;
+        
+        self.labButton.transform = CGAffineTransformIdentity;
+        self.labButton.alpha = 1.0;
+        
+        self.indicator.alpha = 1.0;
+    }
+    
+    QDLogVerbose(@"%f******%f", self.naviBar.height, self.indicator.alpha);
+   
+}
 
 
 @end

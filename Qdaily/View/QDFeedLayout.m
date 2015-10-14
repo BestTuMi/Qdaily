@@ -165,7 +165,7 @@
                 
                 // 插入
                 [self.attrsArray insertObject:attrs atIndex:0];
-                
+//                self.collectionView insertItemsAtIndexPaths:<#(NSArray *)#>
             }
         }
     }
