@@ -37,6 +37,7 @@
 @property (nonatomic,  copy) NSString *last_time;
 /***** 通知 *******/
 @property (nonatomic, weak) NSNotification *note;
+
 @end
 
 @implementation QDHomeFeedArticleViewController
@@ -48,6 +49,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 添加对其他collectionView contentOffset 改变的通知
+    // 更新自己的 contentOffset, 以免导航栏因为其他控制器消失,而导致当前控制器导航栏出空白
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContentOffset:) name:QDFeedCollectionViewOffsetChangedNotification object:nil];
     
     // 设置数据源
     [self setupFeeds];
@@ -199,13 +204,36 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     
     // KVO 监听 contentOffset 的改变
     [self.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
 }
 
+#pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSNotification *note = [NSNotification notificationWithName:QDFeedCollectionViewOffsetChangedNotification object:self userInfo:change];
+    [[NSNotificationCenter defaultCenter] postNotification:note];
+}
 
-    if ([self.delegate respondsToSelector:@selector(homeFeedArticleViewCollectionView:offsetChannged:)]) {
-        [self.delegate homeFeedArticleViewCollectionView:self.collectionView offsetChannged:change];
+- (void)updateContentOffset: (NSNotification *)note {
+    if (note.object == self) { // 不接受自己发出的通知
+        return;
+    } else {
+        // 另一个控制器的当前 offset
+        CGPoint offset = [note.userInfo[NSKeyValueChangeNewKey] CGPointValue];
+        CGPoint selfOffset = self.collectionView.contentOffset;
+        if (offset.y >= 0) { // NaviBar 已经隐藏
+            if (selfOffset.y <= - QDNaviBarMaxY) {
+                // 如果collectionView 的 offset 小于 -64,那么顶部将显示一片空白
+                // 上滚
+                selfOffset.y = 0;
+                self.collectionView.contentOffset = selfOffset;
+            }
+        }
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.collectionView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 #pragma mark - UICollectionViewDataSource

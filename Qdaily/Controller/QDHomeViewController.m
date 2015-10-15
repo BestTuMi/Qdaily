@@ -171,6 +171,9 @@
     qButton.enabled = NO;
     indicator.centerX = qButton.centerX;
     self.selectedButton = qButton;
+    
+    // 添加通知监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNaviBarStatus:) name:QDFeedCollectionViewOffsetChangedNotification object:nil];
 }
 
 #pragma mark - 更新选项卡状态(包括指示器位置)
@@ -255,11 +258,11 @@
     [self selectTabButton:self.tabButtons[index]];
 }
 
-#pragma mark - QDHomeFeedArticleViewCollectionViewDelegate
-- (void)homeFeedArticleViewCollectionView:(UICollectionView *)collectionView offsetChannged:(NSDictionary *)change {
-    CGPoint newOffset = [change[NSKeyValueChangeNewKey] CGPointValue];
+#pragma mark - 改变 NaviBar 的属性
+- (void)updateNaviBarStatus:(NSNotification *)note {
+    CGPoint newOffset = [note.userInfo[NSKeyValueChangeNewKey] CGPointValue];
     
-    CGPoint oldOffset = [change[NSKeyValueChangeOldKey] CGPointValue];
+    CGPoint oldOffset = [note.userInfo[NSKeyValueChangeOldKey] CGPointValue];
     
     CGFloat offsetY = newOffset.y - oldOffset.y;
     
@@ -278,54 +281,22 @@
         self.naviBar.y -= offsetY;
         
     } else {
-        // 恢复
-        self.naviBar.y = 0;
-        
-        self.qButton.transform = CGAffineTransformIdentity;
-        self.qButton.alpha = 1.0;
-        
-        self.labButton.transform = CGAffineTransformIdentity;
-        self.labButton.alpha = 1.0;
-        
-        self.indicator.alpha = 1.0;
+   
+        [self resetNaviBar];
     }
    
 }
 
-- (void)homeLabFeedViewCollectionView:(UICollectionView *)collectionView offsetChannged:(NSDictionary *)change {
-    CGPoint newOffset = [change[NSKeyValueChangeNewKey] CGPointValue];
+- (void)resetNaviBar {
+    self.naviBar.y = 0;
     
-    CGPoint oldOffset = [change[NSKeyValueChangeOldKey] CGPointValue];
+    self.qButton.transform = CGAffineTransformIdentity;
+    self.qButton.alpha = 1.0;
     
-    CGFloat offsetY = newOffset.y - oldOffset.y;
+    self.labButton.transform = CGAffineTransformIdentity;
+    self.labButton.alpha = 1.0;
     
-    if (newOffset.y > -QDNaviBarMaxY) {
-        // 变化比例
-        CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
-        
-        self.qButton.transform = CGAffineTransformMakeScale(1.0, sy);
-        self.qButton.alpha = sy;
-        
-        self.labButton.transform = CGAffineTransformMakeScale(sy, sy);
-        self.labButton.alpha = sy;
-        
-        self.indicator.alpha = sy;
-        
-        self.naviBar.y -= offsetY;
-        
-    } else {
-        // 恢复
-        self.naviBar.y = 0;
-        
-        self.qButton.transform = CGAffineTransformIdentity;
-        self.qButton.alpha = 1.0;
-        
-        self.labButton.transform = CGAffineTransformIdentity;
-        self.labButton.alpha = 1.0;
-        
-        self.indicator.alpha = 1.0;
-    }
+    self.indicator.alpha = 1.0;
 }
-
 
 @end

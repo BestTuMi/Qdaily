@@ -18,6 +18,5 @@ UIKIT_EXTERN CGFloat const QDPaperImageH;
 UIKIT_EXTERN CGFloat const QDPaperTextLeftMargin;
 
 /** 通知相关 */
-UIKIT_EXTERN NSString *const QDScrollViewContentOffsetChangeNewKey;
-UIKIT_EXTERN NSString *const QDScrollViewContentOffsetChangeOldKey;
-UIKIT_EXTERN NSString *const QDScrollViewDidChangeContentOffsetNotification;
+UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedNotification;
+UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedKey;

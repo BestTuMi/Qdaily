@@ -18,6 +18,5 @@ CGFloat const QDPaperImageH = 150;
 CGFloat const QDPaperTextLeftMargin = 15;
 
 /** 通知相关 */
-NSString *const QDScrollViewContentOffsetChangeNewKey = @"QDScrollViewContentOffsetNewKey";
-NSString *const QDScrollViewContentOffsetChangeOldKey = @"QDScrollViewContentOffsetOldKey";
-NSString *const QDScrollViewDidChangeContentOffsetNotification = @"QDScrollViewDidChangeContentOffset";
+NSString *const QDFeedCollectionViewOffsetChangedNotification = @"QDFeedCollectionViewOffsetChanged";
+NSString *const QDFeedCollectionViewOffsetChangedKey = @"QDFeedCollectionViewOffsetChangedKey";
