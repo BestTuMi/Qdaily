@@ -282,20 +282,15 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     CGPoint offset = self.collectionView.contentOffset;
     CGFloat offsetY = offset.y;
     if ( offsetY >= - QDNaviBarMaxY * 0.5 && offsetY <= 0) { // 顶部上一半
-         [UIView animateWithDuration:0.25 animations:^{
-             CGPoint offset = self.collectionView.contentOffset;
-             offset.y = 0;
-             self.collectionView.contentOffset = offset;
-         }];
-    } else if ( offsetY > - QDNaviBarMaxY && offsetY < - QDNaviBarMaxY + QDNaviBarMaxY * 0.5) { // 顶部下一半
-        [UIView animateWithDuration:0.25 animations:^{
-            CGPoint offset = self.collectionView.contentOffset;
-            offset.y = - QDNaviBarMaxY;
-            self.collectionView.contentOffset = offset;
-        }];
-    }
+        CGPoint offset = self.collectionView.contentOffset;
+        offset.y = 0;
+        [self.collectionView setContentOffset:offset animated:YES];
     
-    // TODO
+    } else if ( offsetY > - QDNaviBarMaxY && offsetY < - QDNaviBarMaxY + QDNaviBarMaxY * 0.5) { // 顶部下一半
+        CGPoint offset = self.collectionView.contentOffset;
+        offset.y = - QDNaviBarMaxY;
+        [self.collectionView setContentOffset:offset animated:YES];
+    }
 }
 
 @end

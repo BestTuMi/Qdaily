@@ -34,6 +34,9 @@
 /** 屏幕高 */
 #define QDScreenH [UIScreen mainScreen].bounds.size.height
 
+/** 非0最小浮点数 */
+#define MINFLOAT 0x1.fffffep-2f
+
 // 自定义 Log
 #ifdef __OBJC__
 #ifdef DEBUG // 调试阶段

@@ -35,6 +35,9 @@
 
 /** 定时器 */
 @property (nonatomic, weak) NSTimer *timer;
+
+/** 更新状态栏的状态 */
+@property (nonatomic, assign)  BOOL statusBarHidden;
 @end
 
 @implementation QDHomeViewController
@@ -148,6 +151,10 @@
     for (NSInteger i = 0; i < count; i++) {
         
         UIButton *button = self.tabButtons[i];
+        
+        // 设置锚点,方便做动画
+        button.layer.anchorPoint = CGPointMake(i == 0 ? 1 : 0, 1); // 目前至右两个按钮,先写死
+        
         buttonX = buttonW * i;
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
         
@@ -161,6 +168,7 @@
     // 设置指示器
     UIView *indicator = [[UIView alloc] init];
     indicator.backgroundColor = QDHighlightColor;
+    
     indicator.width = buttonW * 0.5;
     indicator.height = 3;
     indicator.y = QDNaviBarMaxY - indicator.height;
@@ -169,7 +177,7 @@
     
      // 默认选中第一个
     qButton.enabled = NO;
-    indicator.centerX = qButton.centerX;
+    indicator.x = (buttonW - indicator.width) * 0.5 + indicator.width;
     self.selectedButton = qButton;
     
     // 添加通知监听
@@ -184,9 +192,12 @@
     // 修改之前选中按钮的状态
     self.selectedButton.enabled = !self.selectedButton.enabled;
     
+    self.indicator.layer.anchorPoint = CGPointMake(button.x == 0 ? 1.0 : 0, 0);
+    
     // 更改指示器的位置
     [UIView animateWithDuration:0.25 animations:^{
-        self.indicator.centerX = button.centerX;
+//        self.indicator.centerX = button.centerX;
+        self.indicator.x = button.x + (button.width - self.indicator.width) * 0.5;
     }];
     
     // 记录当前选中按钮
@@ -269,19 +280,37 @@
     if (newOffset.y > -QDNaviBarMaxY) {
         // 变化比例
         CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
+        CGFloat scaleSy = sy <= 0.7 ? 0.7 : sy;
+        CGFloat alphaSy = sy <= 0.7 ? sy * 0.3 : sy;
         
-        self.qButton.transform = CGAffineTransformMakeScale(1.0, sy);
-        self.qButton.alpha = sy;
+        self.qButton.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
+        self.qButton.alpha = alphaSy;
     
-        self.labButton.transform = CGAffineTransformMakeScale(sy, sy);
-        self.labButton.alpha = sy;
+        self.labButton.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
+        self.labButton.alpha = alphaSy;
         
-        self.indicator.alpha = sy;
+        self.indicator.alpha = alphaSy;
+        self.indicator.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
         
-        self.naviBar.y -= offsetY;
+        if (newOffset.y <= 0) { // naviBar消失之前或即将下拉出现
+            
+            if (self.naviBar.y - offsetY >= 0) { // 避免出现下拉瞬间超过0
+                self.naviBar.y = 0;
+            } else {
+                self.naviBar.y -= offsetY;
+            }
+            
+        // 更改状态栏状态
+        [self changeStatusBarStateWithOffsetY:newOffset.y];
+            
+        } else { // naviBar消失之后
+            // 保持 naviBar 位置不变
+            self.naviBar.y = - QDNaviBarMaxY;
+        }
         
     } else {
-   
+        // 更改状态栏状态
+        [self changeStatusBarStateWithOffsetY:-QDNaviBarMaxY];
         [self resetNaviBar];
     }
    
@@ -297,6 +326,29 @@
     self.labButton.alpha = 1.0;
     
     self.indicator.alpha = 1.0;
+    self.indicator.transform = CGAffineTransformIdentity;
+}
+
+#pragma mark - 更改状态栏状态
+- (void)changeStatusBarStateWithOffsetY: (CGFloat)offsetY {
+    // 更改状态栏状态
+    if (offsetY >= - QDStatusBarH) {
+        _statusBarHidden = YES;
+    } else if (offsetY <= -QDNaviBarMaxY) {
+        _statusBarHidden = NO;
+    }
+    // 刷新
+    [UIView animateWithDuration:0.25 animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return _statusBarHidden;
 }
 
 @end

@@ -398,8 +398,10 @@
     }
 }
 
-
-#pragma mark - UIGestureRecognizerDelegate
+#pragma mark - 处理状态栏
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.homeVc;
+}
 
 
 @end
