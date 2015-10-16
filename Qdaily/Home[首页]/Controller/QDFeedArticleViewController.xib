@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QDFeedArticleViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qI8-px-QAj" userLabel="toolBar">
+                    <rect key="frame" x="0.0" y="551" width="600" height="49"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EqU-Sv-prP" userLabel="back">
+                            <rect key="frame" x="8" y="19" width="12" height="22"/>
+                            <state key="normal" image="comment_toolbar_back_normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="back:" destination="-1" eventType="touchUpInside" id="w2q-ge-M3L"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.58879009049999997" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="4zv-AF-IRb"/>
+                    </constraints>
+                </view>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xms-F4-wzR">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="F15-QT-7Fw"/>
+                    </connections>
+                </webView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ql4-WK-RxE" userLabel="anim">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Xms-F4-wzR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7WT-lA-gbk"/>
+                <constraint firstItem="Xms-F4-wzR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Aut-HC-WeM"/>
+                <constraint firstAttribute="trailing" secondItem="Xms-F4-wzR" secondAttribute="trailing" id="J30-9v-A0T"/>
+                <constraint firstItem="qI8-px-QAj" firstAttribute="top" secondItem="ql4-WK-RxE" secondAttribute="bottom" id="Pkg-07-Nkk"/>
+                <constraint firstAttribute="trailing" secondItem="qI8-px-QAj" secondAttribute="trailing" id="SXw-Kd-Sye"/>
+                <constraint firstAttribute="bottom" secondItem="qI8-px-QAj" secondAttribute="bottom" id="WIo-Pi-8sU"/>
+                <constraint firstItem="qI8-px-QAj" firstAttribute="top" secondItem="Xms-F4-wzR" secondAttribute="bottom" id="WJ1-cO-pRv"/>
+                <constraint firstItem="ql4-WK-RxE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hK5-CB-gDL"/>
+                <constraint firstAttribute="trailing" secondItem="ql4-WK-RxE" secondAttribute="trailing" id="hM4-O6-gwe"/>
+                <constraint firstItem="ql4-WK-RxE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pwh-eS-Ine"/>
+                <constraint firstItem="qI8-px-QAj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zho-BX-lpO"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="comment_toolbar_back_normal" width="12" height="18"/>
+    </resources>
+</document>

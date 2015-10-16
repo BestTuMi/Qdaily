@@ -195,11 +195,8 @@
     self.indicator.layer.anchorPoint = CGPointMake(button.x == 0 ? 1.0 : 0, 0);
     
     // 更改指示器的位置
-    [UIView animateWithDuration:0.25 animations:^{
-//        self.indicator.centerX = button.centerX;
-        self.indicator.x = button.x + (button.width - self.indicator.width) * 0.5;
-    }];
-    
+    self.indicator.x = button.x + (button.width - self.indicator.width) * 0.5;
+
     // 记录当前选中按钮
     self.selectedButton = button;
     

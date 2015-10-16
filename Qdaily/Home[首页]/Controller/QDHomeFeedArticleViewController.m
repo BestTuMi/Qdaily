@@ -16,6 +16,7 @@
 #import <MJExtension.h>
 #import "QDFeedLayout.h"
 #import <MJRefresh.h>
+#import "QDFeedArticleViewController.h"
 
 @interface QDHomeFeedArticleViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
@@ -291,6 +292,12 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         offset.y = - QDNaviBarMaxY;
         [self.collectionView setContentOffset:offset animated:YES];
     }
+}
+
+#pragma mark - collectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
+    [self.navigationController pushViewController:feedArticleVc animated:YES];
 }
 
 @end
