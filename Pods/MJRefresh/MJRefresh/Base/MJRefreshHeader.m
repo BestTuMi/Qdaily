@@ -107,6 +107,9 @@
         [UIView animateWithDuration:MJRefreshSlowAnimationDuration animations:^{
             self.scrollView.mj_insetT -= self.mj_h;
             
+            // 设置滚动位置
+            self.scrollView.mj_offsetY = - self.scrollViewOriginalInset.top;
+            
             // 自动调整透明度
             if (self.isAutomaticallyChangeAlpha) self.alpha = 0.0;
         } completion:^(BOOL finished) {

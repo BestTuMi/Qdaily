@@ -17,6 +17,8 @@ UIKIT_EXTERN CGFloat const QDCommonSmallMargin;
 UIKIT_EXTERN CGFloat const QDPaperImageH;
 UIKIT_EXTERN CGFloat const QDPaperTextLeftMargin;
 
+UIKIT_EXTERN CGFloat const QDWebViewToolBarH;
+
 /** 通知相关 */
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedNotification;
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedKey;

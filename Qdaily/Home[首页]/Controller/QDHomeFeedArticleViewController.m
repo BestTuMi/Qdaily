@@ -17,10 +17,13 @@
 #import "QDFeedLayout.h"
 #import <MJRefresh.h>
 #import "QDFeedArticleViewController.h"
+#import "QDRefreshFooter.h"
+#import "QDCollectionView.h"
+#import "QDRefreshHeader.h"
 
 @interface QDHomeFeedArticleViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
-@property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, weak) QDCollectionView *collectionView;
 /** AFN 管理者 */
 @property (nonatomic, strong)  AFHTTPSessionManager *manager;
 /** Feeds 保存所有模型数据 */
@@ -64,6 +67,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self setupCollectionView];
     
     [self setupRefresh];
+    
 }
 
 #pragma mark - lazyload
@@ -90,18 +94,19 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - 设置刷新组件
 - (void)setupRefresh {
-    self.collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
+    self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
     self.collectionView.footer.automaticallyChangeAlpha = YES;
-
 }
 
 #pragma mark - setupFeeds
 - (void)setupFeeds {
     // 取消之前的请求
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
-    
+
     [self.manager GET:@"app/homes/index/0.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        QDLogVerbose(@"%@", responseObject);
+     
+        // 移除模型数组所有元素
+        [self.feeds removeAllObjects];
         
         // 保存属性上拉加载发送
         self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
@@ -123,6 +128,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
       
         // 刷新CollectionView
         [self.collectionView reloadData];
+        [self.collectionView.header endRefreshing];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
             self.collectionView.footer.hidden = YES;
@@ -132,7 +138,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [self.collectionView.header endRefreshing];
     }];
 }
 
@@ -145,7 +151,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     NSString *urlString = [NSString stringWithFormat:@"app/homes/index/%@.json?", self.last_time];
     
     [self.manager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        QDLogVerbose(@"%@", responseObject);
         
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
@@ -168,11 +173,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         } else {
             // 结束刷新
             [self.collectionView.footer endRefreshing];
+            [self.collectionView.header endRefreshing];
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         // 结束刷新
         [self.collectionView.footer endRefreshing];
+        [self.collectionView.header endRefreshing];
     }];
 }
 
@@ -183,7 +190,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 - (void)setupCollectionView {
 
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
+    QDCollectionView *collectionView = [[QDCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
     
     // 设置数据源和代理
     collectionView.dataSource = self;
@@ -192,6 +199,9 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 添加 collectionView
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
+    
+    // 添加刷新组件
+    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
     
     // 注册Cell
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedSmallCell class]) bundle:nil] forCellWithReuseIdentifier:smallIdentifier];
@@ -202,7 +212,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 设置内边距
     self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
     self.collectionView.backgroundColor = QDLightGrayColor;
-    
+
     // KVO 监听 contentOffset 的改变
     [self.collectionView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
@@ -297,6 +307,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 #pragma mark - collectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
+    feedArticleVc.feed = self.feeds[indexPath.item];
     [self.navigationController pushViewController:feedArticleVc animated:YES];
 }
 

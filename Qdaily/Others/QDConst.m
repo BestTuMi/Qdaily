@@ -17,6 +17,8 @@ CGFloat const QDCommonSmallMargin = 5;
 CGFloat const QDPaperImageH = 150;
 CGFloat const QDPaperTextLeftMargin = 15;
 
+CGFloat const QDWebViewToolBarH = 49;
+
 /** 通知相关 */
 NSString *const QDFeedCollectionViewOffsetChangedNotification = @"QDFeedCollectionViewOffsetChanged";
 NSString *const QDFeedCollectionViewOffsetChangedKey = @"QDFeedCollectionViewOffsetChangedKey";

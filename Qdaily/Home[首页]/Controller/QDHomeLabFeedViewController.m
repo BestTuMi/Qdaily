@@ -13,6 +13,7 @@
 #import <MJExtension.h>
 #import "QDFeedLayout.h"
 #import <MJRefresh.h>
+#import "QDFeedArticleViewController.h"
 
 @interface QDHomeLabFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
@@ -80,7 +81,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
     [self.manager GET:@"app/papers/index/0.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        QDLogVerbose(@"%@", responseObject);
         
         // 保存属性上拉加载发送
         self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
@@ -118,7 +118,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     NSString *urlString = [NSString stringWithFormat:@"app/papers/index/%@.json?", self.last_time];
     
     [self.manager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        QDLogVerbose(@"%@", responseObject);
         
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
@@ -212,6 +211,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
     cell.feed = feed;
     return cell;
+}
+
+#pragma mark - UICollectionView delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
+    feedArticleVc.feed = self.feeds[indexPath.item];
+    [self.navigationController pushViewController:feedArticleVc animated:YES];
 }
 
 #pragma mark - 处理松手时的状况

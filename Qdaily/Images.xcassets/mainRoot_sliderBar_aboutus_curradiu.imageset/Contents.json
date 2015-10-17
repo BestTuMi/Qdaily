@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "mainRoot_sliderBar_aboutus_curradiu.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "mainRoot_sliderBar_aboutus_curradiu.png"
     },
     {
       "idiom" : "universal",

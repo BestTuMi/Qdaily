@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class QDFeed;
 
 @interface QDFeedArticleViewController : UIViewController
-
+/** feed 模型 */
+@property (nonatomic, strong) QDFeed *feed;
 @end

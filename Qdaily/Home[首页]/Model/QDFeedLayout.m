@@ -165,22 +165,21 @@
                 
                 // 插入
                 [self.attrsArray insertObject:attrs atIndex:0];
-//                self.collectionView insertItemsAtIndexPaths:<#(NSArray *)#>
             }
         }
     }
-    
+     
     if (indexPath.item == 0) {
         itemY = 0;
     }
     
     attrs.frame = CGRectMake(itemX, itemY, itemW, itemH);
     
-    if ([self.attrsArray containsObject:attrs]) { // 前面插入过
-        return self.attrsArray.lastObject;
-    } else {
+//    if ([self.attrsArray containsObject:attrs]) { // 前面插入过
+//        return self.attrsArray.lastObject;
+//    } else {
         return attrs;
-    }
+//    }
 }
 
 
