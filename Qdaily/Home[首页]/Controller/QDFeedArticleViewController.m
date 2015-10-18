@@ -95,7 +95,7 @@
 - (void)startTrasition {
     self.transitionAnimView.animationImages = self.animationImages;
     self.transitionAnimView.animationRepeatCount = MAXFLOAT;
-    self.transitionAnimView.animationDuration = 93 / 25.0;
+    self.transitionAnimView.animationDuration = 93 / 30;
     [self.transitionAnimView startAnimating];
 }
 

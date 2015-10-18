@@ -14,10 +14,13 @@
 #import "QDFeedLayout.h"
 #import <MJRefresh.h>
 #import "QDFeedArticleViewController.h"
+#import "QDRefreshFooter.h"
+#import "QDRefreshHeader.h"
+#import "QDCollectionView.h"
 
 @interface QDHomeLabFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
-@property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, weak) QDCollectionView *collectionView;
 /** AFN 管理者 */
 @property (nonatomic, strong)  AFHTTPSessionManager *manager;
 /** Feeds 保存所有模型数据 */
@@ -73,6 +76,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)setupRefresh {
     self.collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
     self.collectionView.footer.automaticallyChangeAlpha = YES;
+    
+    // 添加刷新组件
+    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
+    self.collectionView.header.automaticallyChangeAlpha = YES;
 }
 
 #pragma mark - setupFeeds
@@ -81,7 +88,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
     [self.manager GET:@"app/papers/index/0.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        
+  
         // 保存属性上拉加载发送
         self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
@@ -96,6 +103,9 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         
         // 刷新CollectionView
         [self.collectionView reloadData];
+        
+        // 结束刷新
+        [self.collectionView.header endRefreshing];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
             self.collectionView.footer.hidden = YES;
@@ -154,7 +164,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 - (void)setupCollectionView {
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
+    QDCollectionView *collectionView = [[QDCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
     
     // 设置数据源和代理
     collectionView.dataSource = self;

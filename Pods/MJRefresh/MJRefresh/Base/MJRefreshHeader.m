@@ -106,7 +106,6 @@
         // 恢复inset和offset
         [UIView animateWithDuration:MJRefreshSlowAnimationDuration animations:^{
             self.scrollView.mj_insetT -= self.mj_h;
-            
             // 设置滚动位置
             self.scrollView.mj_offsetY = - self.scrollViewOriginalInset.top;
             

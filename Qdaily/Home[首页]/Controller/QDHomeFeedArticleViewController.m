@@ -96,6 +96,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)setupRefresh {
     self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
     self.collectionView.footer.automaticallyChangeAlpha = YES;
+    
+    // 添加刷新组件
+    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
+    self.collectionView.header.automaticallyChangeAlpha = YES;
 }
 
 #pragma mark - setupFeeds
@@ -104,7 +108,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
 
     [self.manager GET:@"app/homes/index/0.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-     
+
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
         
@@ -199,9 +203,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 添加 collectionView
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
-    
-    // 添加刷新组件
-    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
     
     // 注册Cell
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedSmallCell class]) bundle:nil] forCellWithReuseIdentifier:smallIdentifier];

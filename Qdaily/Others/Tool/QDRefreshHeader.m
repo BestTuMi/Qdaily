@@ -8,7 +8,7 @@
 
 #import "QDRefreshHeader.h"
 
-CGFloat const QDRefreshHeaderH = 104;
+CGFloat const QDRefreshHeaderH = 110;
 static inline double radians(double degrees) {
     return degrees / 180.0 * M_PI;
 }
@@ -105,8 +105,6 @@ static inline double radians(double degrees) {
 - (void)setPullingPercent:(CGFloat)pullingPercent
 {
     [super setPullingPercent:pullingPercent];
-    
-    QDLogVerbose(@"%f", self.scrollView.contentOffset.y);
     
     CGFloat sy = (QDRefreshHeaderH - self.refreshComp.height) * pullingPercent;
     self.refreshComp.y = CGRectGetMaxY(self.foregroundView.frame) - sy;
