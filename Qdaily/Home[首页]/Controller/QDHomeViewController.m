@@ -138,7 +138,6 @@
     [self.tabButtons addObject:labButton];
     self.labButton = labButton;
     
-    
     // 设置按钮的 Frame
     NSInteger count = self.childViewControllers.count;
     CGFloat buttonW = 1.0 * QDScreenW / count;

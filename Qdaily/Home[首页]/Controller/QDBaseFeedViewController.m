@@ -51,6 +51,14 @@ static NSString * const smallIdentifier = @"feedSmallCell";
 static NSString * const compactIdentifier = @"feedCompactCell";
 static NSString * const paperIdentifier = @"feedPaperCell";
 
+// 消除警告
+- (NSString *)requestUrl {return @"app/homes/index/";}
+
+// 请求地址
+- (NSString *)currentRequestUrl {
+    return [NSString stringWithFormat:@"%@%@.json?", self.requestUrl, self.last_time == nil ? @"0" : self.last_time];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -107,7 +115,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 取消之前的请求
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
-    [self.manager GET:@"app/homes/index/0.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
@@ -118,8 +126,12 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         
         // 轮播图
         self.banners = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"banners"][@"list"]];
+        
         // 将轮播图以数组形式添加到 collectionView 数据源,目的是方便计算布局
-        [self.feeds addObject:self.banners];
+        // 注意:子类肯能没有轮播图
+        if (self.banners.count) {
+            [self.feeds addObject:self.banners];
+        }
         
         // 新闻
         NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
@@ -152,9 +164,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 取消之前的请求
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
-    NSString *urlString = [NSString stringWithFormat:@"app/homes/index/%@.json?", self.last_time];
-    
-    [self.manager GET:urlString parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
@@ -254,16 +264,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // 获取模型
-    QDFeed *feed = nil;
-    NSArray *banners;
-    if (indexPath.item == 0) {
-        banners = self.banners;
-    } else {
-        feed = self.feeds[indexPath.item];
-    }
     
-    if (indexPath.item == 0) { // 轮播图
+    // 获取模型
+    QDFeed *feed = self.feeds[indexPath.item];
+    
+    NSArray *banners;
+    if (indexPath.item == 0 && [feed isKindOfClass:[NSArray class]]) { // 轮播图
+        banners = self.banners;
         QDFeedBannerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:bannerIdentifier forIndexPath:indexPath];
         cell.banners = banners;
         return cell;

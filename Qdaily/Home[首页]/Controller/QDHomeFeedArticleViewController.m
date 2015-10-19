@@ -15,5 +15,8 @@
 
 @implementation QDHomeFeedArticleViewController
 
+- (NSString *)requestUrl {
+    return @"app/homes/index/";
+}
 
 @end
