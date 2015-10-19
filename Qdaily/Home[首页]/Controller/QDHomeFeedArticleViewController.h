@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QDBaseFeedViewController.h"
 
-@interface QDHomeFeedArticleViewController : UIViewController
+@interface QDHomeFeedArticleViewController : QDBaseFeedViewController
 
 @end

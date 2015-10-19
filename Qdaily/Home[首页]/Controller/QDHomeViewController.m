@@ -11,7 +11,7 @@
 #import "QDHomeLabFeedViewController.h"
 #import "QDScrollView.h"
 
-@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, QDHomeFeedArticleViewCollectionViewDelegate, QDHomeLabFeedViewCollectionViewDelegate>
+@interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 /** ScrollView */
 @property (nonatomic, weak) QDScrollView *scrollView;
 /** 自定义的NaviBar */
@@ -60,7 +60,6 @@
 - (QDHomeFeedArticleViewController *)homeFeedVc {
     if (!_homeFeedVc) {
         _homeFeedVc = [[QDHomeFeedArticleViewController alloc] init];
-        _homeFeedVc.delegate = self;
     }
     return _homeFeedVc;
 }
@@ -68,7 +67,6 @@
 - (QDHomeLabFeedViewController *)labFeedVc {
     if (!_labFeedVc) {
         _labFeedVc = [[QDHomeLabFeedViewController alloc] init];
-        _labFeedVc.delegate = self;
     }
     return _labFeedVc;
 }
