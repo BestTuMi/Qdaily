@@ -115,7 +115,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [self.collectionView.header endRefreshing];
     }];
 }
 

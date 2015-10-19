@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol QDHomeLabFeedViewCollectionViewDelegate <NSObject>
-
-@optional
-- (void)homeLabFeedViewCollectionView: (UICollectionView *)collectionView offsetChannged: (NSDictionary *)change;
-
-@end
-
 @interface QDHomeLabFeedViewController : UIViewController
-/** 代理 */
-@property (nonatomic, weak)  id<QDHomeLabFeedViewCollectionViewDelegate> delegate;
+
 @end
