@@ -20,7 +20,6 @@
 - (void)setupGestureV {
     // 添加手势拦截层
     // 通过 addsubView 提到最前
-
     UIView *placeholderV = [[UIView alloc] init];
     placeholderV.frame = CGRectMake(0, 0, self.width, self.height);
     

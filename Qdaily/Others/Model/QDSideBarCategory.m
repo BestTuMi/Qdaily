@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 c344081. All rights reserved.
 //
 
-#import "QDSideMenuCategory.h"
+#import "QDSideBarCategory.h"
 #import "QDCategoryFeedViewController.h"
 
-@implementation QDSideMenuCategory
+@implementation QDSideBarCategory
 
 - (Class)destVcClass {
     // 默认目标控制器为信息流控制器

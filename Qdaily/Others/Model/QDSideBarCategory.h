@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QDSideMenuCategory : NSObject
+@interface QDSideBarCategory : NSObject
 /** 目录的 ID 号 */
 @property (nonatomic, copy) NSString *ID;
 /** 目录标题 */

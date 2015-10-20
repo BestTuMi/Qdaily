@@ -28,4 +28,5 @@
  *  @param alpha 透明程度
  */
 - (void)addBlurViewWithAlpha: (CGFloat)alpha;
+- (void)addBlurViewWithFrame: (CGRect)frame;
 @end

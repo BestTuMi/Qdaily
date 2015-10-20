@@ -10,7 +10,6 @@
 
 @interface QDHomeFeedArticleViewController ()
 
-
 @end
 
 @implementation QDHomeFeedArticleViewController

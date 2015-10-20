@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class QDSideMenuCategory;
+@class QDSideBarCategory;
 
-@interface QDSideMenuCell : UITableViewCell
+@interface QDSideBarCell : UITableViewCell
 /** 目录模型 */
-@property (nonatomic, strong)  QDSideMenuCategory *category;
+@property (nonatomic, strong)  QDSideBarCategory *category;
 @end

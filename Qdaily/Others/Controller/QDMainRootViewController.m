@@ -17,25 +17,27 @@
 #import "QDFavouriteViewController.h"
 #import "QDCategoryFeedViewController.h"
 
-#import "QDSideMenuCategory.h"
-#import "QDSideMenuCell.h"
+#import "QDSideBarCategory.h"
+#import "QDSideBarCell.h"
+#import "QDSideBarFooterView.h"
+#import "QDSideBarHeaderView.h"
 
 // 第三方框架
 #import <AFNetworking.h>
 #import <MJRefresh.h>
 #import <MJExtension.h>
 
-#define SideMenuKeyPath @"frame"
+#define SideBarKeyPath @"frame"
 
 @interface QDMainRootViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate>
 /** 侧边菜单视图 */
-@property (nonatomic, weak)  UIView *sideMenuView;
+@property (nonatomic, weak)  UIView *sideBar;
 /** 中间主视图 */
 @property (nonatomic, weak) UIView *mainView;
 /** 侧边菜单按钮 */
-@property (nonatomic, weak)  UIButton *sideMenuButton;
+@property (nonatomic, weak)  UIButton *sideBarButton;
 /** 菜单是否在屏幕上 */
-@property (nonatomic, assign) BOOL isMenuVisibele;
+@property (nonatomic, assign) BOOL isSideBarVisibele;
 /** 当前添加到主视图上的 控制器 */
 @property (nonatomic, weak) UIViewController *mainViewChildVc;
 /** 主页控制器 */
@@ -51,7 +53,7 @@
 /** 目录模型数组 */
 @property (nonatomic, strong)  NSMutableArray *categories;
 /** 侧边的 tableView */
-@property (nonatomic, weak) UITableView *sideMenuTableView;
+@property (nonatomic, weak) UITableView *sideBarTableView;
 /** AFN 管理者 */
 @property (nonatomic, strong)  AFHTTPSessionManager *manager;
 @end
@@ -62,14 +64,14 @@
     [super viewDidLoad];
     [self setupNavi];
     [self setupMainView];
-    [self setupsideMenuView];
+    [self setupsideBar];
     // 侧边按钮如果跟菜单在同一 View 会影响边缘手势范围.因此独立出来
-    [self setupSideMenuButton];
+    [self setupSideBarButton];
 }
 
 - (void)dealloc {
     // 移除监听
-    [self.sideMenuView removeObserver:self forKeyPath:SideMenuKeyPath];
+    [self.sideBar removeObserver:self forKeyPath:SideBarKeyPath];
 }
 
 #pragma mark - lazyload
@@ -147,75 +149,80 @@
 }
 
 #pragma mark - 设置左侧菜单视图
-- (void)setupsideMenuView {
-    UIView *sideMenuView = [[UIView alloc] init];
+- (void)setupsideBar {
+    UIView *sideBar = [[UIView alloc] init];
     
     // 宽度为屏幕宽的80%
-    CGFloat sideMenuViewW = QDScreenW * 0.8;
-    CGFloat sideMenuViewX = - sideMenuViewW;
-    sideMenuView.frame = CGRectMake(sideMenuViewX, 0, sideMenuViewW, QDScreenH);
+    CGFloat sideBarViewW = QDScreenW * 0.8;
+    CGFloat sideBarViewX = - sideBarViewW;
+    sideBar.frame = CGRectMake(sideBarViewX, 0, sideBarViewW, QDScreenH);
     
     // 背景现设为透明,方便透出背景
-    sideMenuView.backgroundColor = [UIColor clearColor];
+    sideBar.backgroundColor = [UIColor clearColor];
     
     // 添加模糊特效层
-    [sideMenuView addBlurViewWithAlpha:0.8];
+    [sideBar addBlurViewWithAlpha:0.8];
     
     // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
-    [sideMenuView addObserver:self forKeyPath:SideMenuKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [sideBar addObserver:self forKeyPath:SideBarKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     // 添加滑动手势
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    [sideMenuView addGestureRecognizer:panGesture];
+    [sideBar addGestureRecognizer:panGesture];
     
-    [self.view addSubview:sideMenuView];
+    [self.view addSubview:sideBar];
 
-    _sideMenuView = sideMenuView;
+    _sideBar = sideBar;
     
     // 设置tableView(添加为 子控件)
-    [self setupSideMenuTableView];
+    [self setupSideBarTableView];
 }
 
 #pragma mark - 设置 tableView
-- (void)setupSideMenuTableView {
-    UITableView *sideMenuTableView = [[UITableView alloc] initWithFrame:_sideMenuView.bounds style:UITableViewStylePlain];
-    [self.sideMenuView addSubview:sideMenuTableView];
-    self.sideMenuTableView = sideMenuTableView;
+- (void)setupSideBarTableView {
+    UITableView *sideBarTableView = [[UITableView alloc] initWithFrame:_sideBar.bounds style:UITableViewStylePlain];
+    [self.sideBar addSubview:sideBarTableView];
+    self.sideBarTableView = sideBarTableView;
     
     // 设置相关属性
-    sideMenuTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    sideMenuTableView.showsHorizontalScrollIndicator = NO;
-    sideMenuTableView.showsVerticalScrollIndicator = NO;
-    sideMenuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    sideMenuTableView.rowHeight = 55;
+    sideBarTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    sideBarTableView.showsHorizontalScrollIndicator = NO;
+    sideBarTableView.showsVerticalScrollIndicator = NO;
+    sideBarTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    sideBarTableView.rowHeight = 55;
     
     // 背景色透明
-    sideMenuTableView.backgroundColor = [UIColor clearColor];
+    sideBarTableView.backgroundColor = [UIColor clearColor];
+    
+    // 添加 Footer
+    QDSideBarFooterView *footer = [QDSideBarFooterView viewWithXib];
+    self.sideBarTableView.tableFooterView.height = footer.height;
+    self.sideBarTableView.tableFooterView = footer;
     
     // tableView 的代理和数据源
-    sideMenuTableView.dataSource = self;
-    sideMenuTableView.delegate = self;
+    sideBarTableView.dataSource = self;
+    sideBarTableView.delegate = self;
     // 设置数据源
     [self setupCategories];
     
     // 默认选中首页(懒加载首页视图)
-    [self tableView:self.sideMenuTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    [self tableView:self.sideBarTableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 #pragma mark - 侧边菜单按钮
-- (void)setupSideMenuButton {
-    UIButton *sideMenuButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+- (void)setupSideBarButton {
+    UIButton *sideBarButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
     
-    sideMenuButton.x = 15;
-    sideMenuButton.width = 37;
-    sideMenuButton.height = 37;
-    sideMenuButton.y = QDScreenH - 15 - sideMenuButton.height;
+    sideBarButton.x = 15;
+    sideBarButton.width = 37;
+    sideBarButton.height = 37;
+    sideBarButton.y = QDScreenH - 15 - sideBarButton.height;
     
     // 添加点击事件
-    [sideMenuButton addTarget:self action:@selector(showSideMenu) forControlEvents:UIControlEventTouchUpInside];
+    [sideBarButton addTarget:self action:@selector(sideBarButttonClick) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:sideMenuButton];
-    _sideMenuButton = sideMenuButton;
+    [self.view addSubview:sideBarButton];
+    _sideBarButton = sideBarButton;
 }
 
 #pragma mark - 添加主视图上的子控制器
@@ -232,13 +239,28 @@
     CGFloat old = [change[NSKeyValueChangeOldKey] CGRectValue].origin.x;
     CGFloat offsetX = new - old;
 
-    self.sideMenuButton.x += offsetX;
+    self.sideBarButton.x += offsetX;
 }
 
 #pragma mark - 显示隐藏左侧菜单
-- (void)showSideMenu {
-    _isMenuVisibele = !_isMenuVisibele;
-    self.sideMenuView.x = _isMenuVisibele ? 0 : - self.sideMenuView.width;
+- (void)sideBarButttonClick {
+    if (self.sideBar.x == 0) {
+        [self hideSideBar];
+    } else {
+        [self showSideBar];
+    }
+}
+
+- (void)showSideBar {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.sideBar.x = 0;
+    }];
+}
+
+- (void)hideSideBar {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.sideBar.x = - self.sideBar.width;
+    }];
 }
 
 #pragma mark - 滑动显示左侧菜单
@@ -248,7 +270,7 @@
     CGFloat offsetX = offsetP.x;
     
     // 改变菜单 frame
-    _sideMenuView.x += offsetX;
+    _sideBar.x += offsetX;
     
     // TODO: 增加蒙版
     
@@ -256,7 +278,7 @@
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
     
     // 改变菜单的 frame
-    [self sideMenuFrameWithOffsetX:offsetX panGetsture:panGesture];
+    [self sideBarFrameWithOffsetX:offsetX panGetsture:panGesture];
     
 }
 
@@ -268,12 +290,12 @@
  *  @param panGetsture 使用的手势,包括平移和边缘平移滑动
  *
  */
-- (void)sideMenuFrameWithOffsetX: (CGFloat)offsetX panGetsture: (UIPanGestureRecognizer *)panGetsture {
-    CGFloat sideMenuMaxX = CGRectGetMaxX(_sideMenuView.frame);
-    if (sideMenuMaxX >= _sideMenuView.width) { // 左边达到边缘后不再改变 Frame
-        _sideMenuView.x = 0;
-    } else if (sideMenuMaxX <= 0) { // 右侧到达边缘后,也不再改变 frame
-        _sideMenuView.x = - _sideMenuView.width;
+- (void)sideBarFrameWithOffsetX: (CGFloat)offsetX panGetsture: (UIPanGestureRecognizer *)panGetsture {
+    CGFloat sideBarMaxX = CGRectGetMaxX(_sideBar.frame);
+    if (sideBarMaxX >= _sideBar.width) { // 左边达到边缘后不再改变 Frame
+        _sideBar.x = 0;
+    } else if (sideBarMaxX <= 0) { // 右侧到达边缘后,也不再改变 frame
+        _sideBar.x = - _sideBar.width;
     }
     
 #warning 未完成
@@ -282,20 +304,20 @@
         // 根据手势停止时速度向量判断手势方向
         CGFloat velocityX = [panGetsture velocityInView:panGetsture.view].x;
         
-        if (sideMenuMaxX >= 44 && velocityX > 0) { // 向右滑动达到一定距离
+        if (sideBarMaxX >= 44 && velocityX > 0) { // 向右滑动达到一定距离
             // 显示完整菜单
             [UIView animateWithDuration:0.25 animations:^{
-                _sideMenuView.x = 0;
+                _sideBar.x = 0;
             }];
-        } else if (sideMenuMaxX >= (_sideMenuView.width - 44) && velocityX < 0) { // 向左滑动距离不足
+        } else if (sideBarMaxX >= (_sideBar.width - 44) && velocityX < 0) { // 向左滑动距离不足
             // 显示完整菜单
             [UIView animateWithDuration:0.25 animations:^{
-                _sideMenuView.x = 0;
+                _sideBar.x = 0;
             }];
         } else {
             // 隐藏菜单
             [UIView animateWithDuration:0.25 animations:^{
-                _sideMenuView.x = - _sideMenuView.width;
+                _sideBar.x = - _sideBar.width;
             }];
         }
     }
@@ -304,25 +326,25 @@
 #pragma mark - tableview数据源
 
 - (void)setupCategories {
-    QDSideMenuCategory *categoryHome = [[QDSideMenuCategory alloc] init];
+    QDSideBarCategory *categoryHome = [[QDSideBarCategory alloc] init];
     categoryHome.title = @"首页";
     categoryHome.image = @"slidebar_cell_home_normal";
     categoryHome.image_highlighted = @"slidebar_cell_home_highlighted";
     categoryHome.destVcClass = [QDHomeViewController class];
     
-    QDSideMenuCategory *categoryLab = [[QDSideMenuCategory alloc] init];
+    QDSideBarCategory *categoryLab = [[QDSideBarCategory alloc] init];
     categoryLab.title = @"好奇心实验室";
     categoryLab.image = @"slidebar_cell_lab_normal";
     categoryLab.image_highlighted = @"slidebar_cell_lab_highlighted";
     categoryLab.destVcClass = [QDHomeViewController class];
     
-    QDSideMenuCategory *categoryFavourite = [[QDSideMenuCategory alloc] init];
+    QDSideBarCategory *categoryFavourite = [[QDSideBarCategory alloc] init];
     categoryFavourite.title = @"收藏";
     categoryFavourite.image = @"slidebar_cell_fav_normal";
     categoryFavourite.image_highlighted = @"slidebar_cell_fav_highlighted";
     categoryFavourite.destVcClass = [QDFavouriteViewController class];
     
-    QDSideMenuCategory *categoryMsg = [[QDSideMenuCategory alloc] init];
+    QDSideBarCategory *categoryMsg = [[QDSideBarCategory alloc] init];
     categoryMsg.title = @"消息";
     categoryMsg.image = @"slidebar_cell_notify_normal";
     categoryMsg.image_highlighted = @"slidebar_cell_notify_highlighted";
@@ -333,13 +355,13 @@
     // 剩下的从网络抓取
     [self.manager GET:@"app/homes/left_sidebar.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         // 字典转模型
-        NSArray *categories = [QDSideMenuCategory objectArrayWithKeyValuesArray:responseObject[@"response"]];
+        NSArray *categories = [QDSideBarCategory objectArrayWithKeyValuesArray:responseObject[@"response"]];
         [self.categories addObjectsFromArray:categories];
         // 刷新表格
-        [self.sideMenuTableView reloadData];
+        [self.sideBarTableView reloadData];
         
         // 更改默认选中菜单的状态
-        [self.sideMenuTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        [self.sideBarTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
@@ -357,14 +379,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *const identifier = @"sideMenuCell";
-    QDSideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString *const identifier = @"sideBarCell";
+    QDSideBarCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell  = [[QDSideMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell  = [[QDSideBarCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
     // 取模型
-    QDSideMenuCategory *category = self.categories[indexPath.row];
+    QDSideBarCategory *category = self.categories[indexPath.row];
     cell.category = category;
     
     return cell;
@@ -373,11 +395,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 隐藏菜单
     [UIView animateWithDuration:0.25 animations:^{
-        self.sideMenuView.x = - self.sideMenuView.width;
+        self.sideBar.x = - self.sideBar.width;
     }];
     
     // 取出模型
-    QDSideMenuCategory *category = self.categories[indexPath.row];
+    QDSideBarCategory *category = self.categories[indexPath.row];
     
     // 移除之前的视图
     [self.mainViewChildVc.view removeFromSuperview];

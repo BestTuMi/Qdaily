@@ -7,6 +7,7 @@
 //
 
 #import "QDNavigationController.h"
+#import "QDNavigationBar.h"
 
 @interface QDNavigationController ()
 
@@ -16,7 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // 替换原有的导航条
+    QDNavigationBar *naviBar = [[QDNavigationBar alloc] init];
+    [self setValue:naviBar forKeyPath:@"navigationBar"];
 }
 
 - (void)didReceiveMemoryWarning {

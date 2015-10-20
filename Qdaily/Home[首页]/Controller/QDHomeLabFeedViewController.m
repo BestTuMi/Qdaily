@@ -14,8 +14,6 @@
 
 @implementation QDHomeLabFeedViewController
 
-static NSString * const paperIdentifier = @"feedPaperCell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 }

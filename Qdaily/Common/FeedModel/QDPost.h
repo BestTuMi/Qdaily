@@ -59,4 +59,5 @@ typedef NS_ENUM(NSUInteger, QDPageStyle){
 @property (nonatomic, copy)  NSString *appview;
 /** 图片地址 */
 @property (nonatomic, copy)  NSString *image;
+
 @end

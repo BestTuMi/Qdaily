@@ -7,20 +7,20 @@
 //  Copyright (c) 2015年 c344081. All rights reserved.
 //
 
-#import "QDSideMenuCell.h"
-#import "QDSideMenuCategory.h"
+#import "QDSideBarCell.h"
+#import "QDSideBarCategory.h"
 #import <UIImageView+WebCache.h>
 #import <UIImageView+HighlightedWebCache.h>
 #import "QDCategoryFeedViewController.h"
 
-@interface QDSideMenuCell ()
+@interface QDSideBarCell ()
 /** 图标控件 */
 @property (nonatomic, weak)  UIImageView *image_view;
 /** 标签控件 */
 @property (nonatomic, weak) UILabel *text_Label;
 @end
 
-@implementation QDSideMenuCell
+@implementation QDSideBarCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -65,7 +65,7 @@
     _image_view.centerY = _text_Label.centerY;
 }
 
-- (void)setCategory:(QDSideMenuCategory *)category {
+- (void)setCategory:(QDSideBarCategory *)category {
     _category = category;
     _text_Label.text = category.title;
     [_text_Label sizeToFit];

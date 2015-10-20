@@ -115,10 +115,15 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 取消之前的请求
     [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
+    // 重置lasttime,返回新数据
+    self.last_time = nil;
+    
     [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
+        [self.news removeAllObjects];
+        self.banners = nil;
         
         // 保存属性上拉加载发送
         self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
@@ -137,7 +142,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
         [self.news addObjectsFromArray:news];
         // 添加到 collectionView 数据源
-        [self.feeds addObjectsFromArray:self.news];
+        [self.feeds addObjectsFromArray:news];
         
         // 将模型传递给 Layout 对象进行布局设置
         self.flowLayout.feeds = self.feeds;

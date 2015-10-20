@@ -88,4 +88,21 @@
     [self addSubview:toolBar];
 }
 
+- (void)addBlurViewWithFrame: (CGRect)frame {
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:frame];
+    toolBar.barStyle = UIBarStyleBlack;
+    
+    // 黑色遮罩
+    UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
+    maskView.backgroundColor = [UIColor blackColor];
+    maskView.alpha = 0.3;
+    [toolBar addSubview:maskView];
+    
+    // 添加为子控件
+    [self insertSubview:toolBar atIndex:0];
+}
+
+
+
+
 @end

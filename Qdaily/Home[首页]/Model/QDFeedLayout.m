@@ -12,6 +12,8 @@
 @interface QDFeedLayout ()
 /** layoutAttributes */
 @property (nonatomic, strong) NSMutableArray *attrsArray;
+/** 需要调整的index */
+@property (nonatomic, strong) NSMutableDictionary *indexsNeedAdjust;
 @end
 
 @implementation QDFeedLayout
@@ -22,6 +24,13 @@
         _attrsArray = [NSMutableArray array];
     }
     return _attrsArray;
+}
+
+- (NSMutableDictionary *)indexsNeedAdjust {
+    if (!_indexsNeedAdjust) {
+        _indexsNeedAdjust = [NSMutableDictionary dictionary];
+    }
+    return _indexsNeedAdjust;
 }
 
 #pragma mark -
@@ -43,6 +52,7 @@
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+
     return self.attrsArray;
 }
 
@@ -56,7 +66,7 @@
 }
 
 /*!
- *  @brief  返回每一个 cell 的布局
+ *  @brief  返回每一个 cell 的布局,有未知 Bug
  *
  *  @param indexPath  indexPath
  *
@@ -138,33 +148,12 @@
                 
                 itemY = lastAttrs.frame.origin.y + feedMargin;
                 
-                /******
-                // 获取应该在的行,下移此行所有 cell
-                // 遍历此行前面的 attrs
-                
-                //                    NSInteger index = 0;
-                //                    // 计算行首 index
-                //                    NSInteger firstIndexOfRow = row * numberOfItemsPerRow;
-                
-                //                    for (index = firstIndexOfRow; index < i ; index++) {
-                //                        UICollectionViewLayoutAttributes *currentAttrs = self.attrsArray[index];
-                //                        CGRect F = currentAttrs.frame;
-                //                        itemY = F.origin.y + feedMargin;
-                //
-                //                        F.origin.y  = itemY + itemH + feedMargin;
-                //                        currentAttrs.frame = F;
-                //                    }
-                //                    // 对模型也进行调整,将大 Cell 的模型放到行首位置
-                //                    if (![self.attrsArray containsObject:attrs]) {
-                //                        [self.attrsArray insertObject:attrs atIndex:firstIndexOfRow];
-                //                    }
-                 *********/
                 CGRect F = lastAttrs.frame;
                 F.origin.y = itemY + itemH + feedMargin;
                 lastAttrs.frame = F;
                 
                 // 插入
-                [self.attrsArray insertObject:attrs atIndex:0];
+                [self.attrsArray insertObject:attrs atIndex:indexPath.item - 1];
             }
         }
     }
@@ -174,13 +163,13 @@
     }
     
     attrs.frame = CGRectMake(itemX, itemY, itemW, itemH);
-    
-//    if ([self.attrsArray containsObject:attrs]) { // 前面插入过
-//        return self.attrsArray.lastObject;
-//    } else {
-        return attrs;
-//    }
-}
 
+    
+    if ([self.attrsArray containsObject:attrs]) { // 前面插入过
+        return self.attrsArray.lastObject;
+    } else {
+        return attrs;
+    }
+}
 
 @end

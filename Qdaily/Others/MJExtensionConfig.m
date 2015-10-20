@@ -8,14 +8,15 @@
 
 #import "MJExtensionConfig.h"
 #import <MJExtension.h>
-#import "QDSideMenuCategory.h"
+#import "QDSideBarCategory.h"
 #import "QDCategory.h"
 #import "QDPost.h"
+#import "QDAuthor.h"
 
 @implementation MJExtensionConfig
 
 + (void)load {
-    [QDSideMenuCategory setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDSideBarCategory setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
     
@@ -27,6 +28,12 @@
         return @{
                  @"ID" : @"id",
                  @"detail" : @"description"
+                 };
+    }];
+    
+    [QDAuthor setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{
+                 @"userID" : @"id"
                  };
     }];
 }
