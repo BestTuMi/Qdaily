@@ -53,8 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = 110;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self setupTableView];
     
     [self setupNavi];
     
@@ -74,6 +73,14 @@
         _results = [NSMutableArray array];
     }
     return _results;
+}
+
+#pragma mark - 设置表格
+- (void)setupTableView {
+    self.tableView.rowHeight = 110;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+
 }
 
 #pragma mark - 设置导航栏

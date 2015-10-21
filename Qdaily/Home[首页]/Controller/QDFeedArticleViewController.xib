@@ -54,9 +54,17 @@
                         <constraint firstAttribute="height" constant="100" id="aqM-GQ-rzZ"/>
                     </constraints>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-eI-Vxy">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="mtK-p0-NBy"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="kTm-eI-Vxy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="94g-9p-hft"/>
                 <constraint firstAttribute="centerY" secondItem="ql4-WK-RxE" secondAttribute="centerY" id="DVL-dh-432"/>
                 <constraint firstItem="Xms-F4-wzR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JiQ-Z7-npU"/>
                 <constraint firstItem="qI8-px-QAj" firstAttribute="top" secondItem="ql4-WK-RxE" secondAttribute="bottom" id="Pkg-07-Nkk"/>
@@ -66,9 +74,11 @@
                 <constraint firstAttribute="centerX" secondItem="ql4-WK-RxE" secondAttribute="centerX" id="bcb-tM-vP6"/>
                 <constraint firstItem="ql4-WK-RxE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hK5-CB-gDL"/>
                 <constraint firstAttribute="trailing" secondItem="ql4-WK-RxE" secondAttribute="trailing" id="hM4-O6-gwe"/>
+                <constraint firstItem="kTm-eI-Vxy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ipn-Bs-NR2"/>
                 <constraint firstItem="ql4-WK-RxE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pwh-eS-Ine"/>
                 <constraint firstAttribute="bottom" secondItem="Xms-F4-wzR" secondAttribute="bottom" id="tOA-AM-yqe"/>
                 <constraint firstItem="Xms-F4-wzR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="x8V-Is-7rF"/>
+                <constraint firstAttribute="trailing" secondItem="kTm-eI-Vxy" secondAttribute="trailing" id="yxn-ge-PuN"/>
                 <constraint firstItem="qI8-px-QAj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zho-BX-lpO"/>
             </constraints>
             <variation key="default">

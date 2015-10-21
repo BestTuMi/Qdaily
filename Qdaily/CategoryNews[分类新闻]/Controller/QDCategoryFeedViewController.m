@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = QDLightGrayColor;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

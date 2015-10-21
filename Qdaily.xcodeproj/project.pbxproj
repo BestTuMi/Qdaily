@@ -155,6 +155,12 @@
 		8B5EB40B1BD094B60078D13A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5EB4081BD094B60078D13A /* MBProgressHUD.m */; };
 		8B6699AA1BC3ED9900E2BD2B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6699A81BC3ED9900E2BD2B /* LaunchScreen.xib */; };
 		8B6699B61BC3ED9900E2BD2B /* QdailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */; };
+		8B8DF3E61BD73C1B00C5413A /* QDCustomNaviBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3E51BD73C1B00C5413A /* QDCustomNaviBar.m */; };
+		8B8DF3E91BD76E4D00C5413A /* QDCommentOnMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3E81BD76E4D00C5413A /* QDCommentOnMyViewController.m */; };
+		8B8DF3EC1BD76E6100C5413A /* QDNotificationLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3EB1BD76E6100C5413A /* QDNotificationLikeViewController.m */; };
+		8B8DF3EF1BD76E7A00C5413A /* QDNotificationMyLabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3EE1BD76E7A00C5413A /* QDNotificationMyLabViewController.m */; };
+		8B8DF3F21BD795F300C5413A /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */; };
+		8B8DF3F41BD79BEA00C5413A /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8DF3F31BD79BEA00C5413A /* Reveal.framework */; };
 		8B92F6A61BD0A4F600C4A870 /* QDBaseFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B92F6A51BD0A4F600C4A870 /* QDBaseFeedViewController.m */; };
 		8B92F6A91BD0D32100C4A870 /* QDWebViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */; };
 		8BC57EB61BD160BC00D7E883 /* QDRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC57EB51BD160BC00D7E883 /* QDRefreshFooter.m */; };
@@ -422,6 +428,17 @@
 		8B6699AF1BC3ED9900E2BD2B /* QdailyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QdailyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6699B41BC3ED9900E2BD2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B6699B51BC3ED9900E2BD2B /* QdailyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QdailyTests.m; sourceTree = "<group>"; };
+		8B8DF3E41BD73C1B00C5413A /* QDCustomNaviBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCustomNaviBar.h; sourceTree = "<group>"; };
+		8B8DF3E51BD73C1B00C5413A /* QDCustomNaviBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCustomNaviBar.m; sourceTree = "<group>"; };
+		8B8DF3E71BD76E4D00C5413A /* QDCommentOnMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommentOnMyViewController.h; sourceTree = "<group>"; };
+		8B8DF3E81BD76E4D00C5413A /* QDCommentOnMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCommentOnMyViewController.m; sourceTree = "<group>"; };
+		8B8DF3EA1BD76E6100C5413A /* QDNotificationLikeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNotificationLikeViewController.h; sourceTree = "<group>"; };
+		8B8DF3EB1BD76E6100C5413A /* QDNotificationLikeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNotificationLikeViewController.m; sourceTree = "<group>"; };
+		8B8DF3ED1BD76E7A00C5413A /* QDNotificationMyLabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNotificationMyLabViewController.h; sourceTree = "<group>"; };
+		8B8DF3EE1BD76E7A00C5413A /* QDNotificationMyLabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNotificationMyLabViewController.m; sourceTree = "<group>"; };
+		8B8DF3F01BD795F300C5413A /* UIButton+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extension.h"; sourceTree = "<group>"; };
+		8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extension.m"; sourceTree = "<group>"; };
+		8B8DF3F31BD79BEA00C5413A /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		8B92F6A41BD0A4F600C4A870 /* QDBaseFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDBaseFeedViewController.h; sourceTree = "<group>"; };
 		8B92F6A51BD0A4F600C4A870 /* QDBaseFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDBaseFeedViewController.m; sourceTree = "<group>"; };
 		8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDWebViewFooter.h; sourceTree = "<group>"; };
@@ -492,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02E5C7F2857120930112B889 /* libPods.a in Frameworks */,
+				8B8DF3F41BD79BEA00C5413A /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +528,7 @@
 			children = (
 				8B501F7C1BCC9DA8004AEC12 /* Masonry */,
 				8B5EB4031BD094B60078D13A /* MBProgressHUD */,
+				8B8DF3F31BD79BEA00C5413A /* Reveal.framework */,
 			);
 			path = Third;
 			sourceTree = "<group>";
@@ -649,6 +668,12 @@
 			children = (
 				8B5EB3001BD0878A0078D13A /* QDMessageViewController.h */,
 				8B5EB3011BD0878A0078D13A /* QDMessageViewController.m */,
+				8B8DF3E71BD76E4D00C5413A /* QDCommentOnMyViewController.h */,
+				8B8DF3E81BD76E4D00C5413A /* QDCommentOnMyViewController.m */,
+				8B8DF3EA1BD76E6100C5413A /* QDNotificationLikeViewController.h */,
+				8B8DF3EB1BD76E6100C5413A /* QDNotificationLikeViewController.m */,
+				8B8DF3ED1BD76E7A00C5413A /* QDNotificationMyLabViewController.h */,
+				8B8DF3EE1BD76E7A00C5413A /* QDNotificationMyLabViewController.m */,
 			);
 			path = "Message[消息]";
 			sourceTree = "<group>";
@@ -768,6 +793,8 @@
 				8B5EB33B1BD087C70078D13A /* QDSideBarHeaderView.m */,
 				8B422C7D1BD6346D00D4AC8A /* QDNavigationBar.h */,
 				8B422C7E1BD6346D00D4AC8A /* QDNavigationBar.m */,
+				8B8DF3E41BD73C1B00C5413A /* QDCustomNaviBar.h */,
+				8B8DF3E51BD73C1B00C5413A /* QDCustomNaviBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1022,6 +1049,8 @@
 			children = (
 				8BC735551BC421F30045226E /* UIBarButtonItem+Extension.h */,
 				8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */,
+				8B8DF3F01BD795F300C5413A /* UIButton+Extension.h */,
+				8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */,
 				8BC735571BC421F30045226E /* UIView+Extension.h */,
 				8BC735581BC421F30045226E /* UIView+Extension.m */,
 				8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */,
@@ -1339,6 +1368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B5EB3021BD0878A0078D13A /* QDMessageViewController.m in Sources */,
+				8B8DF3EC1BD76E6100C5413A /* QDNotificationLikeViewController.m in Sources */,
 				8B501FA01BCC9DA8004AEC12 /* View+MASAdditions.m in Sources */,
 				8B5EB2F61BD0877C0078D13A /* QDCarouselView.m in Sources */,
 				8BC7356C1BC421F30045226E /* main.m in Sources */,
@@ -1349,12 +1379,14 @@
 				8B5EB2F41BD0877C0078D13A /* QDHomeViewController.m in Sources */,
 				8B422C861BD6566B00D4AC8A /* QDSearchResultCell.m in Sources */,
 				8B501F981BCC9DA8004AEC12 /* MASCompositeConstraint.m in Sources */,
+				8B8DF3E91BD76E4D00C5413A /* QDCommentOnMyViewController.m in Sources */,
 				8B501F9A1BCC9DA8004AEC12 /* MASConstraintMaker.m in Sources */,
 				8B5EB2F51BD0877C0078D13A /* QDFeedLayout.m in Sources */,
 				8B5EB2F31BD0877C0078D13A /* QDHomeLabFeedViewController.m in Sources */,
 				8B92F6A91BD0D32100C4A870 /* QDWebViewFooter.m in Sources */,
 				8B5EB3301BD087AF0078D13A /* QDNavigationController.m in Sources */,
 				8B501FA11BCC9DA8004AEC12 /* ViewController+MASAdditions.m in Sources */,
+				8B8DF3EF1BD76E7A00C5413A /* QDNotificationMyLabViewController.m in Sources */,
 				8B5EB3251BD0879A0078D13A /* QDFeedSmallCell.m in Sources */,
 				8B92F6A61BD0A4F600C4A870 /* QDBaseFeedViewController.m in Sources */,
 				8B5EB3231BD0879A0078D13A /* QDFeedPaperCell.m in Sources */,
@@ -1374,6 +1406,7 @@
 				8B5EB4091BD094B60078D13A /* MBProgressHUD+Message.m in Sources */,
 				8B5EB40B1BD094B60078D13A /* MBProgressHUD.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
+				8B8DF3F21BD795F300C5413A /* UIButton+Extension.m in Sources */,
 				8B5EB3271BD0879A0078D13A /* QDCategory.m in Sources */,
 				8B422C821BD651B500D4AC8A /* QDAuthor.m in Sources */,
 				8B501F9C1BCC9DA8004AEC12 /* MASViewAttribute.m in Sources */,
@@ -1385,6 +1418,7 @@
 				8BC57F0E1BD17B5A00D7E883 /* QDRefreshHeader.m in Sources */,
 				8B5CBEE41BD2406700A6242F /* QDCollectionView.m in Sources */,
 				8B5EB3291BD0879A0078D13A /* QDPost.m in Sources */,
+				8B8DF3E61BD73C1B00C5413A /* QDCustomNaviBar.m in Sources */,
 				8BC735671BC421F30045226E /* QDConst.m in Sources */,
 				8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */,
 				8B501F9E1BCC9DA8004AEC12 /* NSArray+MASAdditions.m in Sources */,
@@ -1511,10 +1545,36 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Qdaily/Others/Third",
+				);
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-MJExtension\"",
+					"-l\"Pods-MJRefresh\"",
+					"-l\"Pods-SDWebImage\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1525,10 +1585,36 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Qdaily/Others/Third",
+				);
 				GCC_PREFIX_HEADER = Qdaily/Others/QDPrefixHeader.pch;
 				INFOPLIST_FILE = Qdaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-AFNetworking\"",
+					"-l\"Pods-MJExtension\"",
+					"-l\"Pods-MJRefresh\"",
+					"-l\"Pods-SDWebImage\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

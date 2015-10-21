@@ -120,6 +120,8 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     
     [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
+        QDLogVerbose(@"%@", responseObject);
+        
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
         [self.news removeAllObjects];

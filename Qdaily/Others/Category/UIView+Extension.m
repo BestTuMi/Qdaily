@@ -99,6 +99,9 @@
     [toolBar addSubview:maskView];
     
     // 添加为子控件
+    if ([self.subviews containsObject:toolBar]) {
+        return;
+    }
     [self insertSubview:toolBar atIndex:0];
 }
 

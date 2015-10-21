@@ -153,7 +153,7 @@
                 lastAttrs.frame = F;
                 
                 // 插入
-                [self.attrsArray insertObject:attrs atIndex:indexPath.item - 1];
+                [self.attrsArray insertObject:attrs atIndex:0];
             }
         }
     }

@@ -28,6 +28,7 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
+    self.webView.scrollView.contentInset = UIEdgeInsetsZero;
     
     [self setupWebView];
     

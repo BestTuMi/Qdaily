@@ -19,6 +19,9 @@ UIKIT_EXTERN CGFloat const QDPaperTextLeftMargin;
 
 UIKIT_EXTERN CGFloat const QDWebViewToolBarH;
 
+// 我的消息界面
+UIKIT_EXTERN CGFloat const QDToolBarH;
+
 /** 通知相关 */
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedNotification;
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedKey;
