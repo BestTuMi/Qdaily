@@ -76,13 +76,26 @@
  */
 - (void)addBlurViewWithAlpha: (CGFloat)alpha {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:self.bounds];
+    // 放大一些,并去掉 toolBar边缘多余的线
+    toolBar.height += 2;
+    toolBar.width += 2;
+    toolBar.centerX = self.width * 0.5;
+    toolBar.centerY = self.height * 0.5;
+    // 裁剪
+    self.layer.masksToBounds = YES;
+
     toolBar.barStyle = UIBarStyleBlack;
+    toolBar.barTintColor = [[UIColor blackColor] colorWithAlphaComponent:alpha];
     
+    
+    /**
     // 黑色遮罩
     UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
     maskView.backgroundColor = [UIColor blackColor];
     maskView.alpha = alpha;
     [toolBar addSubview:maskView];
+     */
+    
     
     // 添加为子控件
     [self addSubview:toolBar];
@@ -90,13 +103,24 @@
 
 - (void)addBlurViewWithFrame: (CGRect)frame {
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:frame];
-    toolBar.barStyle = UIBarStyleBlack;
+    // 放大一些,并去掉 toolBar边缘多余的线
+    toolBar.height += 2;
+    toolBar.width += 2;
+    toolBar.centerX = self.width * 0.5;
+    toolBar.centerY = self.height * 0.5;
+    // 裁剪
+    self.layer.masksToBounds = YES;
     
+    toolBar.barStyle = UIBarStyleBlack;
+    toolBar.barTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    
+    /**
     // 黑色遮罩
     UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
     maskView.backgroundColor = [UIColor blackColor];
     maskView.alpha = 0.3;
     [toolBar addSubview:maskView];
+     */
     
     // 添加为子控件
     if ([self.subviews containsObject:toolBar]) {

@@ -13,6 +13,7 @@
 #import "QDCommentOnMyViewController.h"
 #import "QDNotificationLikeViewController.h"
 #import "QDNotificationMyLabViewController.h"
+#import "QDScrollView.h"
 
 @interface QDMessageViewController () <UIScrollViewDelegate>
 /** 标签选项卡栏 */
@@ -28,7 +29,7 @@
 /** 即将显示的控制器 */
 @property (nonatomic, weak)  UIViewController *willShowVc;
 /** scrollView */
-@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) QDScrollView *scrollView;
 @end
 
 @implementation QDMessageViewController
@@ -83,9 +84,10 @@
     [self addChildViewController:notificationLabVc];
 }
 
+#pragma mark - setupScrollView
 - (void)setupScrollView {
     int count = (int)self.childViewControllers.count;
-    UIScrollView *rootSc = [[UIScrollView alloc] init];
+    QDScrollView *rootSc = [[QDScrollView alloc] init];
     rootSc.frame = self.view.bounds;
     rootSc.contentSize = CGSizeMake(count * rootSc.width, rootSc.height);
     rootSc.pagingEnabled = YES;
@@ -108,10 +110,6 @@
     UIView *toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, QDNaviBarMaxY, QDScreenW, QDToolBarH)];
     // 毛玻璃背景
     [toolBar addBlurViewWithAlpha:0.5];
-    // 分割线
-    UIView *seprator = [[UIView alloc] initWithFrame:CGRectMake(QDCommonMargin, 0, toolBar.width - QDCommonMargin * 2, 0.5000)];
-    seprator.alpha = 0.5;
-    [toolBar addSubview:seprator];
     
     [self.view addSubview:toolBar];
     _toolBar = toolBar;
@@ -135,6 +133,11 @@
         // 添加点击事件
         [button addTarget:self action:@selector(changeTab:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    // 分割线
+    UIView *seprator = [[UIView alloc] initWithFrame:CGRectMake(QDCommonMargin, 1, toolBar.width - QDCommonMargin * 2, 0.5000)];
+    seprator.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+    [toolBar addSubview:seprator];
     
     // 设置默认选中第一页
     [self scrollViewDidEndScrollingAnimation:self.scrollView];

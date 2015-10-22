@@ -55,6 +55,8 @@
 - (void)setupBackgroudView {
     // 背景视图,显示一些提示信息
     QDEmptyInfoView *emptyInfoView = [[QDEmptyInfoView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width,  self.tableView.height)];
+    emptyInfoView.title = @"我收到的赞会出现在这里";
+    [emptyInfoView setContentPosition:CGPointMake(0, 45)];
     [self.tableView insertSubview:emptyInfoView atIndex:0];
 }
 

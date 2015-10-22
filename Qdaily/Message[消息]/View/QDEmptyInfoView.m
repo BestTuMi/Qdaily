@@ -57,8 +57,7 @@
 // 调整内容约束
 - (void)setContentPosition:(CGPoint)position {
      [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-         make.top.equalTo(@(position.x));
-         make.left.equalTo(@(position.y));
+         make.top.equalTo(@(position.y));
      }];
 }
 

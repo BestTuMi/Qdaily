@@ -18,6 +18,8 @@
 #import "QDRefreshFooter.h"
 #import "QDCollectionView.h"
 #import "QDRefreshHeader.h"
+#import "MBProgressHUD+Message.h"
+#import "QDEmptyInfoView.h"
 
 @interface QDNotificationMyLabViewController ()  <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -47,10 +49,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // 添加对其他collectionView contentOffset 改变的通知
-    // 更新自己的 contentOffset, 以免导航栏因为其他控制器消失,而导致当前控制器导航栏出空白
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContentOffset:) name:QDFeedCollectionViewOffsetChangedNotification object:nil];
     
     // 设置数据源
     [self setupFeeds];
@@ -106,27 +104,34 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
         
-        // 保存属性上拉加载发送
-        self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
-        self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
-        
-        // 新闻
-        NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
-        // 添加到 collectionView 数据源
-        [self.feeds addObjectsFromArray:news];
-        
-        // 将模型传递给 Layout 对象进行布局设置
-        self.flowLayout.feeds = self.feeds;
-        
-        // 刷新CollectionView
-        [self.collectionView reloadData];
-        [self.collectionView.header endRefreshing];
-        
-        if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
+        // 有响应, 无response 字段可能是登录失败
+        if (![responseObject[@"response"] isKindOfClass:[NSNull class]]) {
+            // 保存属性上拉加载发送
+            self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
+            self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
+
+            // 新闻
+            NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+            // 添加到 collectionView 数据源
+            [self.feeds addObjectsFromArray:news];
+            
+            // 将模型传递给 Layout 对象进行布局设置
+            self.flowLayout.feeds = self.feeds;
+            
+            // 刷新CollectionView
+            [self.collectionView reloadData];
+            [self.collectionView.header endRefreshing];
+            
+            if (!self.has_more) { // 表示没有数据了,隐藏 Footer
+                self.collectionView.footer.hidden = YES;
+            } else {
+                // 结束刷新
+                [self.collectionView.footer endRefreshing];
+            }
         } else {
-            // 结束刷新
-            [self.collectionView.footer endRefreshing];
+            // 提示错误信息(这里产生的一般是未登录)
+            [MBProgressHUD showError: responseObject[@"meta"][@"msg"]];
+            [self.collectionView.header endRefreshing];
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -181,6 +186,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     self.flowLayout = flowLayout;
 }
 
+#pragma mark - 设置 collectionView
 - (void)setupCollectionView {
     
     QDCollectionView *collectionView = [[QDCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];
@@ -198,8 +204,14 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedPaperCell class]) bundle:nil] forCellWithReuseIdentifier:paperIdentifier];
     
     // 设置内边距
-    self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
+    self.collectionView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY + QDToolBarH, 0, 0, 0);
     self.collectionView.backgroundColor = QDLightGrayColor;
+    
+    // 添加背景视图
+    QDEmptyInfoView *backgroundView = [[QDEmptyInfoView alloc] initWithFrame:self.collectionView.frame];
+    backgroundView.title = @"我加入的好奇心研究所会出现在这里";
+    [backgroundView setContentPosition:CGPointMake(0, 50)];
+    [self.collectionView addSubview:backgroundView];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -222,13 +234,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         return cell;
     }
     
-}
-
-#pragma mark - 处理松手时的状况
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (decelerate == NO) {
-        [self scrollViewDidEndDecelerating:scrollView];
-    }
 }
 
 #pragma mark - collectionView Delegate

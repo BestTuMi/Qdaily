@@ -15,6 +15,6 @@
 - (void)hideEmptyViewInfo;
 // 显示图标文字
 - (void)showEmptyViewInfo;
-// 调整内容位置
+/// 调整内容位置(进能调节 Y 轴,相当于 top 约束)
 - (void)setContentPosition: (CGPoint)position;
 @end
