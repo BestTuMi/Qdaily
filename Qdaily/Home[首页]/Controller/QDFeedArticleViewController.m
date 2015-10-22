@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *transitionAnimView;
 /** 加载动画序列 */
 @property (nonatomic, copy) NSArray *animationImages;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 /** webView 的尾部控件 */
 @property (nonatomic, weak)  UIView *webViewFooter;

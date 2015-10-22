@@ -25,7 +25,11 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self insertSubview:self.header atIndex:0];
+    
+    if (self.header) {
+        // 避免覆盖在视图上
+        [self insertSubview:self.header atIndex:0];
+    }
 }
 
 @end

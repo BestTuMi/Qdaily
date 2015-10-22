@@ -11,4 +11,5 @@
 @interface QDBaseFeedViewController : UIViewController
 /** 请求的地址 */
 - (NSString *)requestUrl;
+- (NSDictionary *)parameters;
 @end

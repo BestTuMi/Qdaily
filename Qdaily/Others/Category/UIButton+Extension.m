@@ -12,7 +12,7 @@
 
 - (void)setImage: (NSString *)image selectedImage: (NSString *)selectedImage {
     [self setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateSelected];
+    [self setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateDisabled];
 }
 
 @end
