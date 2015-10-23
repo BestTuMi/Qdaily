@@ -101,8 +101,8 @@
     [self addSubview:toolBar];
 }
 
-- (void)addBlurViewWithFrame: (CGRect)frame {
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:frame];
+- (void)addBlurViewWithLightColor {
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:self.bounds];
     // 放大一些,并去掉 toolBar边缘多余的线
     toolBar.height += 2;
     toolBar.width += 2;
@@ -110,6 +110,26 @@
     toolBar.centerY = self.height * 0.5;
     // 裁剪
     self.layer.masksToBounds = YES;
+    
+    toolBar.barStyle = UIBarStyleDefault;
+    
+    // 添加为子控件
+    [self addSubview:toolBar];
+}
+
+
+- (void)addBlurViewWithFrame: (CGRect)frame clip: (BOOL)clipToBounds {
+    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:frame];
+    
+    if (clipToBounds) {
+        // 放大一些,并去掉 toolBar边缘多余的线
+        toolBar.height += 2;
+        toolBar.width += 2;
+        toolBar.centerX = frame.size.width * 0.5;
+        toolBar.centerY = frame.size.height * 0.5;
+        // 裁剪
+        self.layer.masksToBounds = YES;
+    }
     
     toolBar.barStyle = UIBarStyleBlack;
     toolBar.barTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];

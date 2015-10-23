@@ -22,6 +22,10 @@
 #import "QDSideBarFooterView.h"
 #import "QDSideBarHeaderView.h"
 
+// 新手引导
+#import "QDMainUserGuideView.h"
+#import "QDSideBarUserGuideView.h"
+
 // 第三方框架
 #import <AFNetworking.h>
 #import <MJRefresh.h>
@@ -67,6 +71,18 @@
     [self setupsideBar];
     // 侧边按钮如果跟菜单在同一 View 会影响边缘手势范围.因此独立出来
     [self setupSideBarButton];
+    
+    // 添加监听
+    [self addObservers];
+}
+
+#pragma mark - 判断是否显示新手引导
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (QDShouldShowMainUserGuide) {
+        // 需要显示新手引导
+        [QDMainUserGuideView show];
+    }
 }
 
 - (void)dealloc {
@@ -178,7 +194,7 @@
     [self setupSideBarTableView];
 }
 
-#pragma mark - 设置 tableView
+#pragma mark - 设置左侧 tableView
 - (void)setupSideBarTableView {
     UITableView *sideBarTableView = [[UITableView alloc] initWithFrame:_sideBar.bounds style:UITableViewStylePlain];
     [self.sideBar addSubview:sideBarTableView];
@@ -233,13 +249,31 @@
     [self.mainView addSubview:mainViewChildVc.view];
 }
 
+#pragma mark - 添加必要的监听
+- (void)addObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSideBar) name:QDShowSideBarNNotification object:nil];
+}
+
+#pragma mark - 移除监听
+- (void)removeObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    // 监听 sideBar 的位置改变
     CGFloat new = [change[NSKeyValueChangeNewKey] CGRectValue].origin.x;
     CGFloat old = [change[NSKeyValueChangeOldKey] CGRectValue].origin.x;
     CGFloat offsetX = new - old;
 
     self.sideBarButton.x += offsetX;
+    
+    if (new == 0) { // 完全显示出来
+        if (QDShouldShowSideBarUserGuide) {
+            // 需要显示 sideBar 的新手引导
+            [QDSideBarUserGuideView show];
+        }
+    }
 }
 
 #pragma mark - 显示隐藏左侧菜单
@@ -422,8 +456,12 @@
 
 #pragma mark - 处理状态栏
 - (UIViewController *)childViewControllerForStatusBarHidden {
-    return self.homeVc;
+    // 判断首页的是否在窗口上显示
+    // 如果在窗口上,状态栏交给它管理
+    if (self.homeVc.view.window) {
+        return self.homeVc;
+    }
+    return [super childViewControllerForStatusBarHidden];
 }
-
 
 @end

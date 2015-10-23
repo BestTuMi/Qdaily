@@ -38,6 +38,13 @@
 /** 非0最小浮点数 */
 #define MINFLOAT 0x1.fffffep-2f
 
+/**  新特性相关 */
+#define QDCurrentVersion [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]
+#define QDLocalVersion [[NSUserDefaults standardUserDefaults] objectForKey:QDVersionKey] == nil ? @"0.0" : [[NSUserDefaults standardUserDefaults] objectForKey:QDVersionKey]
+
+#define QDShouldShowMainUserGuide [[NSUserDefaults standardUserDefaults] boolForKey:QDShowMainUserGuideKey]
+#define QDShouldShowSideBarUserGuide [[NSUserDefaults standardUserDefaults] boolForKey:QDShowSideBarUserGuideKey]
+
 // 自定义 Log
 #ifdef __OBJC__
 #ifdef DEBUG // 调试阶段

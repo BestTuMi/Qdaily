@@ -44,7 +44,7 @@
     [super prepare];
     
     // 设置控件的高度
-    self.mj_h = 50;
+    self.mj_h = 100;
     
     // loading
     [self addSubview:self.imageView];

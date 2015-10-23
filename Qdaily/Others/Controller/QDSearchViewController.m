@@ -79,8 +79,6 @@
 - (void)setupTableView {
     self.tableView.rowHeight = 110;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-
 }
 
 #pragma mark - 设置导航栏
@@ -111,7 +109,7 @@
         
         // 获取页面加载相关信息
         weakSelf.last_time = responseObject[@"response"][@"searches"][@"last_time"];
-        weakSelf.has_more = responseObject[@"response"][@"searches"][@"has_more"];
+        weakSelf.has_more = [responseObject[@"response"][@"searches"][@"has_more"] boolValue];
         weakSelf.totalNumber = [responseObject[@"response"][@"total_number"] integerValue];
         
         [weakSelf setupHeaderView];
@@ -145,7 +143,7 @@
     [self.manager GET:searchUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         // 获取页面加载相关信息
         weakSelf.last_time = responseObject[@"response"][@"searches"][@"last_time"];
-        weakSelf.has_more = responseObject[@"response"][@"searches"][@"has_more"];
+        weakSelf.has_more = [responseObject[@"response"][@"searches"][@"has_more"] boolValue];
         
         NSArray *results = [QDResult objectArrayWithKeyValuesArray:responseObject[@"response"][@"searches"][@"list"]];
         

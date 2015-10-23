@@ -29,7 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         // 添加一个 toolBar 做毛玻璃效果
-        [self addBlurViewWithFrame:CGRectMake(0, - QDStatusBarH, QDScreenW, QDNaviBarMaxY)];
+        [self addBlurViewWithFrame:CGRectMake(0, - QDStatusBarH, QDScreenW, QDNaviBarMaxY) clip:NO];
     }
     return self;
 }

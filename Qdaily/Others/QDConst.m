@@ -25,3 +25,12 @@ CGFloat const QDToolBarH = 35;
 /** 通知相关 */
 NSString *const QDFeedCollectionViewOffsetChangedNotification = @"QDFeedCollectionViewOffsetChanged";
 NSString *const QDFeedCollectionViewOffsetChangedKey = @"QDFeedCollectionViewOffsetChangedKey";
+
+NSString *const QDChangeRootVCNotification = @"QDChangeRootVCNotification";
+
+NSString *const QDShowSideBarNNotification = @"showSideBar";
+
+/**  新特性相关 */
+NSString *const QDVersionKey = @"bundleVersion";
+NSString *const QDShowMainUserGuideKey = @"showUserGuide";
+NSString *const QDShowSideBarUserGuideKey = @"showSideBarGuide";

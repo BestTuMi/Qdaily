@@ -25,3 +25,13 @@ UIKIT_EXTERN CGFloat const QDToolBarH;
 /** 通知相关 */
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedNotification;
 UIKIT_EXTERN NSString *const QDFeedCollectionViewOffsetChangedKey;
+
+UIKIT_EXTERN NSString *const QDChangeRootVCNotification;
+
+UIKIT_EXTERN NSString *const QDShowSideBarNNotification;
+
+
+/**  新特性相关 */
+UIKIT_EXTERN NSString *const QDVersionKey;
+UIKIT_EXTERN NSString *const QDShowMainUserGuideKey;
+UIKIT_EXTERN NSString *const QDShowSideBarUserGuideKey;

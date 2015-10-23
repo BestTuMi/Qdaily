@@ -55,6 +55,20 @@
     [self setupNaviBar];
 }
 
+#pragma mark - 设置首页重新显示时,状态栏的行为
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // 刷新状态栏
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+#pragma mark - 刷新状态栏状态,让父控制器重新设置状态栏
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+
 #pragma mark -
 #pragma mark - lazyload
 - (QDHomeFeedArticleViewController *)homeFeedVc {
