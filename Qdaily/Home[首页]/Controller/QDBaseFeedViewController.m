@@ -84,13 +84,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 }
 
 #pragma mark - lazyload
-- (AFHTTPSessionManager *)manager {
-    if (!_manager) {
-        _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:QDBaseURL];
-    }
-    return _manager;
-}
-
 - (NSMutableArray *)feeds {
     if (!_feeds) {
         _feeds = [NSMutableArray array];
