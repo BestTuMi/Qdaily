@@ -39,6 +39,7 @@
 @property (nonatomic,  assign) BOOL has_more;
 /** 请求更多数据时传的值 */
 @property (nonatomic,  copy) NSString *last_time;
+
 /***** 通知 *******/
 @property (nonatomic, weak) NSNotification *note;
 
@@ -115,11 +116,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - setupFeeds
 - (void)setupFeeds {
-    // 取消之前的请求
-    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
     // 重置lasttime,返回新数据
     self.last_time = nil;
+    
+//    [QDFeedTool sharedFeedTool] setupFeedsWithUrl:self.currentRequestUrl parameters:nil finished:<#^(void)finished#>
+    
+    
     
     [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
@@ -307,6 +310,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     }
 }
 
+// 在这里处理松手后状态栏的状态
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGPoint offset = self.collectionView.contentOffset;
     CGFloat offsetY = offset.y;
@@ -320,6 +324,9 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         offset.y = - QDNaviBarMaxY;
         [self.collectionView setContentOffset:offset animated:YES];
     }
+    
+    // 处理菜单按钮的定时器
+     [[NSNotificationCenter defaultCenter] postNotificationName:QDCollectionViewDidEndScrollNotification object:nil userInfo:nil];
 }
 
 #pragma mark - collectionView Delegate

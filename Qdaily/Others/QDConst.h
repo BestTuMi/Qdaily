@@ -30,6 +30,10 @@ UIKIT_EXTERN NSString *const QDChangeRootVCNotification;
 
 UIKIT_EXTERN NSString *const QDShowSideBarNNotification;
 
+/** 控制侧边按钮的显示隐藏 */
+UIKIT_EXTERN NSString *const QDCollectionViewIdelStateNotification;
+UIKIT_EXTERN NSString *const QDCollectionViewDidEndScrollNotification;
+
 
 /**  新特性相关 */
 UIKIT_EXTERN NSString *const QDVersionKey;

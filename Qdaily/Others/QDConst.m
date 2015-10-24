@@ -30,6 +30,10 @@ NSString *const QDChangeRootVCNotification = @"QDChangeRootVCNotification";
 
 NSString *const QDShowSideBarNNotification = @"showSideBar";
 
+/** 控制侧边按钮的显示隐藏 */
+NSString *const QDCollectionViewIdelStateNotification = @"QDCollectionViewIdelStateNotification";
+NSString *const QDCollectionViewDidEndScrollNotification = @"QDCollectionViewDidEndScrollNotification";
+
 /**  新特性相关 */
 NSString *const QDVersionKey = @"bundleVersion";
 NSString *const QDShowMainUserGuideKey = @"showUserGuide";

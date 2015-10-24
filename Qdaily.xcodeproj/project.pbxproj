@@ -16,6 +16,7 @@
 		8B0FF33C1BD7E7BE006ECD9A /* QDEmptyInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF33B1BD7E7BE006ECD9A /* QDEmptyInfoView.m */; };
 		8B0FF33F1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF33E1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m */; };
 		8B0FF3411BD7F74B006ECD9A /* QDNotificationHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */; };
+		8B34A6241BDA461A00B0DB92 /* QDAnimateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */; };
 		8B40D9311BD9C9E8002B00B5 /* QDMainUserGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40D9301BD9C9E8002B00B5 /* QDMainUserGuideView.m */; };
 		8B40D9341BD9C9FE002B00B5 /* QDSideBarUserGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40D9331BD9C9FE002B00B5 /* QDSideBarUserGuideView.m */; };
 		8B422C7F1BD6346D00D4AC8A /* QDNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B422C7E1BD6346D00D4AC8A /* QDNavigationBar.m */; };
@@ -251,6 +252,8 @@
 		8B0FF33D1BD7F4D0006ECD9A /* QDNotificationHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNotificationHeaderCell.h; sourceTree = "<group>"; };
 		8B0FF33E1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNotificationHeaderCell.m; sourceTree = "<group>"; };
 		8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDNotificationHeaderCell.xib; sourceTree = "<group>"; };
+		8B34A6221BDA461A00B0DB92 /* QDAnimateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDAnimateButton.h; sourceTree = "<group>"; };
+		8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDAnimateButton.m; sourceTree = "<group>"; };
 		8B40D92F1BD9C9E8002B00B5 /* QDMainUserGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMainUserGuideView.h; sourceTree = "<group>"; };
 		8B40D9301BD9C9E8002B00B5 /* QDMainUserGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMainUserGuideView.m; sourceTree = "<group>"; };
 		8B40D9321BD9C9FE002B00B5 /* QDSideBarUserGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSideBarUserGuideView.h; sourceTree = "<group>"; };
@@ -847,6 +850,8 @@
 				8B422C7E1BD6346D00D4AC8A /* QDNavigationBar.m */,
 				8B8DF3E41BD73C1B00C5413A /* QDCustomNaviBar.h */,
 				8B8DF3E51BD73C1B00C5413A /* QDCustomNaviBar.m */,
+				8B34A6221BDA461A00B0DB92 /* QDAnimateButton.h */,
+				8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1480,6 +1485,7 @@
 				8B5EB40B1BD094B60078D13A /* MBProgressHUD.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
 				8B8DF3F21BD795F300C5413A /* UIButton+Extension.m in Sources */,
+				8B34A6241BDA461A00B0DB92 /* QDAnimateButton.m in Sources */,
 				8B5EB3271BD0879A0078D13A /* QDCategory.m in Sources */,
 				8B422C821BD651B500D4AC8A /* QDAuthor.m in Sources */,
 				8B501F9C1BCC9DA8004AEC12 /* MASViewAttribute.m in Sources */,

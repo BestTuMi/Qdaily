@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - MJExtension (2.5.13)
   - MJRefresh (2.4.12)
+  - pop (1.0.8)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -30,12 +31,14 @@ DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - MJExtension (~> 2.5.12)
   - MJRefresh (~> 2.4.11)
+  - pop (~> 1.0.8)
   - SDWebImage (~> 3.7.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   MJExtension: 519c78a7dd933d15b590dab306be8f9f81e0e47d
   MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 
 COCOAPODS: 0.37.2

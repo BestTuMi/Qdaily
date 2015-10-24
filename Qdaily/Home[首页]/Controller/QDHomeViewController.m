@@ -68,7 +68,6 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-
 #pragma mark -
 #pragma mark - lazyload
 - (QDHomeFeedArticleViewController *)homeFeedVc {

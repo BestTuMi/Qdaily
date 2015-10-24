@@ -151,8 +151,8 @@
                 CGRect F = lastAttrs.frame;
                 F.origin.y = itemY + itemH + feedMargin;
                 lastAttrs.frame = F;
-                
-                // 插入
+            
+                 // 插入
                 [self.attrsArray insertObject:attrs atIndex:0];
             }
         }

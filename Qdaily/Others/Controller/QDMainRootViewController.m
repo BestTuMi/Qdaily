@@ -22,6 +22,8 @@
 #import "QDSideBarFooterView.h"
 #import "QDSideBarHeaderView.h"
 
+#import "QDAnimateButton.h"
+
 // 新手引导
 #import "QDMainUserGuideView.h"
 #import "QDSideBarUserGuideView.h"
@@ -30,6 +32,7 @@
 #import <AFNetworking.h>
 #import <MJRefresh.h>
 #import <MJExtension.h>
+#import <POP.h>
 
 #define SideBarKeyPath @"frame"
 
@@ -39,7 +42,7 @@
 /** 中间主视图 */
 @property (nonatomic, weak) UIView *mainView;
 /** 侧边菜单按钮 */
-@property (nonatomic, weak)  UIButton *sideBarButton;
+@property (nonatomic, weak)  QDAnimateButton *sideBarButton;
 /** 菜单是否在屏幕上 */
 @property (nonatomic, assign) BOOL isSideBarVisibele;
 /** 当前添加到主视图上的 控制器 */
@@ -227,18 +230,17 @@
 
 #pragma mark - 侧边菜单按钮
 - (void)setupSideBarButton {
-    UIButton *sideBarButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    
-    sideBarButton.x = 15;
-    sideBarButton.width = 37;
-    sideBarButton.height = 37;
-    sideBarButton.y = QDScreenH - 15 - sideBarButton.height;
-    
-    // 添加点击事件
+
+    QDAnimateButton *sideBarButton = [QDAnimateButton buttonWithOrigin:CGPointMake(15, QDScreenH - 60)];
+    sideBarButton.tintColor = QDRGBWhiteColor(1.0, 1.0);
     [sideBarButton addTarget:self action:@selector(sideBarButttonClick) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:sideBarButton];
     _sideBarButton = sideBarButton;
+}
+
+#pragma mark - 更新侧边菜单按钮显示隐藏
+- (void)updateSideBarButtonStatus: (NSNotification *)note {
+    
 }
 
 #pragma mark - 添加主视图上的子控制器
@@ -283,6 +285,8 @@
     } else {
         [self showSideBar];
     }
+    // 内部动画
+    [self.sideBarButton touchUpInsideHandler];
 }
 
 - (void)showSideBar {
@@ -332,26 +336,36 @@
         _sideBar.x = - _sideBar.width;
     }
     
-#warning 未完成
-    // TODO: 完成减速动画
+    // TODO:减速动画
     if (panGetsture.state == UIGestureRecognizerStateEnded || panGetsture.state == UIGestureRecognizerStateCancelled) {
+        // 动画时间
+        CGFloat duration = 0.1;
+        
         // 根据手势停止时速度向量判断手势方向
         CGFloat velocityX = [panGetsture velocityInView:panGetsture.view].x;
         
         if (sideBarMaxX >= 44 && velocityX > 0) { // 向右滑动达到一定距离
             // 显示完整菜单
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:duration animations:^{
                 _sideBar.x = 0;
+                // 处理按钮内部动画
+                [self.sideBarButton touchUpInsideHandler];
             }];
         } else if (sideBarMaxX >= (_sideBar.width - 44) && velocityX < 0) { // 向左滑动距离不足
             // 显示完整菜单
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:duration animations:^{
                 _sideBar.x = 0;
+            }];
+        } else if (sideBarMaxX < 44 && velocityX > 0){ // 向右滑动距离不足
+            [UIView animateWithDuration:duration animations:^{
+                _sideBar.x = - _sideBar.width;
             }];
         } else {
             // 隐藏菜单
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:duration animations:^{
                 _sideBar.x = - _sideBar.width;
+                // 处理按钮内部动画
+                [self.sideBarButton touchUpInsideHandler];
             }];
         }
     }
@@ -430,6 +444,8 @@
     // 隐藏菜单
     [UIView animateWithDuration:0.25 animations:^{
         self.sideBar.x = - self.sideBar.width;
+        // 处理按钮内部动画
+        [self.sideBarButton touchUpInsideHandler];
     }];
     
     // 取出模型
