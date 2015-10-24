@@ -20,6 +20,7 @@
 #import "QDRefreshFooter.h"
 #import "QDCollectionView.h"
 #import "QDRefreshHeader.h"
+#import "MBProgressHUD+Message.h"
 
 @interface QDBaseFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
@@ -118,15 +119,24 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)setupFeeds {
     
     // 重置lasttime,返回新数据
-    self.last_time = nil;
+    self.last_time = @"0";
     
-//    [QDFeedTool sharedFeedTool] setupFeedsWithUrl:self.currentRequestUrl parameters:nil finished:<#^(void)finished#>
-    
-    
-    
-    [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl lasttime:self.last_time finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (responseObject == nil) {
+            [MBProgressHUD showError:error.userInfo[@"msg"]];
+             // 停止下拉刷新
+            [self.collectionView.header endRefreshing];
+            return;
+        }
         
-        QDLogVerbose(@"%@", responseObject);
+        // 网络是否错误
+        if (error) {
+            QDLogVerbose(@"%@", error);
+            // 停止下拉刷新
+            [self.collectionView.header endRefreshing];
+            return;
+        }
         
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
@@ -165,19 +175,28 @@ static NSString * const paperIdentifier = @"feedPaperCell";
             // 结束刷新
             [self.collectionView.footer endRefreshing];
         }
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [self.collectionView.header endRefreshing];
     }];
 }
 
 #pragma mark - 加载更多新闻数据
 - (void)loadMoreNews {
     
-    // 取消之前的请求
-    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
-    
-    [self.manager GET:self.currentRequestUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl lasttime:self.last_time finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (responseObject == nil) {
+            [MBProgressHUD showError:error.userInfo[@"msg"]];
+            // 停止上拉加载
+            [self.collectionView.footer endRefreshing];
+            return;
+        }
+        
+        // 网络是否错误
+        if (error) {
+            QDLogVerbose(@"%@", error);
+            // 停止上拉加载
+            [self.collectionView.header endRefreshing];
+            return;
+        }
         
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
@@ -200,13 +219,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         } else {
             // 结束刷新
             [self.collectionView.footer endRefreshing];
-            [self.collectionView.header endRefreshing];
         }
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        // 结束刷新
-        [self.collectionView.footer endRefreshing];
-        [self.collectionView.header endRefreshing];
     }];
 }
 

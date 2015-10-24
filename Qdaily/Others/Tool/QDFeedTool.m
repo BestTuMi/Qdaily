@@ -24,19 +24,30 @@
     [[QDFeedTool sharedFeedTool].tasks makeObjectsPerformSelector:@selector(cancel)];
 }
 
-- (void)setupFeedsWithUrl: (NSString *)urlStr parameters: (NSDictionary *)parameters finished:(void (^)())finished {
+- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(void (^)(NSDictionary *responseObject, NSError *error))finished {
+    
     // 取消之前的请求
     [[QDFeedTool sharedFeedTool] cancel];
-
-    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@.json?", path, lasttime];
+    QDLogVerbose(@"%@", urlStr);
+    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
         QDLogVerbose(@"%@", responseObject);
+        
         // 处理错误
+        // 有响应, 无response 字段可能是登录失败
+        if (responseObject[@"response"] == [NSNull null]) {
+            NSString *status = responseObject[@"meta"][@"status"];
+            finished(nil, [NSError errorWithDomain:@"com.qdaily.app" code:status.integerValue userInfo:responseObject[@"meta"]]);
+            return;
+        }
+        
+        // 有返回的数据
+        finished(responseObject, nil);
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if (error) {
-            QDLogVerbose(@"%@", error);
-        }
+        finished(nil, error);
     }];
 }
 

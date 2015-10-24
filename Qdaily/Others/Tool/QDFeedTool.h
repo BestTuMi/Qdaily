@@ -17,9 +17,9 @@
 /*!
  *  @brief  请求新的新闻数据
  *
- *  @param urlStr     请求地址
- *  @param parameters 请求参数
- *  @param finished   完成后的回调
+ *  @param path     请求路径
+ *  @param lasttime 服务器需要的分页参数
+ *  @param finished 完成后的回调
  */
-- (void)setupFeedsWithUrl: (NSString *)urlStr parameters: (NSDictionary *)parameters finished:(void (^)())finished;
+- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(void (^)(NSDictionary *responseObject, NSError *error))finished;
 @end
