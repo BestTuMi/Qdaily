@@ -7,7 +7,6 @@
 //
 
 #import "QDBaseFeedViewController.h"
-#import <AFNetworking.h>
 #import "QDFeedBannerCell.h"
 #import "QDFeedSmallCell.h"
 #import "QDFeedCompactCell.h"
@@ -25,8 +24,6 @@
 @interface QDBaseFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
 @property (nonatomic, weak) QDCollectionView *collectionView;
-/** AFN 管理者 */
-@property (nonatomic, strong) AFHTTPSessionManager *manager;
 /** Feeds 保存所有模型数据 */
 @property (nonatomic, strong) NSMutableArray *feeds;
 /** Banner 模型数组 */
@@ -44,8 +41,6 @@
 /***** 通知 *******/
 @property (nonatomic, weak) NSNotification *note;
 
-/** 仅作提供点语法 */
-- (NSString *)currentRequestUrl;
 @end
 
 @implementation QDBaseFeedViewController
@@ -59,11 +54,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (NSString *)requestUrl {return @"app/homes/index/";}
 - (NSDictionary *)parameters {return nil;};
 
-// 请求地址
-- (NSString *)currentRequestUrl {
-    return [NSString stringWithFormat:@"%@%@.json?", self.requestUrl, self.last_time == nil ? @"0" : self.last_time];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -71,13 +61,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     // 更新自己的 contentOffset, 以免导航栏因为其他控制器消失,而导致当前控制器导航栏出空白
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContentOffset:) name:QDFeedCollectionViewOffsetChangedNotification object:nil];
     
-    // 设置数据源
-    [self setupFeeds];
-    
     // 初始化布局
     [self setupLayout];
     
     [self setupCollectionView];
+    
+    // 设置数据源
+    [self setupFeeds];
     
     [self setupRefresh];
     

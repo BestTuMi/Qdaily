@@ -7,7 +7,6 @@
 //
 
 #import "QDNotificationMyLabViewController.h"
-#import <AFNetworking.h>
 #import "QDFeedCompactCell.h"
 #import "QDFeedPaperCell.h"
 #import "QDFeed.h"
@@ -25,8 +24,6 @@
 
 /** collectionView */
 @property (nonatomic, weak) QDCollectionView *collectionView;
-/** AFN 管理者 */
-@property (nonatomic, strong) AFHTTPSessionManager *manager;
 /** Feeds 保存所有模型数据 */
 @property (nonatomic, strong) NSMutableArray *feeds;
 /** collectionView 布局 */
@@ -50,26 +47,19 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 设置数据源
-    [self setupFeeds];
-    
     // 初始化布局
     [self setupLayout];
     
     [self setupCollectionView];
+    
+    // 设置数据源
+    [self setupFeeds];
     
     [self setupRefresh];
     
 }
 
 #pragma mark - lazyload
-- (AFHTTPSessionManager *)manager {
-    if (!_manager) {
-        _manager = [[AFHTTPSessionManager alloc] initWithBaseURL:QDBaseURL];
-    }
-    return _manager;
-}
-
 - (NSMutableArray *)feeds {
     if (!_feeds) {
         _feeds = [NSMutableArray array];
@@ -89,67 +79,67 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - setupFeeds
 - (void)setupFeeds {
-    // 取消之前的请求
-    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
     
-    // 重置lasttime,返回新数据
-    self.last_time = nil;
-    
-    NSDictionary *params = @{@"lastime" : self.last_time == nil ? @(0) : self.last_time};
-    
-    [self.manager GET:self.requestUrl parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    self.last_time = @"0";
+    NSDictionary *params = @{@"lasttime" : self.last_time};
+    [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl parameters:params finished:^(NSDictionary *responseObject, NSError *error) {
         
-        QDLogVerbose(@"%@", responseObject);
+        // 验证数据
+        if (responseObject == nil) {
+            [MBProgressHUD showError: error.userInfo[@"msg"]];
+            [self.collectionView.header endRefreshing];
+            return;
+        }
+        
+        if (error) {
+            QDLogVerbose(@"%@", error);
+            [self.collectionView.header endRefreshing];
+        }
         
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
         
-        // 有响应, 无response 字段可能是登录失败
-        if (![responseObject[@"response"] isKindOfClass:[NSNull class]]) {
-            // 保存属性上拉加载发送
-            self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
-            self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
-
-            // 新闻
-            NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
-            // 添加到 collectionView 数据源
-            [self.feeds addObjectsFromArray:news];
-            
-            // 将模型传递给 Layout 对象进行布局设置
-            self.flowLayout.feeds = self.feeds;
-            
-            // 刷新CollectionView
-            [self.collectionView reloadData];
-            [self.collectionView.header endRefreshing];
-            
-            if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-                self.collectionView.footer.hidden = YES;
-            } else {
-                // 结束刷新
-                [self.collectionView.footer endRefreshing];
-            }
-        } else {
-            // 提示错误信息(这里产生的一般是未登录)
-            [MBProgressHUD showError: responseObject[@"meta"][@"msg"]];
-            [self.collectionView.header endRefreshing];
-        }
+        // 保存属性上拉加载发送
+        self.last_time = responseObject[@"response"][@"feeds"][@"last_time"];
+        self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        if (error) {
-            QDLogVerbose(@"%@", error);
-        }
+        // 新闻
+        NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+        // 添加到 collectionView 数据源
+        [self.feeds addObjectsFromArray:news];
+        
+        // 将模型传递给 Layout 对象进行布局设置
+        self.flowLayout.feeds = self.feeds;
+        
+        // 刷新CollectionView
+        [self.collectionView reloadData];
         [self.collectionView.header endRefreshing];
+        
+        if (!self.has_more) { // 表示没有数据了,隐藏 Footer
+            self.collectionView.footer.hidden = YES;
+        } else {
+            // 结束刷新
+            [self.collectionView.footer endRefreshing];
+        }
     }];
 }
 
 #pragma mark - 加载更多新闻数据
 - (void)loadMoreNews {
     
-    // 取消之前的请求
-    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];
-    
-    NSDictionary *params = @{@"lastime" : self.last_time == nil ? 0 : self.last_time};
-    [self.manager GET:self.requestUrl parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    NSDictionary *params = @{@"lasttime" : self.last_time};
+    [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl parameters:params finished:^(NSDictionary *responseObject, NSError *error) {
+        
+        // 验证数据
+        if (responseObject == nil) {
+            [MBProgressHUD showError: error.userInfo[@"msg"]];
+            return;
+        }
+        
+        if (error) {
+            QDLogVerbose(@"%@", error);
+        }
+
         
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
@@ -171,13 +161,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         } else {
             // 结束刷新
             [self.collectionView.footer endRefreshing];
-            [self.collectionView.header endRefreshing];
         }
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        // 结束刷新
-        [self.collectionView.footer endRefreshing];
-        [self.collectionView.header endRefreshing];
     }];
 }
 

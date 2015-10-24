@@ -22,4 +22,12 @@
  *  @param finished 完成后的回调
  */
 - (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(void (^)(NSDictionary *responseObject, NSError *error))finished;
+/*!
+ *  @brief  需要参数的GET 请求
+ *
+ *  @param path       请求路径
+ *  @param parameters 请求参数
+ *  @param finished   完成后的回调
+ */
+- (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(void (^)(NSDictionary *responseObject, NSError *error))finished;
 @end
