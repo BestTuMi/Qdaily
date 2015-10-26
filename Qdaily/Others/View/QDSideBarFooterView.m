@@ -42,7 +42,7 @@
 - (IBAction)searchBtnClick:(id)sender {
     [_mainRootViewController hideSideBar];
     
-    QDSearchViewController *searchVc = [[QDSearchViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    QDSearchViewController *searchVc = [[QDSearchViewController alloc] init];
     QDNavigationController *navi = [[QDNavigationController alloc] initWithRootViewController:searchVc];
     [_mainRootViewController presentViewController:navi animated:YES completion:nil];
 }

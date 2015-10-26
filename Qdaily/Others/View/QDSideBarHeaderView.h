@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface QDSideBarHeaderView : UIView
-
++ (instancetype)viewWithXib;
 @end

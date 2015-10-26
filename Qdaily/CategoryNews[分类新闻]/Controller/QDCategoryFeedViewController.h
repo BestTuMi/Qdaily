@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QDBaseFeedViewController.h"
 
-@interface QDCategoryFeedViewController : UIViewController
+@interface QDCategoryFeedViewController : QDBaseFeedViewController
+/** 目录的 ID 号 */
+@property (nonatomic, copy) NSString *ID;
+/** 目录的 categoryTitle */
+@property (nonatomic, copy) NSString *categoryTitle;
 
 @end

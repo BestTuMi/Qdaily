@@ -11,6 +11,8 @@
 #import "QDNavigationController.h"
 #import "QDNewFeaturesViewController.h"
 #import "QDNewFeaturesFlowLayout.h"
+#import "UMSocial.h"
+#import "UMSocialSinaHandler.h"
 
 @interface AppDelegate ()
 /** 新特性界面 */
@@ -53,6 +55,12 @@
     
     [self.window makeKeyAndVisible];
     
+    // 设置友盟的APPKEY
+    [UMSocialData setAppKey:@"562bc1f6e0f55a4374003244"];
+    
+    // 打开新浪微博的SSO开关
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
     return YES;
 }
 
@@ -60,6 +68,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+/// 检查是否是新版本
 - (BOOL)isNewVersion {
     // 如果是新版本存储偏好设置
     if ([QDCurrentVersion compare:QDLocalVersion options:NSForcedOrderingSearch] == NSOrderedDescending) {
@@ -73,6 +82,7 @@
     }
 }
 
+/// 选择根控制器
 - (void)selectRootVc {
     if (self.isNewVersion) { // 是新版本
         self.window.rootViewController = self.featuresVc;
@@ -114,6 +124,14 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 
 @end

@@ -203,8 +203,21 @@
     [self.sideBar addSubview:sideBarTableView];
     self.sideBarTableView = sideBarTableView;
     
+    
+    // 添加 header
+    QDSideBarHeaderView *header = [QDSideBarHeaderView viewWithXib];
+    header.height = 273;
+    header.width = sideBarTableView.width;
+    header.y = - header.height;
+    [self.sideBarTableView addSubview:header];
+    
+    // 添加 Footer
+    QDSideBarFooterView *footer = [QDSideBarFooterView viewWithXib];
+    self.sideBarTableView.tableFooterView.height = footer.height;
+    self.sideBarTableView.tableFooterView = footer;
+    
     // 设置相关属性
-    sideBarTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    sideBarTableView.contentInset = UIEdgeInsetsMake(header.height, 0, 0, 0);
     sideBarTableView.showsHorizontalScrollIndicator = NO;
     sideBarTableView.showsVerticalScrollIndicator = NO;
     sideBarTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -212,12 +225,7 @@
     
     // 背景色透明
     sideBarTableView.backgroundColor = [UIColor clearColor];
-    
-    // 添加 Footer
-    QDSideBarFooterView *footer = [QDSideBarFooterView viewWithXib];
-    self.sideBarTableView.tableFooterView.height = footer.height;
-    self.sideBarTableView.tableFooterView = footer;
-    
+
     // tableView 的代理和数据源
     sideBarTableView.dataSource = self;
     sideBarTableView.delegate = self;
@@ -236,11 +244,6 @@
     [sideBarButton addTarget:self action:@selector(sideBarButttonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sideBarButton];
     _sideBarButton = sideBarButton;
-}
-
-#pragma mark - 更新侧边菜单按钮显示隐藏
-- (void)updateSideBarButtonStatus: (NSNotification *)note {
-    
 }
 
 #pragma mark - 添加主视图上的子控制器
@@ -263,6 +266,7 @@
 
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
     // 监听 sideBar 的位置改变
     CGFloat new = [change[NSKeyValueChangeNewKey] CGRectValue].origin.x;
     CGFloat old = [change[NSKeyValueChangeOldKey] CGRectValue].origin.x;
@@ -407,7 +411,7 @@
         [self.categories addObjectsFromArray:categories];
         // 刷新表格
         [self.sideBarTableView reloadData];
-        
+
         // 更改默认选中菜单的状态
         [self.sideBarTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -456,7 +460,11 @@
     
     // 添加新的视图
     if (category.destVcClass == [self.categoryFeedVc class]) { // 是信息流界面
+        self.categoryFeedVc.ID = category.ID;
+        self.categoryFeedVc.categoryTitle = category.title;
+        // 注意分类 ID 的赋值时机
         [self setMainViewChildVc:self.categoryFeedVc];
+        [self.categoryFeedVc setupFeeds];
     } else if (category.destVcClass == [self.homeVc class]) { // 切换首页
         [self setMainViewChildVc:self.homeVc];
         

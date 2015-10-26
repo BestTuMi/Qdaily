@@ -16,8 +16,13 @@
 #import "Masonry.h"
 #import "QDFeedArticleViewController.h"
 #import "QDNavigationController.h"
+#import "QDCustomNaviBar.h"
 
-@interface QDSearchViewController () <UISearchBarDelegate>
+@interface QDSearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+/** 自定义的 tableview */
+@property (nonatomic, weak) UITableView *tableView;
+/** 自定义导航条 */
+@property (nonatomic, weak)  UIView *naviBar;
 /** 搜索输入框 */
 @property (nonatomic, weak) UISearchBar *searchBar;
 /** AFN 管理者 */
@@ -77,13 +82,33 @@
 
 #pragma mark - 设置表格
 - (void)setupTableView {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(QDNaviBarMaxY, 0, 0, 0);
     self.tableView.rowHeight = 110;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark - 设置导航栏
 - (void)setupNavi {
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBarHidden = YES;
+    
+    QDCustomNaviBar *naviBar = [QDCustomNaviBar naviBarWithTitle:nil];
+    
+    naviBar.frame = CGRectMake(0, - QDNaviBarMaxY, QDScreenW, QDNaviBarMaxY);
+    
+    [self.view addSubview:naviBar];
+    
+    self.naviBar = naviBar;
+    
     [self setupSearchBar];
 }
 
@@ -212,12 +237,14 @@
 // 设置输入框
 - (void)setupSearchBar {
     UISearchBar *searchBar = [[UISearchBar alloc] init];
-    searchBar.bounds = CGRectMake(0, 0, 300, 28);
+    searchBar.frame = CGRectMake(15, 25, 300, 28);
     searchBar.tintColor = QDHighlightColor;
+    searchBar.backgroundImage = [[UIImage alloc] init];
     searchBar.placeholder = @" 搜索";
     searchBar.showsCancelButton = YES;
     
-    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:searchBar];
+    [self.naviBar addSubview:searchBar];
+    
     self.searchBar = searchBar;
     
     // 设置代理

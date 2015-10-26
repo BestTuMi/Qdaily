@@ -58,6 +58,7 @@
 }
 
 - (void)setTitle:(NSString *)title {
+    _title = title;
     self.titleView.text = title;
     [self.titleView sizeToFit];
 }

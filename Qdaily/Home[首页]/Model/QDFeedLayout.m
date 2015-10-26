@@ -160,6 +160,13 @@
      
     if (indexPath.item == 0) {
         itemY = 0;
+        if (![feed isKindOfClass:[NSArray class]]) {
+            if (feed.type == QDFeedCellTypeSmall && feed.post.genre != QDGenreReport) { // 小图且不是轮播图
+                itemX = 0;
+                itemW = (QDScreenW - feedMargin * (numberOfItemsPerRow - 1)) / numberOfItemsPerRow;
+                itemH = itemW * 195 / 158.5;
+            }
+        }
     }
     
     attrs.frame = CGRectMake(itemX, itemY, itemW, itemH);

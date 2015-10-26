@@ -70,7 +70,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self setupFeeds];
     
     [self setupRefresh];
-    
 }
 
 #pragma mark - lazyload

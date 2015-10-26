@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QDSearchViewController : UITableViewController
+@interface QDSearchViewController : UIViewController
 
 @end
