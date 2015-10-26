@@ -43,7 +43,7 @@ static inline double radians(double degree) {
     // 边长
     CGFloat l = r * cos(radians(54)) * 2;
     
-    // ------因为设置了权值这里需要更改下比例
+    // 设置比例
     CGFloat ratio1 = (subScore1-(1.0-baseNum)) / 1.0;
     CGFloat ratio2 = subScore2-(1.0-baseNum) / 1.0;
     CGFloat ratio3 = subScore3-(1.0-baseNum) / 1.0;
@@ -72,7 +72,7 @@ static inline double radians(double degree) {
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    //-----------------------------------------画线段
+    //----------调试用-----------------------
 //    CGContextMoveToPoint(ctx, x1, y1);
 //    CGContextAddLineToPoint(ctx, x2, y2);
 //    CGContextAddLineToPoint(ctx, x3, y3);
