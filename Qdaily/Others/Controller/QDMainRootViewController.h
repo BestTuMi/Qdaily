@@ -17,4 +17,8 @@
  *  @brief  隐藏侧边菜单
  */
 - (void)hideSideBar;
+/*!
+ *  @brief  改变主视图上的视图
+ */
+- (void)setMainViewChildVc:(UIViewController *)mainViewChildVc;
 @end

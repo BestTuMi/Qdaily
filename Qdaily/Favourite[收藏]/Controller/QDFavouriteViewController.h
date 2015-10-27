@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QDNotificationMyLabViewController.h"
 
-@interface QDFavouriteViewController : UIViewController
+@interface QDFavouriteViewController : QDNotificationMyLabViewController
 
 @end

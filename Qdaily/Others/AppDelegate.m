@@ -52,7 +52,7 @@
     
     // 选择根控制器
     [self selectRootVc];
-    
+
     [self.window makeKeyAndVisible];
     
     // 设置友盟的APPKEY

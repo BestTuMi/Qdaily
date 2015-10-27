@@ -85,17 +85,13 @@
     self.layer.masksToBounds = YES;
 
     toolBar.barStyle = UIBarStyleBlack;
-    toolBar.barTintColor = [[UIColor blackColor] colorWithAlphaComponent:alpha];
-    
-    
-    /**
-    // 黑色遮罩
+//    toolBar.barTintColor = [[UIColor blackColor] colorWithAlphaComponent:alpha];
+   
+     // 黑色遮罩
     UIView *maskView = [[UIView alloc] initWithFrame:toolBar.bounds];
-    maskView.backgroundColor = [UIColor blackColor];
+    maskView.backgroundColor = QDRGBWhiteColor(0.05, 1.0);
     maskView.alpha = alpha;
     [toolBar addSubview:maskView];
-     */
-    
     
     // 添加为子控件
     [self addSubview:toolBar];

@@ -246,11 +246,17 @@
     _sideBarButton = sideBarButton;
 }
 
-#pragma mark - 添加主视图上的子控制器
+#pragma mark - 改变主视图上的子控制器视图
 - (void)setMainViewChildVc:(UIViewController *)mainViewChildVc {
     _mainViewChildVc = mainViewChildVc;
     // 设置 Frame
     mainViewChildVc.view.frame = self.mainView.bounds;
+    
+    // 移除之前的 view, 添加新的
+    for (UIView *view in self.mainView.subviews) {
+        [view removeFromSuperview];
+    }
+    
     [self.mainView addSubview:mainViewChildVc.view];
 }
 
@@ -454,9 +460,6 @@
     
     // 取出模型
     QDSideBarCategory *category = self.categories[indexPath.row];
-    
-    // 移除之前的视图
-    [self.mainViewChildVc.view removeFromSuperview];
     
     // 添加新的视图
     if (category.destVcClass == [self.categoryFeedVc class]) { // 是信息流界面

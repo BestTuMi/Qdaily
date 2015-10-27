@@ -14,6 +14,10 @@
 
 @implementation QDFavouriteViewController
 
+- (NSString *)requestUrl {
+    return @"/app/users/praises";
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

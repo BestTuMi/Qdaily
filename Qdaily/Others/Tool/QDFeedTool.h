@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AFNetworking.h>
 
+typedef void(^FinishedBlock)(NSDictionary *responseObject, NSError *error);
+
 @interface QDFeedTool : AFHTTPSessionManager
 /// 创建网络工具单例
 + (instancetype)sharedFeedTool;
@@ -21,7 +23,7 @@
  *  @param lasttime 服务器需要的分页参数
  *  @param finished 完成后的回调
  */
-- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(void (^)(NSDictionary *responseObject, NSError *error))finished;
+- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(FinishedBlock)finished;
 /*!
  *  @brief  需要参数的GET 请求
  *
@@ -29,5 +31,7 @@
  *  @param parameters 请求参数
  *  @param finished   完成后的回调
  */
-- (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(void (^)(NSDictionary *responseObject, NSError *error))finished;
+- (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(FinishedBlock)finished;
+
+
 @end

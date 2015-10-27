@@ -12,6 +12,7 @@
 #import "QDCategory.h"
 #import "QDPost.h"
 #import "QDAuthor.h"
+#import "QDRadarData.h"
 
 @implementation MJExtensionConfig
 
@@ -34,6 +35,12 @@
     [QDAuthor setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"userID" : @"id"
+                 };
+    }];
+    
+    [QDRadarData setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{
+                 @"geneID" : @"id"
                  };
     }];
 }

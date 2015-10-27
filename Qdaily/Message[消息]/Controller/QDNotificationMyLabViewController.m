@@ -81,7 +81,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)setupFeeds {
     
     self.last_time = @"0";
-    NSDictionary *params = @{@"lasttime" : self.last_time};
+    NSDictionary *params = @{@"last_time" : self.last_time};
     [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl parameters:params finished:^(NSDictionary *responseObject, NSError *error) {
         
         // 验证数据
@@ -127,7 +127,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 #pragma mark - 加载更多新闻数据
 - (void)loadMoreNews {
     
-    NSDictionary *params = @{@"lasttime" : self.last_time};
+    NSDictionary *params = @{@"last_time" : self.last_time};
     [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl parameters:params finished:^(NSDictionary *responseObject, NSError *error) {
         
         // 验证数据

@@ -24,7 +24,7 @@
     [[QDFeedTool sharedFeedTool].tasks makeObjectsPerformSelector:@selector(cancel)];
 }
 
-- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(void (^)(NSDictionary *responseObject, NSError *error))finished {
+- (void)loadFeedsWithPath:(NSString *)path lasttime:(NSString *)lasttime finished:(FinishedBlock)finished {
     
     // 取消之前的请求
     [[QDFeedTool sharedFeedTool] cancel];
@@ -51,7 +51,7 @@
     }];
 }
 
-- (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(void (^)(NSDictionary *responseObject, NSError *error))finished {
+- (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(FinishedBlock)finished {
     
     NSString *urlStr = [NSString stringWithFormat:@"%@", path];
     
