@@ -296,7 +296,8 @@
         [self showSideBar];
     }
     // 内部动画
-    [self.sideBarButton touchUpInsideHandler];
+    BOOL showMenu = !(self.sideBar.x == 0);
+    [self.sideBarButton touchUpInsideHandler:showMenu];
 }
 
 - (void)showSideBar {
@@ -358,8 +359,6 @@
             // 显示完整菜单
             [UIView animateWithDuration:duration animations:^{
                 _sideBar.x = 0;
-                // 处理按钮内部动画
-                [self.sideBarButton touchUpInsideHandler];
             }];
         } else if (sideBarMaxX >= (_sideBar.width - 44) && velocityX < 0) { // 向左滑动距离不足
             // 显示完整菜单
@@ -374,10 +373,12 @@
             // 隐藏菜单
             [UIView animateWithDuration:duration animations:^{
                 _sideBar.x = - _sideBar.width;
-                // 处理按钮内部动画
-                [self.sideBarButton touchUpInsideHandler];
             }];
         }
+        
+         // 处理按钮内部动画
+        BOOL showMenu = !(self.sideBar.x == 0);
+        [self.sideBarButton touchUpInsideHandler: showMenu];
     }
 }
 
@@ -455,7 +456,7 @@
     [UIView animateWithDuration:0.25 animations:^{
         self.sideBar.x = - self.sideBar.width;
         // 处理按钮内部动画
-        [self.sideBarButton touchUpInsideHandler];
+        [self.sideBarButton touchUpInsideHandler:YES];
     }];
     
     // 取出模型

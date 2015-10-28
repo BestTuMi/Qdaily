@@ -18,7 +18,6 @@ static CGFloat const buttonBackgroundWH = 37;
 @property(nonatomic) CALayer *bottomLayer;
 /** 添加动画组件的层 */
 @property (nonatomic)  CALayer *animationLayer;
-@property(nonatomic) BOOL showMenu;
 
 /** 定时器 */
 @property (nonatomic, weak) NSTimer *timer;
@@ -156,18 +155,25 @@ static CGFloat const buttonBackgroundWH = 37;
     [self.bottomLayer pop_addAnimation:positionBottomAnimation forKey:@"positionBottomAnimation"];
 }
 
-- (void)touchUpInsideHandler
-{
-    if (self.showMenu) {
+- (void)touchUpInsideHandler: (BOOL)showMenu {
+    static BOOL isMenu = YES;
+    if (showMenu) {
+        if (isMenu == showMenu) { // 当前状态就是菜单,不执行动画
+            return;
+        }
         [self animateToMenu];
+        
+        // 记录按钮状态
+        isMenu = YES;
+        
     } else {
         [self animateToArrow];
+        
+        isMenu = NO; // 记录按钮状态
     }
-    self.showMenu = !self.showMenu;
 }
 
-- (void)setup
-{
+- (void)setup {
     // 添加动画组件层
     self.animationLayer = [CALayer layer];
     self.animationLayer.bounds = CGRectMake(0, 0, buttonWH, buttonWH);

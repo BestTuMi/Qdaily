@@ -13,5 +13,5 @@
 @property (nonatomic, copy) void(^buttonHandler)(id sender);
 + (instancetype)button;
 + (instancetype)buttonWithOrigin:(CGPoint)origin;
-- (void)touchUpInsideHandler;
+- (void)touchUpInsideHandler:(BOOL)showMenu;
 @end
