@@ -30,10 +30,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    // 检查登录状态
-    if ([QDUserAccountViewModel sharedInstance]) {
-        
-    }
+    
 }
 
 - (IBAction)weiboLogin:(id)sender {
@@ -55,6 +52,10 @@
             QDLogVerbose(@"%@", responseObject[@"response"]);
         }];
     }];
+}
+
+- (IBAction)cancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

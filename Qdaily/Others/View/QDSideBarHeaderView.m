@@ -111,11 +111,22 @@
             
             if (error) {
                 QDLogVerbose(@"%@", error);
+                
+                // 保存登录状态
+                self.isLogin = NO;
+                
+                // 刷新 UI
+                [self refreshUI];
+                
+                return;
             }
             
             // 设置模型
             self.userCenterVm = [QDUserCenterVM sharedInstance];
             self.userCenterVm.userCenterModel = [QDUserCenterModel objectWithKeyValues:responseObject[@"response"]];
+            
+            // 保存登录状态
+            self.isLogin = YES;
             
             // 刷新 UI
             [self refreshUI];
@@ -126,19 +137,31 @@
 
 - (void)refreshUI {
     
-    // 保存登录状态
-    self.isLogin = YES;
-    // 恢复点击
-    self.loginButton.userInteractionEnabled = YES;
+    if (self.isLogin) { // 登录成功
+        // 恢复点击
+        self.loginButton.userInteractionEnabled = YES;
+        
+        // 更改登录按钮的状态
+        [self.loginButton setTitle:self.userCenterVm.userCenterModel.username forState:UIControlStateNormal];
+        [self.loginButton setTitleColor:QDLightGrayColor forState:UIControlStateNormal];
+        
+        // 更新用户头像
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:self.userCenterVm.userCenterModel.face] completed:nil];
+        
+    } else { // 登录失败
+        // 恢复点击
+        self.loginButton.userInteractionEnabled = YES;
+        
+        // 更改登录按钮的状态
+        [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        [self.loginButton setTitleColor: QDHighlightColor forState:UIControlStateNormal];
+        
+        // 更新用户头像
+        self.iconImageView.image = [UIImage imageNamed:@"defult_userIcon_palcehold"];
+        
+    }
     
-    // 更改登录按钮的状态
-    [self.loginButton setTitle:self.userCenterVm.userCenterModel.username forState:UIControlStateNormal];
-    [self.loginButton setTitleColor:QDLightGrayColor forState:UIControlStateNormal];
-    
-    // 更新用户头像
-    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:self.userCenterVm.userCenterModel.face] completed:nil];
-    
-    // 更新个人 五边形属性视图
+    // 更新个人 五边形属性视图(地址错误时,就不会更新用户 gene, 也就是使用初始化默认值)
     [self.userCenterVm loadGenesData:^(NSDictionary *responseObject, NSError *error) {
         // 验证数据
         if (error) {
@@ -146,6 +169,7 @@
         }
         self.radarView.genes = [self.userCenterVm.userCenterModel.genes valueForKeyPath:@"value"];
     }];
-    }
+}
+
 
 @end

@@ -36,6 +36,9 @@
                                     <state key="normal" image="login_login_cancleButton_nol">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="cancel:" destination="-1" eventType="touchUpInside" id="Bss-cl-xPP"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v3Z-29-T0Y" userLabel="weibo">
                                     <rect key="frame" x="285" y="285" width="30" height="30"/>
@@ -57,6 +60,11 @@
                                 <constraint firstAttribute="centerX" secondItem="h8B-0l-xzS" secondAttribute="centerX" id="fja-7N-WrX"/>
                                 <constraint firstAttribute="centerY" secondItem="v3Z-29-T0Y" secondAttribute="centerY" id="rF8-bb-2pQ"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="rF8-bb-2pQ"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <constraints>
