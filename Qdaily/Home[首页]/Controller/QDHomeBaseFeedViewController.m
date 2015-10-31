@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 c344081. All rights reserved.
 //
 
-#import "QDBaseFeedViewController.h"
+#import "QDHomeBaseFeedViewController.h"
 #import "QDFeedBannerCell.h"
 #import "QDFeedSmallCell.h"
 #import "QDFeedCompactCell.h"
@@ -21,7 +21,7 @@
 #import "QDRefreshHeader.h"
 #import "MBProgressHUD+Message.h"
 
-@interface QDBaseFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface QDHomeBaseFeedViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 /** collectionView */
 @property (nonatomic, weak) QDCollectionView *collectionView;
 /** Feeds 保存所有模型数据 */
@@ -43,7 +43,7 @@
 
 @end
 
-@implementation QDBaseFeedViewController
+@implementation QDHomeBaseFeedViewController
 
 static NSString * const bannerIdentifier = @"feedBannerCell";
 static NSString * const smallIdentifier = @"feedSmallCell";

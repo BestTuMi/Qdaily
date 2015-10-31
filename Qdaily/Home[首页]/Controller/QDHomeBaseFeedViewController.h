@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class QDCollectionView;
 
-@interface QDBaseFeedViewController : UIViewController
+@interface QDHomeBaseFeedViewController : UIViewController
 /** 请求的地址 */
 - (NSString *)requestUrl;
 - (NSDictionary *)parameters;

@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QDBaseFeedViewController.h"
+#import "QDHomeBaseFeedViewController.h"
 @class QDSideBarCategory;
 
 @interface QDCategoryFeedViewController : UIViewController
 /** 当前分类 */
 @property (nonatomic, strong)  QDSideBarCategory *category;
-/** 所有分类 */
-@property (nonatomic, strong) NSMutableDictionary *categories;
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QDNotificationMyLabViewController.h"
+#import "QDCategoryFeedViewController.h"
+@class QDSideBarCategory;
 
-@interface QDFavouriteViewController : QDNotificationMyLabViewController
-
+@interface QDFavouriteViewController : UIViewController
+/** 当前分类 */
+@property (nonatomic, strong)  QDSideBarCategory *category;
 @end

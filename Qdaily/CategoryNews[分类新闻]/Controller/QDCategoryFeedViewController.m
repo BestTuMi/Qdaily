@@ -28,6 +28,8 @@
 @property (nonatomic, weak)  QDCustomNaviBar *naviBar;
 /** collectionView */
 @property (nonatomic, weak) QDCollectionView *collectionView;
+/** 所有分类 */
+@property (nonatomic, strong) NSMutableDictionary *categories;
 /** Feeds 保存所有模型数据 */
 @property (nonatomic, strong) NSMutableArray *feeds;
 /** collectionView 布局 */
@@ -49,7 +51,6 @@ static NSString * const compactIdentifier = @"feedCompactCell";
 @implementation QDCategoryFeedViewController
 
 // 消除警告
-
 - (NSString *)requestUrl {
     return [NSString stringWithFormat:@"app/categories/index/%@/", self.category.ID] ;
 }

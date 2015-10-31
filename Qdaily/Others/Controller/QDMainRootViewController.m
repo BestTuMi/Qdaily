@@ -468,6 +468,7 @@
 
     } else if (category.destVcClass == [self.favouriteVc class]) { // 切换到收藏
         [self setMainViewChildVc:self.favouriteVc];
+        self.favouriteVc.category = category;
     } else if (category.destVcClass == [self.messageVc class]) { // 切换消息页面
         [self setMainViewChildVc:self.messageVc];
     }

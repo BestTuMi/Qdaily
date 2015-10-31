@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QDBaseFeedViewController.h"
+#import "QDHomeBaseFeedViewController.h"
 
 @interface QDNotificationMyLabViewController :UIViewController
 - (NSString *)requestUrl;
