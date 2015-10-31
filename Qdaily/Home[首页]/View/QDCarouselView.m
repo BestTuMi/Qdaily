@@ -12,6 +12,8 @@
 #import "QDCategory.h"
 #import "Masonry.h"
 #import "QDFeedCompactCell.h"
+#import "QDFeedArticleViewController.h"
+#import "QDNavigationController.h"
 
 //define this constant if you want to enable auto-boxing for default syntax
 #define MAS_SHORTHAND_GLOBALS
@@ -169,6 +171,13 @@ static NSString *const identifier = @"feedCompactCell";
     // 设置模型
     cell.feed = feed;
     return cell;
+}
+
+#pragma mark - collectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
+    feedArticleVc.feed = self.banners[indexPath.item % _banners.count];
+    [(QDNavigationController *)self.window.rootViewController pushViewController:feedArticleVc animated:YES];
 }
 
 #pragma mark - scrollView delegate

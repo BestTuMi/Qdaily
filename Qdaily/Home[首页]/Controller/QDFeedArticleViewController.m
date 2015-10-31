@@ -133,7 +133,11 @@
     [MBProgressHUD showMessage:@"加载失败"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUD];
+        for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            [MBProgressHUD hideHUDForView:window];
+        }
+        // pop
+        [self.navigationController popViewControllerAnimated:YES];
     });
 }
 

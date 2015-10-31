@@ -192,6 +192,7 @@
 		8B8DF3F21BD795F300C5413A /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */; };
 		8B92F6A61BD0A4F600C4A870 /* QDHomeBaseFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B92F6A51BD0A4F600C4A870 /* QDHomeBaseFeedViewController.m */; };
 		8B92F6A91BD0D32100C4A870 /* QDWebViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */; };
+		8BC1F2871BE53942007E205B /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC1F2861BE53942007E205B /* NSDate+Extension.m */; };
 		8BC57EB61BD160BC00D7E883 /* QDRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC57EB51BD160BC00D7E883 /* QDRefreshFooter.m */; };
 		8BC57EE21BD1613400D7E883 /* list_loading_001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC57EB81BD1613400D7E883 /* list_loading_001@2x.png */; };
 		8BC57EE31BD1613400D7E883 /* list_loading_001@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC57EB91BD1613400D7E883 /* list_loading_001@3x.png */; };
@@ -536,6 +537,8 @@
 		8B92F6A51BD0A4F600C4A870 /* QDHomeBaseFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeBaseFeedViewController.m; sourceTree = "<group>"; };
 		8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDWebViewFooter.h; sourceTree = "<group>"; };
 		8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDWebViewFooter.m; sourceTree = "<group>"; };
+		8BC1F2851BE53942007E205B /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		8BC1F2861BE53942007E205B /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		8BC57EB41BD160BC00D7E883 /* QDRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDRefreshFooter.h; sourceTree = "<group>"; };
 		8BC57EB51BD160BC00D7E883 /* QDRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDRefreshFooter.m; sourceTree = "<group>"; };
 		8BC57EB81BD1613400D7E883 /* list_loading_001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_loading_001@2x.png"; sourceTree = "<group>"; };
@@ -1287,6 +1290,8 @@
 		8BC735541BC421F30045226E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				8BC1F2851BE53942007E205B /* NSDate+Extension.h */,
+				8BC1F2861BE53942007E205B /* NSDate+Extension.m */,
 				8BC735551BC421F30045226E /* UIBarButtonItem+Extension.h */,
 				8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */,
 				8B8DF3F01BD795F300C5413A /* UIButton+Extension.h */,
@@ -1686,6 +1691,7 @@
 				8B5EB2F21BD0877C0078D13A /* QDHomeFeedArticleViewController.m in Sources */,
 				8B5EB33D1BD087C70078D13A /* QDSideBarFooterView.m in Sources */,
 				8B79DA771BDCE6FE0038EA96 /* MBProgressHUD.m in Sources */,
+				8BC1F2871BE53942007E205B /* NSDate+Extension.m in Sources */,
 				8B5EB3281BD0879A0078D13A /* QDFeed.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
 				8B8DF3F21BD795F300C5413A /* UIButton+Extension.m in Sources */,

@@ -338,9 +338,15 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - collectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
-    feedArticleVc.feed = self.feeds[indexPath.item];
-    [self.navigationController pushViewController:feedArticleVc animated:YES];
+    // 取出模型
+    QDFeed *feed = self.feeds[indexPath.item];
+    if (feed.post.genre == QDGenreVote || feed.post.genre == QDGenrePaper) { // 不通过网页加载
+        QDLogVerbose(@"%@", feed.post.ID);
+    } else {
+        QDFeedArticleViewController *feedArticleVc = [[QDFeedArticleViewController alloc] init];
+        feedArticleVc.feed = self.feeds[indexPath.item];
+        [self.navigationController pushViewController:feedArticleVc animated:YES];
+    }
 }
 
 @end

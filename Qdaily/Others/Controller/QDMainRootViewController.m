@@ -108,7 +108,7 @@
         [_maskView addGestureRecognizer:maskPan];
         
         // 额外增加一个点击手势,直接收起菜单
-        UITapGestureRecognizer *maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSideBar)];
+        UITapGestureRecognizer *maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sideBarButttonClick)];
         [_maskView addGestureRecognizer:maskTap];
     }
     return _maskView;

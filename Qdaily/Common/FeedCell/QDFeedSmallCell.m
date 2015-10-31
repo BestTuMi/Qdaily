@@ -45,7 +45,37 @@ static CGFloat commentBtnMargin = 3;
     self.praiseCountButton.width += commentBtnMargin;
     
     self.titleLabel.text = feed.post.title;
+    
+    // 设置日期
+    self.publishTimeLabel.text = [self publishTime];
 }
+
+- (NSString *)publishTime {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDate *publishDate = [NSDate dateWithTimeIntervalSince1970:self.feed.post.publish_time];
+    
+    if (publishDate.isThisYear) { // 是今年发得贴,进一步判断
+        if (publishDate.isToday) { // 是今天发的贴
+            NSDateComponents *comps = [publishDate intervalToNow];
+            if (comps.hour >= 1) { // 超过1小时显示 N 小时前发帖
+                return [NSString stringWithFormat:@"%zd小时前", comps.hour];
+            } else if (comps.minute >= 1) { // 显示 N 分钟前发帖
+                return [NSString stringWithFormat:@"%zd分钟前", comps.minute];
+            } else { // 小于1分钟,刚刚发的
+                return @"刚刚";
+            }
+        }
+        // 今年的其他时间发贴
+        formatter.dateFormat = @"MM月dd日";
+        return [formatter stringFromDate:publishDate];
+        
+    } else { // 不是今年发的,完整显示日期
+        formatter.dateFormat = @"yyyy年MM月dd日";
+        return [formatter stringFromDate:publishDate];
+    }
+}
+
+
 
 @end
 
