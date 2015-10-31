@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "QDBaseFeedViewController.h"
+@class QDSideBarCategory;
 
-@interface QDCategoryFeedViewController : QDBaseFeedViewController
-/** 目录的 ID 号 */
-@property (nonatomic, copy) NSString *ID;
-/** 目录的 categoryTitle */
-@property (nonatomic, copy) NSString *categoryTitle;
+@interface QDCategoryFeedViewController : UIViewController
+/** 当前分类 */
+@property (nonatomic, strong)  QDSideBarCategory *category;
+/** 所有分类 */
+@property (nonatomic, strong) NSMutableDictionary *categories;
 
 @end

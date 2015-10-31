@@ -385,29 +385,22 @@
 #pragma mark - tableview数据源
 
 - (void)setupCategories {
-    QDSideBarCategory *categoryHome = [[QDSideBarCategory alloc] init];
-    categoryHome.title = @"首页";
-    categoryHome.image = @"slidebar_cell_home_normal";
-    categoryHome.image_highlighted = @"slidebar_cell_home_highlighted";
-    categoryHome.destVcClass = [QDHomeViewController class];
+    QDSideBarCategory *categoryHome = [QDSideBarCategory categoryWithImage:@"slidebar_cell_home_normal"
+                                                               destVcClass:[QDHomeViewController class]
+                                                                     Title:@"首页"];
     
-    QDSideBarCategory *categoryLab = [[QDSideBarCategory alloc] init];
-    categoryLab.title = @"好奇心实验室";
-    categoryLab.image = @"slidebar_cell_lab_normal";
-    categoryLab.image_highlighted = @"slidebar_cell_lab_highlighted";
-    categoryLab.destVcClass = [QDHomeViewController class];
     
-    QDSideBarCategory *categoryFavourite = [[QDSideBarCategory alloc] init];
-    categoryFavourite.title = @"收藏";
-    categoryFavourite.image = @"slidebar_cell_fav_normal";
-    categoryFavourite.image_highlighted = @"slidebar_cell_fav_highlighted";
-    categoryFavourite.destVcClass = [QDFavouriteViewController class];
+    QDSideBarCategory *categoryLab = [QDSideBarCategory categoryWithImage:@"slidebar_cell_lab_normal"
+                                                              destVcClass:[QDHomeViewController class]
+                                                                    Title:@"好奇心实验室"];
     
-    QDSideBarCategory *categoryMsg = [[QDSideBarCategory alloc] init];
-    categoryMsg.title = @"消息";
-    categoryMsg.image = @"slidebar_cell_notify_normal";
-    categoryMsg.image_highlighted = @"slidebar_cell_notify_highlighted";
-    categoryMsg.destVcClass = [QDMessageViewController class];
+    QDSideBarCategory *categoryFavourite = [QDSideBarCategory categoryWithImage:@"slidebar_cell_fav_normal"
+                                                                    destVcClass:[QDFavouriteViewController class]
+                                                                          Title:@"收藏"];
+    
+    QDSideBarCategory *categoryMsg = [QDSideBarCategory categoryWithImage:@"slidebar_cell_notify_normal"
+                                                              destVcClass:[QDMessageViewController class]
+                                                                    Title:@"消息"];
     
     [self.categories addObjectsFromArray:@[categoryHome, categoryLab, categoryFavourite, categoryMsg]];
     
@@ -453,22 +446,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 隐藏菜单
-    [UIView animateWithDuration:0.25 animations:^{
-        self.sideBar.x = - self.sideBar.width;
-        // 处理按钮内部动画
-        [self.sideBarButton touchUpInsideHandler:YES];
-    }];
+    [self hideSideBar];
+    
+    // 处理按钮内部动画
+    [self.sideBarButton touchUpInsideHandler:YES];
     
     // 取出模型
     QDSideBarCategory *category = self.categories[indexPath.row];
     
     // 添加新的视图
     if (category.destVcClass == [self.categoryFeedVc class]) { // 是信息流界面
-        self.categoryFeedVc.ID = category.ID;
-        self.categoryFeedVc.categoryTitle = category.title;
-        // 注意分类 ID 的赋值时机
+        // 注意view 在这一步加载
         [self setMainViewChildVc:self.categoryFeedVc];
-        [self.categoryFeedVc setupFeeds];
+        self.categoryFeedVc.category = category;
+        
     } else if (category.destVcClass == [self.homeVc class]) { // 切换首页
         [self setMainViewChildVc:self.homeVc];
         

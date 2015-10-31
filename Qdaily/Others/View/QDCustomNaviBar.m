@@ -21,7 +21,6 @@
 - (instancetype)initWithTitle: (NSString *)title {
     if (self = [super init]) {
         if (title.length > 0) {
-            self.titleView.textColor = QDRGBWhiteColor(1.0, 1.0);
             self.title = title;
         }
     }
@@ -38,6 +37,7 @@
 - (UILabel *)titleView {
     if (!_titleView) {
         UILabel *titleView = [[UILabel alloc] init];
+        titleView.textColor = QDRGBWhiteColor(1.0, 1.0);
         [self addSubview:titleView];
         _titleView = titleView;
     }

@@ -30,7 +30,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
 }
 
 - (IBAction)weiboLogin:(id)sender {

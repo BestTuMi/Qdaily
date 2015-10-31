@@ -106,7 +106,6 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl lasttime:self.last_time finished:^(NSDictionary *responseObject, NSError *error) {
         // 验证数据
         if (responseObject == nil) {
-            [MBProgressHUD showError:error.userInfo[@"msg"]];
              // 停止下拉刷新
             [self.collectionView.header endRefreshing];
             return;
@@ -133,7 +132,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         self.banners = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"banners"][@"list"]];
         
         // 将轮播图以数组形式添加到 collectionView 数据源,目的是方便计算布局
-        // 注意:子类肯能没有轮播图
+        // 注意:子类可能没有轮播图
         if (self.banners.count) {
             [self.feeds addObject:self.banners];
         }
@@ -210,6 +209,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     self.flowLayout = flowLayout;
 }
 
+#pragma mark - 设置 collectionView
 - (void)setupCollectionView {
     
     QDCollectionView *collectionView = [[QDCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.flowLayout];

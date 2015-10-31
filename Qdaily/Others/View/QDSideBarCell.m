@@ -73,7 +73,7 @@
     if (category.destVcClass != [QDCategoryFeedViewController class]) {
         _image_view.image = [UIImage imageNamed:category.image];
         _image_view.highlightedImage = [UIImage imageNamed:category.image_highlighted];
-    } else {
+    } else { // 需要使用网络图片
         [_image_view sd_setImageWithURL:[NSURL URLWithString:category.image]];
         [_image_view sd_setHighlightedImageWithURL:[NSURL URLWithString:category.image_highlighted]];
     }

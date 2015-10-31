@@ -33,8 +33,6 @@
     QDLogVerbose(@"%@", urlStr);
     [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        QDLogVerbose(@"%@", responseObject);
-        
         // 处理错误
         // 有响应, 无response 字段可能是登录失败
         if (responseObject[@"response"] == [NSNull null]) {
@@ -56,8 +54,6 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@", path];
     
     [[QDFeedTool sharedFeedTool] GET:urlStr parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        
-        QDLogVerbose(@"%@", responseObject);
         
         // 处理错误
         // 有响应, 无response 字段可能是登录失败
