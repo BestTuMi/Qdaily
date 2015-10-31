@@ -68,6 +68,12 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+#pragma mark - dealloc
+- (void)dealloc {
+    [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark -
 #pragma mark - lazyload
 - (QDHomeFeedArticleViewController *)homeFeedVc {
@@ -122,8 +128,17 @@
     NSInteger count = self.childViewControllers.count;
     scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
     
+    // 监听 offset 的改变,改变蒙版的透明度
+    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
     // 默认选中首页,下面这个方法懒加载视图
     [self scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    CGFloat newOffsetX = [change[NSKeyValueChangeNewKey] CGPointValue].x;
+    self.homeFeedVc.maskView.alpha = newOffsetX / self.view.width * 0.88;
+    self.labFeedVc.maskView.alpha = (1 - newOffsetX / self.view.width) * 0.88;
 }
 
 #pragma mark - 设置顶部自定义导航条
@@ -233,10 +248,6 @@
     self.timer = nil;
 }
 
-- (void)showMenuButton {
-    
-}
-
 #pragma mark -
 #pragma mark - 选择指定 Index 的选项
 - (void)selectTabAtIndex:(NSInteger)index {
@@ -263,6 +274,7 @@
         
         // 添加到 ScrollView 上
         [scrollView addSubview:self.willShowVc.view];
+        
     }
 }
 

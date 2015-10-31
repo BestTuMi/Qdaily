@@ -70,6 +70,9 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     [self setupFeeds];
     
     [self setupRefresh];
+    
+    // 添加蒙版层
+    [self setupMaskView];
 }
 
 #pragma mark - lazyload
@@ -85,6 +88,15 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         _news = [NSMutableArray array];
     }
     return _news;
+}
+
+#pragma mark - 添加蒙版层
+- (void)setupMaskView {
+    UIView *maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    maskView.backgroundColor = QDRGBWhiteColor(0, 1.0);
+    maskView.alpha = 0;
+    [self.view addSubview:maskView];
+    self.maskView = maskView;
 }
 
 #pragma mark - 设置刷新组件
