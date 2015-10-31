@@ -41,6 +41,8 @@
 @property (nonatomic, weak)  UIView *sideBar;
 /** 中间主视图 */
 @property (nonatomic, weak) UIView *mainView;
+/** 蒙版层 */
+@property (nonatomic, strong) UIView *maskView;
 /** 侧边菜单按钮 */
 @property (nonatomic, weak)  QDAnimateButton *sideBarButton;
 /** 菜单是否在屏幕上 */
@@ -94,6 +96,24 @@
 }
 
 #pragma mark - lazyload
+- (UIView *)maskView {
+    if (!_maskView) {
+        _maskView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _maskView.backgroundColor = QDRGBWhiteColor(0, 1.0);
+        _maskView.alpha = 0.0;
+        
+        // 添加手势
+        // 使用主视图控制器的 target
+        UIPanGestureRecognizer *maskPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+        [_maskView addGestureRecognizer:maskPan];
+        
+        // 额外增加一个点击手势,直接收起菜单
+        UITapGestureRecognizer *maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSideBar)];
+        [_maskView addGestureRecognizer:maskTap];
+    }
+    return _maskView;
+}
+
 - (QDHomeViewController *)homeVc {
     if (!_homeVc) {
         _homeVc = [[QDHomeViewController alloc] init];
@@ -153,7 +173,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
+
     // 添加边缘滑动手势
     UIScreenEdgePanGestureRecognizer *edgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     // 滑动范围为左侧
@@ -286,6 +306,9 @@
             [QDSideBarUserGuideView show];
         }
     }
+    
+    // 设置蒙版透明度
+    [self setMaskViewAlpha];
 }
 
 #pragma mark - 显示隐藏左侧菜单
@@ -321,25 +344,31 @@
     // 改变菜单 frame
     _sideBar.x += offsetX;
     
-    // TODO: 增加蒙版
+    // 添加蒙版层
+    [self.mainView addSubview:self.maskView];
     
     // 复位
     [panGesture setTranslation:CGPointZero inView:panGesture.view];
     
-    // 改变菜单的 frame
-    [self sideBarFrameWithOffsetX:offsetX panGetsture:panGesture];
+    // 改变菜单的 frame并改变蒙版的 alpha
+    [self sideBarFrameWithPanGetsture:panGesture];
     
+}
+
+#pragma mark - 设置蒙版层透明度
+- (void)setMaskViewAlpha {
+    // Alpha 最终值为0.6
+    self.maskView.alpha = CGRectGetMaxX(self.sideBar.frame) / self.sideBar.width * 0.6 >= 0.6 ? 0.6 : CGRectGetMaxX(self.sideBar.frame) / self.sideBar.width * 0.6;
 }
 
 #pragma mark - 计算菜单的 Frame
 /*!
  *  @brief   手势滑动时计算侧边菜单的 frame
  *
- *  @param offsetX     手势滑动时的 x 偏移量
  *  @param panGetsture 使用的手势,包括平移和边缘平移滑动
  *
  */
-- (void)sideBarFrameWithOffsetX: (CGFloat)offsetX panGetsture: (UIPanGestureRecognizer *)panGetsture {
+- (void)sideBarFrameWithPanGetsture: (UIPanGestureRecognizer *)panGetsture {
     CGFloat sideBarMaxX = CGRectGetMaxX(_sideBar.frame);
     if (sideBarMaxX >= _sideBar.width) { // 左边达到边缘后不再改变 Frame
         _sideBar.x = 0;
