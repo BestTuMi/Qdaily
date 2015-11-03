@@ -12,8 +12,6 @@
 @interface QDFeedLayout ()
 /** layoutAttributes */
 @property (nonatomic, strong) NSMutableArray *attrsArray;
-/** 需要调整的index */
-@property (nonatomic, strong) NSMutableDictionary *indexsNeedAdjust;
 @end
 
 @implementation QDFeedLayout
@@ -24,13 +22,6 @@
         _attrsArray = [NSMutableArray array];
     }
     return _attrsArray;
-}
-
-- (NSMutableDictionary *)indexsNeedAdjust {
-    if (!_indexsNeedAdjust) {
-        _indexsNeedAdjust = [NSMutableDictionary dictionary];
-    }
-    return _indexsNeedAdjust;
 }
 
 #pragma mark -
@@ -151,13 +142,14 @@
                 CGRect F = lastAttrs.frame;
                 F.origin.y = itemY + itemH + feedMargin;
                 lastAttrs.frame = F;
-            
+                
                  // 插入
                 [self.attrsArray insertObject:attrs atIndex:0];
             }
         }
     }
-     
+    
+    // 单独计算
     if (indexPath.item == 0) {
         itemY = 0;
         if (![feed isKindOfClass:[NSArray class]]) {

@@ -22,4 +22,8 @@ typedef NS_ENUM(NSUInteger, QDFeedCellType) {
 @property (nonatomic, copy) NSString *image;
 /** Cell 的样式 */
 @property (nonatomic, assign) QDFeedCellType type;
+/** 标题 */
+@property (nonatomic, copy)  NSString *title;
+/** 详细标题 */
+@property (nonatomic, copy)  NSString *detail;
 @end

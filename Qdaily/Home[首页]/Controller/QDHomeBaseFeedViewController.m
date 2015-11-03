@@ -182,7 +182,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
             [self.collectionView.footer endRefreshing];
             return;
         }
-        
+        QDLogVerbose(@"%@", responseObject);
         // 网络是否错误
         if (error) {
             QDLogVerbose(@"%@", error);
@@ -294,12 +294,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         QDFeedBannerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:bannerIdentifier forIndexPath:indexPath];
         cell.banners = banners;
         return cell;
-    } else if (feed.type == QDFeedCellTypeSmall) {
-        QDFeedSmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:smallIdentifier forIndexPath:indexPath];
+    } else if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) {
+        // 注意:报告的类型是小图,所以要先判断
+        QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
         cell.feed = feed;
         return cell;
-    } else if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) {
-        QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
+    } else if (feed.type == QDFeedCellTypeSmall) {
+        QDFeedSmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:smallIdentifier forIndexPath:indexPath];
         cell.feed = feed;
         return cell;
     } else { // QDFeedCellTypeCompact

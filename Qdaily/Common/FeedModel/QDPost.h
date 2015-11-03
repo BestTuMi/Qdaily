@@ -9,12 +9,19 @@
 #import <Foundation/Foundation.h>
 @class QDCategory;
 
-typedef NS_ENUM(NSUInteger, QDGenre) {
+
+typedef NS_ENUM(NSInteger, QDGenre) {
+    /// 普通
     QDGenreNormal = 1,
+    /// 报告
     QDGenreReport = 14,
+    /// 最佳设计
     QDGenreBestOnTheWeb = 6,
+    /// 投票
     QDGenreVote = 1000,
+    /// 调查(我的)
     QDGenrePaper = 1001,
+    /// 广告
     QDGenreAD = 16
 };
 
