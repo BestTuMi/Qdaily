@@ -283,6 +283,10 @@
     [self.searchBar endEditing:YES];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - scrollView Delegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.searchBar endEditing:YES];

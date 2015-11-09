@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface QDFeedCacheTool : NSObject
-
++ (void)cacheFeeds: (NSDictionary *)dict;
++ (void)loadFeedsCachesWithLastTime: (NSString *)last_time genre: (NSInteger)genre category: (NSInteger)category finished: (void (^)(NSArray *feeds))finished;
 @end

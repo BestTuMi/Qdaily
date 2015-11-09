@@ -10,6 +10,7 @@
 #import "QDFeed.h"
 #import "QDCategory.h"
 #import <UIImageView+WebCache.h>
+#import "QDCollectionView.h"
 
 static CGFloat commentBtnMargin = 3;
 
@@ -74,8 +75,6 @@ static CGFloat commentBtnMargin = 3;
         return [formatter stringFromDate:publishDate];
     }
 }
-
-
 
 @end
 

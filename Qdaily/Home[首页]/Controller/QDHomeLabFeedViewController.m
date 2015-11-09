@@ -19,7 +19,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"app/papers/index/";
+    return [NSString stringWithFormat:@"app/papers/index/%@.json?", self.last_time];
 }
 
 @end

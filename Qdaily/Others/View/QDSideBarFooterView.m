@@ -40,11 +40,11 @@
 
 #pragma mark - 搜索
 - (IBAction)searchBtnClick:(id)sender {
-    [_mainRootViewController hideSideBar];
-    
     QDSearchViewController *searchVc = [[QDSearchViewController alloc] init];
     QDNavigationController *navi = [[QDNavigationController alloc] initWithRootViewController:searchVc];
     [_mainRootViewController presentViewController:navi animated:YES completion:nil];
+    // 隐藏侧边栏
+    [_mainRootViewController hideSideBar];
 }
 
 @end

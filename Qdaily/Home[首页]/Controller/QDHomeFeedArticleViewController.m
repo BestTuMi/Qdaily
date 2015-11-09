@@ -15,7 +15,7 @@
 @implementation QDHomeFeedArticleViewController
 
 - (NSString *)requestUrl {
-    return @"app/homes/index/";
+    return [NSString stringWithFormat:@"app/homes/index/%@.json?", self.last_time];
 }
 
 @end

@@ -333,6 +333,8 @@
     [UIView animateWithDuration:0.25 animations:^{
         self.sideBar.x = - self.sideBar.width;
     }];
+    // 处理按钮内部动画
+    [self.sideBarButton touchUpInsideHandler:YES];
 }
 
 #pragma mark - 滑动显示左侧菜单
@@ -476,9 +478,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 隐藏菜单
     [self hideSideBar];
-    
-    // 处理按钮内部动画
-    [self.sideBarButton touchUpInsideHandler:YES];
     
     // 取出模型
     QDSideBarCategory *category = self.categories[indexPath.row];

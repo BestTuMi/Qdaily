@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "QDCategoryFeedViewController.h"
+#import "QDFeedBaseViewController.h"
 @class QDSideBarCategory;
 
-@interface QDFavouriteViewController : UIViewController
+@interface QDFavouriteViewController : QDFeedBaseViewController
 /** 当前分类 */
 @property (nonatomic, strong)  QDSideBarCategory *category;
 @end

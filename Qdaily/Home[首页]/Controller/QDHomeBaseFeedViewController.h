@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QDFeedBaseViewController.h"
 @class QDCollectionView;
 
-@interface QDHomeBaseFeedViewController : UIViewController
+@interface QDHomeBaseFeedViewController : QDFeedBaseViewController
 /** 蒙版层 */
 @property (nonatomic, weak) UIView *maskView;
-/** 请求的地址 */
-- (NSString *)requestUrl;
-- (NSDictionary *)parameters;
-/// 开始加载数据
-- (void)setupFeeds;
+
 @end
