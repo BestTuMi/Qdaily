@@ -26,12 +26,20 @@
 - (void)loadMoreNews {
     // 先从本地获取
     [QDFeedCacheTool loadHomeFeedsCachesWithLastTime:self.last_time filter:nil completed:^(NSArray *feeds) {
+        if (self.last_time.integerValue > ((QDFeed *)self.feeds.lastObject).post.publish_time) {
+            // 首页第一次返回的 last_time 是倒数第二个模型
+            // 直接在本地查询会显示有本地缓存
+            // 应该直接从网络获取
+            [self loadMoreFeedsFromNetWork];
+            return;
+        }
+        
         if (feeds.count == 0) {
             // 本地没有,从网络获取
             [self loadMoreFeedsFromNetWork];
             return;
         }
-        
+    
         // 保存属性上拉加载发送
         self.last_time = @(((QDFeed *)feeds.lastObject).post.publish_time).stringValue;
         
@@ -52,6 +60,7 @@
 #pragma mark - 处理数据并缓存
 - (void)handleFeeds:(NSDictionary *)responseObject pullingDown:(BOOL)pullingDown {
     [super handleFeeds:responseObject pullingDown:pullingDown];
+
     [QDFeedCacheTool cacheHomeFeeds:responseObject[@"response"]];
 }
 

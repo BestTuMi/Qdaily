@@ -141,6 +141,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 - (void)handleFeeds: (NSDictionary *)responseObject pullingDown: (BOOL)pullingDown {
     // 新闻
     NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+    
     // 添加到 collectionView 数据源
     [self.feeds addObjectsFromArray:news];
 }
