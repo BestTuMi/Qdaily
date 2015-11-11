@@ -11,6 +11,9 @@
 #import "QDSideBarCategory.h"
 #import "QDCollectionView.h"
 #import "QDFeedLayout.h"
+#import "QDFeedCacheTool.h"
+#import "QDFeed.h"
+#import <MJRefresh.h>
 
 @interface QDCategoryFeedViewController ()
 
@@ -81,10 +84,43 @@
     [self.collectionView reloadData];
 }
 
+#pragma mark - 加载更多数据
+- (void)loadMoreNews {
+    // 先从本地缓存找
+    [QDFeedCacheTool loadCategoryFeedsCachesWithLastTime:self.last_time filter:@(self.category.ID.integerValue) completed:^(NSArray *feeds) {
+        // 如果本地没有就从网络加载
+        if (feeds.count == 0) {
+            [self loadMoreFeedsFromNetWork];
+            return;
+        }
+        
+        // 保存属性上拉加载发送
+        self.last_time = @(((QDFeed *)feeds.lastObject).post.publish_time).stringValue;
+        self.has_more = YES;
+
+        // 将模型传递给 Layout 对象进行布局设置
+        self.flowLayout.feeds = self.feeds;
+        
+        // 刷新CollectionView
+        [self.collectionView reloadData];
+        
+        if (!self.has_more) { // 表示没有数据了,隐藏 Footer
+            self.collectionView.footer.hidden = YES;
+        } else {
+            // 结束刷新
+            [self.collectionView.footer endRefreshing];
+        }
+
+    }];
+}
+
 /// 对数据进行额外的处理
 - (void)handleFeeds:(NSDictionary *)responseObject pullingDown:(BOOL)pullingDown {
     [super handleFeeds:responseObject pullingDown:pullingDown];
     // 保存到字典
     self.categories[self.category.ID] = [self.feeds copy];
+    
+    // 缓存数据
+    [QDFeedCacheTool cacheCategoryFeeds:responseObject];
 }
 @end

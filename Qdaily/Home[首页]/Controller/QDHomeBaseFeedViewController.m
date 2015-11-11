@@ -77,6 +77,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     NSNotification *note = [NSNotification notificationWithName:QDFeedCollectionViewOffsetChangedNotification object:self userInfo:change];
     [[NSNotificationCenter defaultCenter] postNotification:note];
+    QDLogVerbose(@"%@", change);
 }
 
 - (void)updateContentOffset: (NSNotification *)note {

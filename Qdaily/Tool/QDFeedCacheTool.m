@@ -58,8 +58,8 @@
                 // 取出 genre 存储
                 NSInteger genre = [feed[@"post"][@"genre"] integerValue];
                 sql = @"UPDATE T_LabFeeds SET feedContent = ? WHERE id = ?;\n\
-                INSERT INTO T_HomeFeeds(postId, publish_time, feedContent, genre) \n\
-                values (?, ?, ?, ?) WHERE changes() = 0;";
+                        INSERT INTO T_HomeFeeds(postId, publish_time, feedContent, genre) \n\
+                        values (?, ?, ?, ?) WHERE changes() = 0;";
                 [arguments addObject:@(genre)];
             }
 
@@ -68,8 +68,8 @@
                 // 取出 category 存储
                 NSInteger category = [feed[@"post"][@"category"][@"id"] integerValue];
                 sql = @"UPDATE T_CategoryFeeds SET feedContent = ? WHERE id = ?;\n\
-                INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent, category) \n\
-                values (?, ?, ?, ?) WHERE changes() = 0;";
+                        INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent, category) \n\
+                        values (?, ?, ?, ?) WHERE changes() = 0;";
                 [arguments addObject:@(category)];
             }
             

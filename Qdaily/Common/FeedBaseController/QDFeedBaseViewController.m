@@ -25,9 +25,6 @@
 
 
 @interface QDFeedBaseViewController ()
-/****** 以下属性上拉加载数据时使用 *******/
-/** 是否有更多数据 */
-@property (nonatomic,  assign) BOOL has_more;
 
 @end
 
@@ -150,7 +147,11 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - 加载更多新闻数据
 - (void)loadMoreNews {
+    [self loadMoreFeedsFromNetWork];
+}
 
+#pragma mark - 从网络加载更多数据
+- (void)loadMoreFeedsFromNetWork {
     [[QDFeedTool sharedFeedTool] loadFeedsWithPath:self.requestUrl parameters:self.parameters finished:^(NSDictionary *responseObject, NSError *error)  {
         // 验证数据
         if (responseObject == nil) {
@@ -167,7 +168,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
             [self.collectionView.header endRefreshing];
             return;
         }
-        
+
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];

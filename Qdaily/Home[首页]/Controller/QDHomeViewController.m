@@ -288,8 +288,8 @@
     CGPoint oldOffset = [note.userInfo[NSKeyValueChangeOldKey] CGPointValue];
     
     CGFloat offsetY = newOffset.y - oldOffset.y;
-    
-    if (newOffset.y >= -QDNaviBarMaxY) {
+
+    if (newOffset.y > -QDNaviBarMaxY) {
         // 变化比例
         CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
         CGFloat scaleSy = sy <= 0.7 ? 0.7 : sy;
@@ -324,9 +324,10 @@
 }
 
 - (void)resetNaviBar {
+    self.naviBarContentV.transform = CGAffineTransformIdentity;
+    
     self.naviBar.y = 0;
     
-    self.naviBarContentV.transform = CGAffineTransformIdentity;
     self.naviBarContentV.alpha = 1.0;
 }
 
