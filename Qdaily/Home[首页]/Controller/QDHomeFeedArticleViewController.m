@@ -7,6 +7,7 @@
 //
 
 #import "QDHomeFeedArticleViewController.h"
+#import "QDCollectionView.h"
 
 @interface QDHomeFeedArticleViewController ()
 

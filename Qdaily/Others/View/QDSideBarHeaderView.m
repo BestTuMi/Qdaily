@@ -49,6 +49,9 @@
     [self.loginButton setTitleColor:QDHighlightColor forState:UIControlStateNormal];
     self.loginButton.adjustsImageWhenHighlighted = NO;
     
+    // 为头像增加点击事件
+    [self.iconImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login:)]];
+    
     [self setupGenes];
     
     [self autoLogin];
@@ -89,7 +92,7 @@
     
     if (!self.isLogin) { // 没有登录,跳转登录界面
          [mainRootVc presentViewController:[[QDNavigationController alloc] initWithRootViewController:loginVc] animated:YES completion:nil];
-    } else { // 更换主界面容器视图
+    } else { // 更换主界面容器视图为个人中心
         if (![mainRootVc.childViewControllers containsObject:self.userCenterVc]) {
             [mainRootVc addChildViewController:self.userCenterVc];
         }
@@ -105,6 +108,7 @@
         
         // 先禁用按钮点击
         self.loginButton.userInteractionEnabled = NO;
+        self.iconImageView.userInteractionEnabled = NO;
         
         QDUserAccountModel *userAccount = [QDUserAccountViewModel sharedInstance].userAccountModel;
         [[QDUserAccountViewModel sharedInstance] login:userAccount finished:^(NSDictionary *responseObject, NSError *error) {
@@ -140,6 +144,7 @@
     if (self.isLogin) { // 登录成功
         // 恢复点击
         self.loginButton.userInteractionEnabled = YES;
+        self.iconImageView.userInteractionEnabled = YES;
         
         // 更改登录按钮的状态
         [self.loginButton setTitle:self.userCenterVm.userCenterModel.username forState:UIControlStateNormal];
@@ -151,6 +156,7 @@
     } else { // 登录失败
         // 恢复点击
         self.loginButton.userInteractionEnabled = YES;
+        self.iconImageView.userInteractionEnabled = YES;
         
         // 更改登录按钮的状态
         [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];

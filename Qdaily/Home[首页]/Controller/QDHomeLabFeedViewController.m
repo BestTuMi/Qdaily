@@ -7,16 +7,13 @@
 //
 
 #import "QDHomeLabFeedViewController.h"
+#import "QDCollectionView.h"
 
 @interface QDHomeLabFeedViewController ()
 
 @end
 
 @implementation QDHomeLabFeedViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
 
 - (NSString *)requestUrl {
     return [NSString stringWithFormat:@"app/papers/index/%@.json?", self.last_time];

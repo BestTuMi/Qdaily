@@ -11,7 +11,8 @@
 @class QDCollectionView;
 
 @interface QDHomeBaseFeedViewController : QDFeedBaseViewController
+/** 是否显示 navibar */
+@property (nonatomic, assign) BOOL naviBarHidden;
 /** 蒙版层 */
 @property (nonatomic, weak) UIView *maskView;
-
 @end

@@ -10,12 +10,15 @@
 #import "QDHomeFeedArticleViewController.h"
 #import "QDHomeLabFeedViewController.h"
 #import "QDScrollView.h"
+#import "QDCollectionView.h"
 
 @interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 /** ScrollView */
 @property (nonatomic, weak) QDScrollView *scrollView;
 /** 自定义的NaviBar */
 @property (nonatomic, weak) UIView *naviBar;
+/** naviBar content */
+@property (nonatomic, weak) UIView *naviBarContentV;
 /** Q 选项 */
 @property (nonatomic, weak)  UIButton *qButton;
 /** Lab 选项 */
@@ -32,9 +35,6 @@
 @property (nonatomic, weak)  UIViewController *willShowVc;
 /** 选项卡按钮数组 */
 @property (nonatomic, strong) NSMutableArray *tabButtons;
-
-/** 定时器 */
-@property (nonatomic, weak) NSTimer *timer;
 
 /** 更新状态栏的状态 */
 @property (nonatomic, assign)  BOOL statusBarHidden;
@@ -151,18 +151,26 @@
     // 添加透明模糊层
     [naviBar addBlurViewWithAlpha:0.5];
     
+    // 添加内容视图
+    UIView *naviBarContentV = [[UIView alloc] init];
+    // 设置锚点
+    naviBarContentV.layer.anchorPoint = CGPointMake(0.5, 1);
+    naviBarContentV.frame = naviBar.bounds;
+    [naviBar addSubview:naviBarContentV];
+    self.naviBarContentV = naviBarContentV;
+    
     // 添加选项卡按钮
     UIButton *qButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [qButton setImage:[UIImage imageNamed:@"home_tab_q"] forState:UIControlStateNormal];
     [qButton setImage:[UIImage imageNamed:@"home_tab_q_h"] forState:UIControlStateDisabled];
-    [naviBar addSubview:qButton];
+    [naviBarContentV addSubview:qButton];
     [self.tabButtons addObject:qButton];
     self.qButton = qButton;
 
     UIButton *labButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [labButton setImage:[UIImage imageNamed:@"home_tab_lab"] forState:UIControlStateNormal];
     [labButton setImage:[UIImage imageNamed:@"home_tab_lab_h"] forState:UIControlStateDisabled];
-    [naviBar addSubview:labButton];
+    [naviBarContentV addSubview:labButton];
     [self.tabButtons addObject:labButton];
     self.labButton = labButton;
     
@@ -176,10 +184,7 @@
     for (NSInteger i = 0; i < count; i++) {
         
         UIButton *button = self.tabButtons[i];
-        
-        // 设置锚点,方便做动画
-        button.layer.anchorPoint = CGPointMake(i == 0 ? 1 : 0, 1); // 目前至右两个按钮,先写死
-        
+
         buttonX = buttonW * i;
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
         
@@ -197,12 +202,12 @@
     indicator.width = buttonW * 0.5;
     indicator.height = 3;
     indicator.y = QDNaviBarMaxY - indicator.height;
-    [naviBar addSubview:indicator];
+    [naviBarContentV addSubview:indicator];
     self.indicator = indicator;
     
      // 默认选中第一个
     qButton.enabled = NO;
-    indicator.x = (buttonW - indicator.width) * 0.5 + indicator.width;
+    indicator.centerX = qButton.centerX;
     self.selectedButton = qButton;
     
     // 添加通知监听
@@ -217,10 +222,8 @@
     // 修改之前选中按钮的状态
     self.selectedButton.enabled = !self.selectedButton.enabled;
     
-    self.indicator.layer.anchorPoint = CGPointMake(button.x == 0 ? 1.0 : 0, 0);
-    
     // 更改指示器的位置
-    self.indicator.x = button.x + (button.width - self.indicator.width) * 0.5;
+    self.indicator.centerX = button.centerX;
 
     // 记录当前选中按钮
     self.selectedButton = button;
@@ -231,21 +234,6 @@
     
     // 更改Offset, 切换子控制器
     [self.scrollView setContentOffset:CGPointMake(offsetX, self.scrollView.contentOffset.y) animated:YES];
-}
-
-#pragma mark - 定时器相关
-- (void)startTimer {
-    // 停掉上一个定时器
-    [self stopTimer];
-    // 开启新的定时器
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(showMenuButton) userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    _timer = timer;
-}
-
-- (void)stopTimer {
-    [self.timer invalidate];
-    self.timer = nil;
 }
 
 #pragma mark -
@@ -269,12 +257,16 @@
     if (self.willShowVc.isViewLoaded) { // 视图加载过
         return;
     } else {
+    
+        // 根据当前 naviBar 状态,判断初始化时是否隐藏导航条
+        ((QDHomeLabFeedViewController *)self.willShowVc).naviBarHidden = self.statusBarHidden;
+        
         // Frame
         self.willShowVc.view.frame = scrollView.bounds;
         
         // 添加到 ScrollView 上
         [scrollView addSubview:self.willShowVc.view];
-        
+
     }
 }
 
@@ -290,28 +282,23 @@
 
 #pragma mark - 改变 NaviBar 的属性
 - (void)updateNaviBarStatus:(NSNotification *)note {
+    
     CGPoint newOffset = [note.userInfo[NSKeyValueChangeNewKey] CGPointValue];
     
     CGPoint oldOffset = [note.userInfo[NSKeyValueChangeOldKey] CGPointValue];
     
     CGFloat offsetY = newOffset.y - oldOffset.y;
     
-    if (newOffset.y > -QDNaviBarMaxY) {
+    if (newOffset.y >= -QDNaviBarMaxY) {
         // 变化比例
         CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
         CGFloat scaleSy = sy <= 0.7 ? 0.7 : sy;
-        CGFloat alphaSy = sy <= 0.7 ? sy * 0.3 : sy;
+        CGFloat alphaSy = sy <= 0.7 ? sy * 0.2 : sy;
         
-        self.qButton.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
-        self.qButton.alpha = alphaSy;
+        self.naviBarContentV.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
+        self.naviBarContentV.alpha = alphaSy;
     
-        self.labButton.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
-        self.labButton.alpha = alphaSy;
-        
-        self.indicator.alpha = alphaSy;
-        self.indicator.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
-        
-        if (newOffset.y <= 0) { // naviBar消失之前或即将下拉出现
+        if (newOffset.y <= 0) { // naviBar消失之前 或 即将下拉出现
             
             if (self.naviBar.y - offsetY >= 0) { // 避免出现下拉瞬间超过0
                 self.naviBar.y = 0;
@@ -325,6 +312,8 @@
         } else { // naviBar消失之后
             // 保持 naviBar 位置不变
             self.naviBar.y = - QDNaviBarMaxY;
+            // 更改状态栏状态
+            [self changeStatusBarStateWithOffsetY:0];
         }
         
     } else {
@@ -332,20 +321,13 @@
         [self changeStatusBarStateWithOffsetY:-QDNaviBarMaxY];
         [self resetNaviBar];
     }
-   
 }
 
 - (void)resetNaviBar {
     self.naviBar.y = 0;
     
-    self.qButton.transform = CGAffineTransformIdentity;
-    self.qButton.alpha = 1.0;
-    
-    self.labButton.transform = CGAffineTransformIdentity;
-    self.labButton.alpha = 1.0;
-    
-    self.indicator.alpha = 1.0;
-    self.indicator.transform = CGAffineTransformIdentity;
+    self.naviBarContentV.transform = CGAffineTransformIdentity;
+    self.naviBarContentV.alpha = 1.0;
 }
 
 #pragma mark - 更改状态栏状态

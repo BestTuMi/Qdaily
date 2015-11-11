@@ -268,6 +268,10 @@
 
 #pragma mark - 改变主视图上的子控制器视图
 - (void)setMainViewChildVc:(UIViewController *)mainViewChildVc {
+    // 控制器没有发生改变,不向下执行
+    if (mainViewChildVc.view == self.mainViewChildVc.view) {
+        return;
+    }
     _mainViewChildVc = mainViewChildVc;
     // 设置 Frame
     mainViewChildVc.view.frame = self.mainView.bounds;

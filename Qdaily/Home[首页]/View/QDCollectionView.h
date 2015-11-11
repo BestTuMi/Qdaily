@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface QDCollectionView : UICollectionView
-
+/** 导航栏已隐藏,需要上滚 */
+@property (nonatomic, assign) BOOL shouldScrollToTop;
 @end
