@@ -25,7 +25,7 @@
 #pragma mark - 加载缓存或网络数据
 - (void)loadMoreNews {
     // 先从本地获取
-    [QDFeedCacheTool loadLabFeedsCachesWithLastTime:self.last_time filter:nil completed:^(NSArray *feeds) {
+    [QDFeedCacheTool loadHomeFeedsCachesWithLastTime:self.last_time filter:nil completed:^(NSArray *feeds) {
         if (feeds.count == 0) {
             // 本地没有,从网络获取
             [self loadMoreFeedsFromNetWork];
