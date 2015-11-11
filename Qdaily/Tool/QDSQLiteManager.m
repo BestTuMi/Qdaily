@@ -54,7 +54,8 @@
                    postId INTEGER PRIMARY KEY, \n\
                    publish_time INTEGER , \n\
                    feedContent TEXT, \n\
-                   genre INTEGER);"];
+                   genre INTEGER, \n\
+                   record_count);"];
         if (!success) {
             QDLogVerbose(@"创建表失败");
             *rollback = YES;

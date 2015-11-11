@@ -45,8 +45,13 @@
             NSString *feedContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             // sql 语句,插入数据,保存
-            NSString *sql = @"INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent) \n\
+            NSString *sql = @"INSERT INTO T_HomeFeeds(postId, publish_time, feedContent) \n\
                                 VALUES(?, ?, ?)";
+            
+            NSString *tableName = @"T_HomeFeeds";
+            
+            // 更新 sql 的语句,如果不存在, changes()函数返回值为0
+            NSString *updateSql = [NSString stringWithFormat:@"UPDATE %@ SET feedContent = '%@' WHERE postId = %zd", tableName, feedContent, postId];
             
             // 参数数组
             NSMutableArray *arguments = [NSMutableArray array];
@@ -56,9 +61,15 @@
             if ([table containsString:@"Lab"]) {
                 // 取出 genre 存储
                 NSInteger genre = [feed[@"post"][@"genre"] integerValue];
-                sql = @"INSERT INTO T_LabFeeds(postId, publish_time, feedContent, genre) \n\
-                            VALUES(?, ?, ?, ?)";
+                // 取出参加人数
+                NSInteger record_count = [feed[@"post"][@"record_count"] integerValue];
+                sql = @"INSERT INTO T_LabFeeds(postId, publish_time, feedContent, genre, record_count) \n\
+                            VALUES(?, ?, ?, ?, ?)";
                 [arguments addObject:@(genre)];
+                [arguments addObject:@(record_count)];
+                tableName = @"T_LabFeeds";
+                
+                updateSql = [NSString stringWithFormat:@"UPDATE T_LabFeeds SET feedContent = '%@' WHERE postId = %zd;UPDATE T_LabFeeds SET record_count = %zd WHERE postId = %zd;", feedContent, postId, record_count, postId];
             }
 
             // 分类新闻页面
@@ -66,9 +77,11 @@
                 sql = @"INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent, category) \n\
                         VALUES(?, ?, ?, ?)";
                 [arguments addObject:filter];
+                tableName = @"T_CategoryFeeds";
             }
             
-            BOOL success = [db executeUpdate:@"UPDATE T_CategoryFeeds SET feedContent = ? WHERE postId = ?", feedContent, @(postId)];
+           
+            BOOL success = [db executeStatements:updateSql];
             
             // 没有变化表示没有，进行插入
             if (db.changes == 0) {

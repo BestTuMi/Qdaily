@@ -56,6 +56,8 @@ typedef NS_ENUM(NSUInteger, QDPageStyle){
 @property (nonatomic, assign) NSInteger comment_count;
 /** 点赞数量 */
 @property (nonatomic, assign) NSInteger praise_count;
+/** 调查参加数量 */
+@property (nonatomic, assign) NSInteger record_count;
 /** 发布时间 */
 @property (nonatomic, assign) NSInteger  publish_time;
 /** 所属分类 */
@@ -66,5 +68,8 @@ typedef NS_ENUM(NSUInteger, QDPageStyle){
 @property (nonatomic, copy)  NSString *appview;
 /** 图片地址 */
 @property (nonatomic, copy)  NSString *image;
+
+/** 是否是新调查 */
+@property (nonatomic, assign)  BOOL isNew;
 
 @end

@@ -235,9 +235,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         QDFeedBannerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:bannerIdentifier forIndexPath:indexPath];
         cell.banners = (NSArray *)feed;
         return cell;
-    } else if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) {
+    } else if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) { // 好奇心实验室
         // 注意:报告的类型是小图,所以要先判断
         QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
+        feed.post.isNew = (indexPath.item == 0 || indexPath.item == 1) ? YES : NO;
         cell.feed = feed;
         return cell;
     } else if (feed.type == QDFeedCellTypeSmall) {

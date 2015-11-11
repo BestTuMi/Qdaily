@@ -31,6 +31,80 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jL-AC-lva" userLabel="JoinView">
+                                <rect key="frame" x="251" y="0.0" width="59" height="73"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lab_titleview_join_new" translatesAutoresizingMaskIntoConstraints="NO" id="YzM-gG-qyk">
+                                        <rect key="frame" x="13" y="46" width="33" height="10"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="IyY-pW-WZO"/>
+                                            <constraint firstAttribute="width" constant="33" id="xp4-fL-CDs"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69L-ZA-XSV" userLabel="titleV">
+                                        <rect key="frame" x="0.0" y="41" width="59" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5N-Bh-dIg" userLabel="record_count">
+                                                <rect key="frame" x="0.0" y="0.0" width="59" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="16" id="lSA-YB-rSP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="lSA-YB-rSP"/>
+                                                    </mask>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="人已参加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fr2-Hf-Va2">
+                                                <rect key="frame" x="0.0" y="16" width="59" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="g5N-Bh-dIg" firstAttribute="top" secondItem="69L-ZA-XSV" secondAttribute="top" id="BgG-Ac-LKG"/>
+                                            <constraint firstItem="fr2-Hf-Va2" firstAttribute="top" secondItem="g5N-Bh-dIg" secondAttribute="bottom" id="EDa-P0-OWk"/>
+                                            <constraint firstItem="g5N-Bh-dIg" firstAttribute="leading" secondItem="69L-ZA-XSV" secondAttribute="leading" id="JNE-Ns-WzM"/>
+                                            <constraint firstAttribute="trailing" secondItem="g5N-Bh-dIg" secondAttribute="trailing" id="Vcq-FH-GWX"/>
+                                            <constraint firstAttribute="bottom" secondItem="fr2-Hf-Va2" secondAttribute="bottom" id="pcC-zi-cfz"/>
+                                            <constraint firstAttribute="trailing" secondItem="fr2-Hf-Va2" secondAttribute="trailing" id="tOR-vX-7Dx"/>
+                                            <constraint firstItem="fr2-Hf-Va2" firstAttribute="leading" secondItem="69L-ZA-XSV" secondAttribute="leading" id="zWa-8n-TnV"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lab_titleview_join_title" translatesAutoresizingMaskIntoConstraints="NO" id="tCT-a6-fok">
+                                        <rect key="frame" x="6" y="6" width="47" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="47" id="Cbj-je-Fgn"/>
+                                            <constraint firstAttribute="height" constant="30" id="kPA-IJ-TPG"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="4jg-xL-f2P"/>
+                                    <constraint firstItem="69L-ZA-XSV" firstAttribute="top" secondItem="tCT-a6-fok" secondAttribute="bottom" constant="5" id="9kY-Cy-1pe"/>
+                                    <constraint firstItem="69L-ZA-XSV" firstAttribute="leading" secondItem="8jL-AC-lva" secondAttribute="leading" id="DVz-SH-9iA"/>
+                                    <constraint firstItem="69L-ZA-XSV" firstAttribute="leading" secondItem="8jL-AC-lva" secondAttribute="leading" id="FtV-5h-Uko"/>
+                                    <constraint firstAttribute="trailing" secondItem="69L-ZA-XSV" secondAttribute="trailing" constant="15" id="Gn2-tf-gOz"/>
+                                    <constraint firstAttribute="trailing" secondItem="69L-ZA-XSV" secondAttribute="trailing" id="Tjb-qS-feE"/>
+                                    <constraint firstAttribute="centerX" secondItem="tCT-a6-fok" secondAttribute="centerX" id="ToN-be-3wi"/>
+                                    <constraint firstItem="tCT-a6-fok" firstAttribute="centerX" secondItem="YzM-gG-qyk" secondAttribute="centerX" constant="0.5" id="fbh-2p-Kes"/>
+                                    <constraint firstAttribute="height" constant="73" id="kau-HM-l94"/>
+                                    <constraint firstItem="tCT-a6-fok" firstAttribute="top" secondItem="8jL-AC-lva" secondAttribute="top" constant="6" id="l88-aP-ske"/>
+                                    <constraint firstAttribute="bottom" secondItem="69L-ZA-XSV" secondAttribute="bottom" id="rY9-q2-fu6"/>
+                                    <constraint firstItem="YzM-gG-qyk" firstAttribute="top" secondItem="tCT-a6-fok" secondAttribute="bottom" constant="10" id="zxt-kX-qF6"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DVz-SH-9iA"/>
+                                        <exclude reference="Gn2-tf-gOz"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="upV-dX-UNc" secondAttribute="bottom" id="0xz-Ka-jJl"/>
@@ -39,13 +113,15 @@
                             <constraint firstItem="wmg-Yx-eGo" firstAttribute="leading" secondItem="Fqd-di-ryM" secondAttribute="leading" constant="10" id="AWt-Wo-ceJ"/>
                             <constraint firstItem="upV-dX-UNc" firstAttribute="leading" secondItem="Fqd-di-ryM" secondAttribute="leading" id="Sjc-IP-PqG"/>
                             <constraint firstAttribute="trailing" secondItem="upV-dX-UNc" secondAttribute="trailing" id="fj3-u1-ahf"/>
+                            <constraint firstItem="8jL-AC-lva" firstAttribute="top" secondItem="Fqd-di-ryM" secondAttribute="top" id="iiu-zX-8HX"/>
                             <constraint firstAttribute="bottom" secondItem="wmg-Yx-eGo" secondAttribute="bottom" constant="10" id="oTl-Lc-9Bw"/>
+                            <constraint firstAttribute="trailing" secondItem="8jL-AC-lva" secondAttribute="trailing" constant="10" id="yHn-Ku-3N4"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPn-VY-fnp" userLabel="titleView">
                         <rect key="frame" x="0.0" y="150" width="320" height="93"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNN-xa-arG" userLabel="标题">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="kNN-xa-arG" userLabel="标题">
                                 <rect key="frame" x="15" y="9" width="290" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="322" id="dhf-Ra-E6i"/>
@@ -78,6 +154,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="PnW-8T-62F"/>
                                 <exclude reference="cXs-Ue-pzg"/>
                             </mask>
                         </variation>
@@ -86,6 +163,7 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="zPn-VY-fnp" firstAttribute="top" secondItem="Fqd-di-ryM" secondAttribute="bottom" id="B4C-BV-cYQ"/>
                 <constraint firstItem="Fqd-di-ryM" firstAttribute="top" secondItem="gjs-7M-4of" secondAttribute="top" id="DS8-IQ-9EM"/>
                 <constraint firstAttribute="bottom" secondItem="zPn-VY-fnp" secondAttribute="bottom" id="KQT-rD-5SI"/>
                 <constraint firstItem="Fqd-di-ryM" firstAttribute="leading" secondItem="gjs-7M-4of" secondAttribute="leading" id="LMc-KH-Zer"/>
@@ -99,9 +177,17 @@
                 <outlet property="categoryIcon" destination="wmg-Yx-eGo" id="7Qp-wq-lRB"/>
                 <outlet property="detailLabel" destination="hsY-h6-34e" id="KJP-ZU-sME"/>
                 <outlet property="image_view" destination="upV-dX-UNc" id="Fce-hp-Bep"/>
+                <outlet property="joinNewImageV" destination="YzM-gG-qyk" id="3fB-Od-XBE"/>
+                <outlet property="joinTitleV" destination="69L-ZA-XSV" id="CYh-fI-KhH"/>
+                <outlet property="joinView" destination="8jL-AC-lva" id="mXs-hK-LaT"/>
+                <outlet property="record_countLabel" destination="g5N-Bh-dIg" id="nCX-Jm-a3e"/>
                 <outlet property="titleLabel" destination="kNN-xa-arG" id="3Yv-CU-0BX"/>
             </connections>
             <point key="canvasLocation" x="459" y="198.5"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="lab_titleview_join_new" width="32" height="10"/>
+        <image name="lab_titleview_join_title" width="47" height="30"/>
+    </resources>
 </document>
