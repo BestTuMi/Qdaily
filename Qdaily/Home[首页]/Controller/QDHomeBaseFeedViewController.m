@@ -98,6 +98,7 @@
     }
 }
 
+#pragma mark - dealloc
 - (void)dealloc {
     [self removeNeededObservers];
 }
