@@ -87,6 +87,7 @@
 #pragma mark - 加载更多数据
 - (void)loadMoreNews {
     // 先从本地缓存找
+    // 取出最后一条新闻
     [QDFeedCacheTool loadCategoryFeedsCachesWithLastTime:self.last_time filter:@(self.category.ID.integerValue) completed:^(NSArray *feeds) {
         // 如果本地没有就从网络加载
         if (feeds.count == 0) {
@@ -96,20 +97,17 @@
         
         // 保存属性上拉加载发送
         self.last_time = @(((QDFeed *)feeds.lastObject).post.publish_time).stringValue;
-        self.has_more = YES;
+        
+        [self.feeds addObjectsFromArray:feeds];
 
         // 将模型传递给 Layout 对象进行布局设置
         self.flowLayout.feeds = self.feeds;
-        
+
         // 刷新CollectionView
         [self.collectionView reloadData];
         
-        if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
-        } else {
-            // 结束刷新
-            [self.collectionView.footer endRefreshing];
-        }
+         // 结束刷新
+        [self.collectionView.footer endRefreshing];
 
     }];
 }
@@ -121,6 +119,6 @@
     self.categories[self.category.ID] = [self.feeds copy];
     
     // 缓存数据
-    [QDFeedCacheTool cacheCategoryFeeds:responseObject];
+    [QDFeedCacheTool cacheCategoryFeeds:responseObject[@"response"] categoryId:self.category.ID.integerValue];
 }
 @end

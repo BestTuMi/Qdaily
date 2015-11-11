@@ -16,18 +16,18 @@
 @implementation QDFeedCacheTool
 
 + (void)cacheHomeFeeds:(NSDictionary *)dict {
-    [self cacheFeeds:dict toTable:@"T_HomeFeeds"];
+    [self cacheFeeds:dict filter:nil toTable:@"T_HomeFeeds"];
 }
 
 + (void)cacheLabFeeds:(NSDictionary *)dict {
-    [self cacheFeeds:dict toTable:@"T_LabFeeds"];
+    [self cacheFeeds:dict filter:nil toTable:@"T_LabFeeds"];
 }
 
-+ (void)cacheCategoryFeeds:(NSDictionary *)dict {
-    [self cacheFeeds:dict toTable:@"T_CategoryFeeds"];
++ (void)cacheCategoryFeeds:(NSDictionary *)dict categoryId: (NSInteger)categoryId {
+    [self cacheFeeds:dict filter:@(categoryId) toTable:@"T_CategoryFeeds"];
 }
 
-+ (void)cacheFeeds:(NSDictionary *)dict toTable: (NSString *)table {
++ (void)cacheFeeds:(NSDictionary *)dict filter: (id)filter toTable: (NSString *)table {
     // dict[@"feeds"]
     [[QDSQLiteManager sharedManager].dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         // lasttime 是数组最后一个的 publish_time(除了首页第一页是倒数第二个)
@@ -45,35 +45,35 @@
             NSString *feedContent = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             // sql 语句,插入数据,保存
-            NSString *sql = @"UPDATE employee SET feedContent = ? WHERE id = ?;\n\
-                                INSERT INTO T_HomeFeeds(postId, publish_time, feedContent) \n\
-                                values (?, ?, ?) WHERE changes() = 0;";
+            NSString *sql = @"INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent) \n\
+                                VALUES(?, ?, ?)";
             
             // 参数数组
             NSMutableArray *arguments = [NSMutableArray array];
-            [arguments addObjectsFromArray:@[feedContent, @(postId), @(postId), @(publish_time), feedContent]];
+            [arguments addObjectsFromArray:@[@(postId), @(publish_time), feedContent]];
             
             // 实验室页面
             if ([table containsString:@"Lab"]) {
                 // 取出 genre 存储
                 NSInteger genre = [feed[@"post"][@"genre"] integerValue];
-                sql = @"UPDATE T_LabFeeds SET feedContent = ? WHERE id = ?;\n\
-                        INSERT INTO T_HomeFeeds(postId, publish_time, feedContent, genre) \n\
-                        values (?, ?, ?, ?) WHERE changes() = 0;";
+                sql = @"INSERT INTO T_LabFeeds(postId, publish_time, feedContent, genre) \n\
+                            VALUES(?, ?, ?, ?)";
                 [arguments addObject:@(genre)];
             }
 
             // 分类新闻页面
             if ([table containsString:@"Category"]) {
-                // 取出 category 存储
-                NSInteger category = [feed[@"post"][@"category"][@"id"] integerValue];
-                sql = @"UPDATE T_CategoryFeeds SET feedContent = ? WHERE id = ?;\n\
-                        INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent, category) \n\
-                        values (?, ?, ?, ?) WHERE changes() = 0;";
-                [arguments addObject:@(category)];
+                sql = @"INSERT INTO T_CategoryFeeds(postId, publish_time, feedContent, category) \n\
+                        VALUES(?, ?, ?, ?)";
+                [arguments addObject:filter];
             }
             
-            BOOL success = [db executeUpdate:sql withArgumentsInArray:arguments];
+            BOOL success = [db executeUpdate:@"UPDATE T_CategoryFeeds SET feedContent = ? WHERE postId = ?", feedContent, @(postId)];
+            
+            // 没有变化表示没有，进行插入
+            if (db.changes == 0) {
+                success = [db executeUpdate:sql withArgumentsInArray:arguments];
+            }
             
             if (!success) {
                 // 事务回滚

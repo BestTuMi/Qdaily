@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QDFeedBaseViewController.h"
+#import "QDFeedCacheTool.h"
 @class QDCollectionView;
 
 @interface QDHomeBaseFeedViewController : QDFeedBaseViewController

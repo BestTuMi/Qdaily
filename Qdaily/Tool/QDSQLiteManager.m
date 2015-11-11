@@ -60,7 +60,7 @@
             *rollback = YES;
         }
         
-        // 表3,分类新闻使用
+        // 表3,分类新闻使用(注意: category 为在菜单中的 ID, 而不是 post 的 Id)
         success = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS T_CategoryFeeds(\n\
                    postId INTEGER PRIMARY KEY, \n\
                    publish_time INTEGER , \n\

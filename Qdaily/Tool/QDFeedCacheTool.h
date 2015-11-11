@@ -28,8 +28,9 @@
  *  @brief  缓存分类新闻数据
  *
  *  @param dict 网络工具返回的原始数据
+ *  @param dict 在左侧菜单中的分类Id
  */
-+ (void)cacheCategoryFeeds:(NSDictionary *)dict;
++ (void)cacheCategoryFeeds:(NSDictionary *)dict categoryId: (NSInteger)categoryId;
 
 /*!
  *  @brief  从缓存加载首页数据
