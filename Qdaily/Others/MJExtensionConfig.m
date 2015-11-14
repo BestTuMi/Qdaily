@@ -13,6 +13,7 @@
 #import "QDPost.h"
 #import "QDAuthor.h"
 #import "QDRadarData.h"
+#import "QDFeedArticleModel.h"
 
 @implementation MJExtensionConfig
 
@@ -42,6 +43,10 @@
         return @{
                  @"geneID" : @"id"
                  };
+    }];
+    
+    [QDFeedArticleModel setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"Id" : @"id"};
     }];
 }
 

@@ -54,7 +54,7 @@
     CGPoint newOffset = [change[NSKeyValueChangeNewKey] CGPointValue];
     CGFloat newOffsetY = newOffset.y;
     CGFloat originalOffsetY = self.originalOffset.y;
-    
+
     // 如果移动距离大于200,隐藏侧边菜单按钮....其他可能的操作
     CGFloat deltaOffsetY = newOffsetY - originalOffsetY;
     NSDictionary *userInfo = @{@"deltaOffsetY" : @(deltaOffsetY)};

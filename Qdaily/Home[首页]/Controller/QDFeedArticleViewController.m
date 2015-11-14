@@ -10,6 +10,10 @@
 #import "MBProgressHUD+Message.h"
 #import "QDFeed.h"
 #import "QDPost.h"
+#import "QDFeedArticleModel.h"
+#import <MJExtension.h>
+#import <WebViewJavascriptBridge.h>
+#import "QDCategoryFeedViewController.h"
 
 @interface QDFeedArticleViewController () <UIWebViewDelegate>
 
@@ -18,7 +22,11 @@
 @property (nonatomic, copy) NSArray *animationImages;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 /** webView 的尾部控件 */
-@property (nonatomic, weak)  UIView *webViewFooter;
+@property (nonatomic, weak) UIView *webViewFooter;
+/** html 相关模型 */
+@property (nonatomic, strong) QDFeedArticleModel *article;
+/** JS跟 OC 互调的 bridge */
+@property WebViewJavascriptBridge* bridge;
 @end
 
 @implementation QDFeedArticleViewController
@@ -58,12 +66,44 @@
 - (void)setupWebView {
     self.webView.scalesPageToFit = YES;
     
-    NSURL *url = [NSURL URLWithString:_feed.post.appview];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
+    // 实例化 bridge
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        
+    }];
     
-    // 添加对 webView ScrollView 的 contentSize 的监听
-    [self addObserverForWebViewContentSize];
+    // 注册 JS 调用给的方法
+    [_bridge registerHandler:@"qdaily::gotoPage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        QDLog(@"picsPreview called: %@", data);
+        NSString *type = data[@"type"];
+        NSDictionary *params = data[@"params"];
+        QDCategoryFeedViewController *categoryVc = [[QDCategoryFeedViewController alloc] init];
+        categoryVc.params = params;
+        categoryVc.type = type;
+        
+        // push
+        [self.navigationController pushViewController:categoryVc animated:YES];
+    }];
+    
+    [_bridge registerHandler:@"qdaily::picsPreview" handler:^(id data, WVJBResponseCallback responseCallback) {
+        QDLog(@"picsPreview called: %@", data);
+        
+    }];
+    
+    // 请求文章相关数据
+    NSString *urlStr = [NSString stringWithFormat:@"/app/articles/detail/%@.json?", _feed.post.ID];
+    [[QDFeedTool sharedFeedTool] get:urlStr finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (error) {
+            QDLogVerbose(@"%@", error);
+            return;
+        }
+        
+        self.article = [QDFeedArticleModel objectWithKeyValues:responseObject[@"response"][@"article"]];
+        [self.webView loadHTMLString:self.article.body baseURL:QDBaseURL];
+        
+        // 添加对 webView ScrollView 的 contentSize 的监听
+        [self addObserverForWebViewContentSize];
+    }];
 }
 
 #pragma mark - 设置 WebView尾部
@@ -143,8 +183,11 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     // 为 webView 添加 footer
-    [self setupWebViewFooter];
+    if (!self.webViewFooter) {
+        [self setupWebViewFooter];
+    }
     
+    // 转场
     [UIView animateWithDuration:0.25 animations:^{
         self.transitionAnimView.alpha = 0;
         self.webView.alpha = 1.0;

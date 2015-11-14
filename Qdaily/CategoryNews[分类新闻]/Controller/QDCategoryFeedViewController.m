@@ -28,7 +28,15 @@
 
 // 请求地址拼接
 - (NSString *)requestUrl {
-    return [NSString stringWithFormat:@"app/categories/index/%@/%@.json?", self.category.ID, self.last_time] ;
+    if (self.params) {
+        if ([self.type isEqualToString:@"tag"]) { // 弹出页面使用
+            return [NSString stringWithFormat:@"app/tags/index/%@/%@.json?", self.params[@"id"], self.last_time];
+        } else {
+            return [NSString stringWithFormat:@"app/categories/index/%@/%@.json?", self.params[@"id"], self.last_time];
+        }
+    } else {
+        return [NSString stringWithFormat:@"app/categories/index/%@/%@.json?", self.category.ID, self.last_time];
+    }
 }
 
 - (NSDictionary *)parameters {
@@ -38,8 +46,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self setupNavi];
-
+    
+    // push 弹出时使用
+    if (self.params) {
+        // 创建 category 模型
+        QDSideBarCategory *category = [[QDSideBarCategory alloc] init];
+        category.title = self.params[@"title"];
+        category.ID = self.params[@"id"];
+        // category的 setter 方法
+        self.category = category;
+        
+        // 添加按钮
+        UIButton *sideBarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sideBarButton setImage:[UIImage imageNamed:@"navigation_back_round_normal"] forState:UIControlStateNormal];
+        [sideBarButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+        sideBarButton.frame = CGRectMake(15, QDScreenH - 60, 41, 41);
+        [self.view addSubview:sideBarButton];
+    }
 }
 
 #pragma mark - 设置子控件
@@ -62,6 +88,11 @@
         _categories = [NSMutableDictionary dictionary];
     }
     return _categories;
+}
+
+#pragma mark - 退出
+- (void)cancel {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 加载新闻数据

@@ -169,7 +169,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
             [self.collectionView.header endRefreshing];
             return;
         }
-        QDLogVerbose(@"数据来自网络");
+
         // 保存属性上拉加载发送
         self.last_time = [responseObject[@"response"][@"feeds"][@"last_time"] stringValue];
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];

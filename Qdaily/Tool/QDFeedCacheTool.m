@@ -162,7 +162,7 @@
         NSMutableArray *arrayM = [NSMutableArray array];
         
         while ([recordSet next]) {
-            QDLogVerbose(@"数据来自本地缓存");
+//            QDLogVerbose(@"数据来自本地缓存");
             NSString *feedContent = [recordSet stringForColumn:@"feedContent"];
             // 转为字典
             NSData *data = [feedContent dataUsingEncoding:NSUTF8StringEncoding];

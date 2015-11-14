@@ -26,4 +26,11 @@ typedef void(^FinishedBlock)(NSDictionary *responseObject, NSError *error);
  */
 - (void)loadFeedsWithPath:(NSString *)path parameters:(NSDictionary *)parameters finished:(FinishedBlock)finished;
 
+/*!
+ *  @brief  GET 请求
+ *
+ *  @param urlStr   请求地址
+ *  @param finished 完成后的回调
+ */
+- (void)get: (NSString *)urlStr finished: (FinishedBlock)finished;
 @end

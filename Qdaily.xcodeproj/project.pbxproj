@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02E5C7F2857120930112B889 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A32B7A4A5AC712876EF90E3 /* libPods.a */; };
 		8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */; };
+		8B0F694A1BF6F1AC00C51FCF /* QDFeedArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F69491BF6F1AC00C51FCF /* QDFeedArticleModel.m */; };
 		8B0FF3361BD7E79C006ECD9A /* QDCommentOnMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF32D1BD7E79C006ECD9A /* QDCommentOnMyViewController.m */; };
 		8B0FF3371BD7E79C006ECD9A /* QDMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF32F1BD7E79C006ECD9A /* QDMessageViewController.m */; };
 		8B0FF3381BD7E79C006ECD9A /* QDNotificationLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF3311BD7E79C006ECD9A /* QDNotificationLikeViewController.m */; };
@@ -266,6 +267,8 @@
 		6A32B7A4A5AC712876EF90E3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConfig.h; sourceTree = "<group>"; };
 		8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConfig.m; sourceTree = "<group>"; };
+		8B0F69481BF6F1AC00C51FCF /* QDFeedArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedArticleModel.h; sourceTree = "<group>"; };
+		8B0F69491BF6F1AC00C51FCF /* QDFeedArticleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedArticleModel.m; sourceTree = "<group>"; };
 		8B0FF32C1BD7E79C006ECD9A /* QDCommentOnMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommentOnMyViewController.h; sourceTree = "<group>"; };
 		8B0FF32D1BD7E79C006ECD9A /* QDCommentOnMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCommentOnMyViewController.m; sourceTree = "<group>"; };
 		8B0FF32E1BD7E79C006ECD9A /* QDMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMessageViewController.h; sourceTree = "<group>"; };
@@ -638,6 +641,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B0F69451BF6F0D800C51FCF /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				8B0F69471BF6F19900C51FCF /* model */,
+				8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */,
+				8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */,
+				8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */,
+			);
+			name = Article;
+			sourceTree = "<group>";
+		};
+		8B0F69471BF6F19900C51FCF /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8B0F69481BF6F1AC00C51FCF /* QDFeedArticleModel.h */,
+				8B0F69491BF6F1AC00C51FCF /* QDFeedArticleModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		8B0FF32B1BD7E79C006ECD9A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,9 +752,7 @@
 		8B5EB2DE1BD0877C0078D13A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */,
-				8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */,
-				8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */,
+				8B0F69451BF6F0D800C51FCF /* Article */,
 				8B5EB2E21BD0877C0078D13A /* QDHomeFeedArticleViewController.h */,
 				8B5EB2E31BD0877C0078D13A /* QDHomeFeedArticleViewController.m */,
 				8B5EB2E41BD0877C0078D13A /* QDHomeLabFeedViewController.h */,
@@ -1738,6 +1759,7 @@
 				8B41C0D51BDF17D200D964DE /* QDUserAccountModel.m in Sources */,
 				8B41C0E21BDF85FC00D964DE /* QDUserCenterVM.m in Sources */,
 				8B5CBEE41BD2406700A6242F /* QDCollectionView.m in Sources */,
+				8B0F694A1BF6F1AC00C51FCF /* QDFeedArticleModel.m in Sources */,
 				8B5EB3291BD0879A0078D13A /* QDPost.m in Sources */,
 				8BDE6CC61BE8FF81007AE5E1 /* QDPentagonView.m in Sources */,
 				8B8DF3E61BD73C1B00C5413A /* QDCustomNaviBar.m in Sources */,

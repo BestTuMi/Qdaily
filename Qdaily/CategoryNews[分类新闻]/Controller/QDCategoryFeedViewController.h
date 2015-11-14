@@ -13,5 +13,8 @@
 @interface QDCategoryFeedViewController : QDFeedBaseViewController
 /** 当前分类 */
 @property (nonatomic, strong)  QDSideBarCategory *category;
-
+/** 在阅读界面弹出时使用 */
+@property (nonatomic, copy) NSDictionary *params;
+/** 弹出类型 */
+@property (nonatomic, copy)  NSString *type;
 @end
