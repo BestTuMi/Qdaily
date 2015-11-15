@@ -1,5 +1,5 @@
 
-#import "MBProgressHUD.h"
+#import <MBProgressHUD.h>
 
 @interface MBProgressHUD (Message)
 + (void)showSuccess:(NSString *)success toView:(UIView *)view;

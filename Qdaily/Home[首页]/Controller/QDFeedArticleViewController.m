@@ -14,8 +14,9 @@
 #import <MJExtension.h>
 #import <WebViewJavascriptBridge.h>
 #import "QDCategoryFeedViewController.h"
+#import <MWPhotoBrowser.h>
 
-@interface QDFeedArticleViewController () <UIWebViewDelegate>
+@interface QDFeedArticleViewController () <UIWebViewDelegate, MWPhotoBrowserDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *transitionAnimView;
 /** 加载动画序列 */
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) QDFeedArticleModel *article;
 /** JS跟 OC 互调的 bridge */
 @property WebViewJavascriptBridge* bridge;
+/** 需要图片浏览器浏览的图片 */
+@property (nonatomic, strong)  NSArray *photos;
 @end
 
 @implementation QDFeedArticleViewController
@@ -86,7 +89,11 @@
     
     [_bridge registerHandler:@"qdaily::picsPreview" handler:^(id data, WVJBResponseCallback responseCallback) {
         QDLog(@"picsPreview called: %@", data);
-        
+        NSArray *pics = data[@"pics"];
+        NSInteger cur = [data[@"cur"] integerValue];
+  
+        // 弹出图片浏览器
+        [self pushPhotoBrowserWithPics:pics currentIndex:cur];
     }];
     
     // 请求文章相关数据
@@ -166,6 +173,55 @@
     
     // 重新添加监听
     [self addObserverForWebViewContentSize];
+}
+
+#pragma mark -
+#pragma mark - 图片浏览器
+- (void)pushPhotoBrowserWithPics: (NSArray *)pics currentIndex: (NSInteger)cur {
+    // Browser
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:pics.count];
+    BOOL displayActionButton = YES;
+    BOOL displaySelectionButtons = NO;
+    BOOL displayNavArrows = NO;
+    BOOL enableGrid = YES;
+    BOOL startOnGrid = NO;
+    BOOL autoPlayOnAppear = NO;
+    
+    // Create browser
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = displayActionButton;
+    browser.displayNavArrows = displayNavArrows;
+    browser.displaySelectionButtons = displaySelectionButtons;
+    browser.alwaysShowControls = displaySelectionButtons;
+    browser.zoomPhotosToFill = YES;
+    browser.enableGrid = enableGrid;
+    browser.startOnGrid = startOnGrid;
+    browser.enableSwipeToDismiss = NO;
+    browser.autoPlayOnAppear = autoPlayOnAppear;
+    [browser setCurrentPhotoIndex:cur];
+    
+    // 添加 MWPhoto 模型
+    for (int i = 0; i < pics.count; i++) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", QDBaseURL, pics[i]]];
+        MWPhoto *photo = [MWPhoto photoWithURL:url];
+        [photos addObject:photo];
+    }
+    
+    self.photos = photos;
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browser] animated:NO completion:nil];
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return _photos.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < _photos.count)
+        return [_photos objectAtIndex:index];
+    return nil;
 }
 
 #pragma mark - webView delegate

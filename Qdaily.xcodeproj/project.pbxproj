@@ -18,6 +18,7 @@
 		8B0FF33F1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF33E1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m */; };
 		8B0FF3411BD7F74B006ECD9A /* QDNotificationHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */; };
 		8B34A6241BDA461A00B0DB92 /* QDAnimateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */; };
+		8B37657F1BF81F2F001F6E82 /* QDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */; };
 		8B3AC2641BDE0346004808B4 /* QDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3AC2621BDE0346004808B4 /* QDLoginViewController.m */; };
 		8B3AC2651BDE0346004808B4 /* QDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B3AC2631BDE0346004808B4 /* QDLoginViewController.xib */; };
 		8B40D9311BD9C9E8002B00B5 /* QDMainUserGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40D9301BD9C9E8002B00B5 /* QDMainUserGuideView.m */; };
@@ -172,7 +173,6 @@
 		8B79DA741BDCE6FE0038EA96 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B79DA631BDCE6FE0038EA96 /* ViewController+MASAdditions.m */; };
 		8B79DA751BDCE6FE0038EA96 /* MBProgressHUD+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B79DA661BDCE6FE0038EA96 /* MBProgressHUD+Message.m */; };
 		8B79DA761BDCE6FE0038EA96 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B79DA671BDCE6FE0038EA96 /* MBProgressHUD.bundle */; };
-		8B79DA771BDCE6FE0038EA96 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B79DA691BDCE6FE0038EA96 /* MBProgressHUD.m */; };
 		8B79DABB1BDCEDDB0038EA96 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */; };
 		8B79DB1A1BDCF8AF0038EA96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DAFE1BDCF3B50038EA96 /* SystemConfiguration.framework */; };
 		8B79DB1E1BDCF9170038EA96 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DB1C1BDCF9170038EA96 /* libSocialSina.a */; };
@@ -284,6 +284,8 @@
 		8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDNotificationHeaderCell.xib; sourceTree = "<group>"; };
 		8B34A6221BDA461A00B0DB92 /* QDAnimateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDAnimateButton.h; sourceTree = "<group>"; };
 		8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDAnimateButton.m; sourceTree = "<group>"; };
+		8B37657D1BF81F2F001F6E82 /* QDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPhotoBrowser.h; sourceTree = "<group>"; };
+		8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDPhotoBrowser.m; sourceTree = "<group>"; };
 		8B3AC2611BDE0346004808B4 /* QDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDLoginViewController.h; sourceTree = "<group>"; };
 		8B3AC2621BDE0346004808B4 /* QDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDLoginViewController.m; sourceTree = "<group>"; };
 		8B3AC2631BDE0346004808B4 /* QDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDLoginViewController.xib; sourceTree = "<group>"; };
@@ -496,8 +498,6 @@
 		8B79DA651BDCE6FE0038EA96 /* MBProgressHUD+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Message.h"; sourceTree = "<group>"; };
 		8B79DA661BDCE6FE0038EA96 /* MBProgressHUD+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Message.m"; sourceTree = "<group>"; };
 		8B79DA671BDCE6FE0038EA96 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		8B79DA681BDCE6FE0038EA96 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		8B79DA691BDCE6FE0038EA96 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		8B79DAEA1BDCF1DD0038EA96 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8B79DAEC1BDCF1EF0038EA96 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -644,10 +644,8 @@
 		8B0F69451BF6F0D800C51FCF /* Article */ = {
 			isa = PBXGroup;
 			children = (
+				8B37657C1BF81EEC001F6E82 /* Controller */,
 				8B0F69471BF6F19900C51FCF /* model */,
-				8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */,
-				8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */,
-				8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */,
 			);
 			name = Article;
 			sourceTree = "<group>";
@@ -693,6 +691,18 @@
 				8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8B37657C1BF81EEC001F6E82 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */,
+				8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */,
+				8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */,
+				8B37657D1BF81F2F001F6E82 /* QDPhotoBrowser.h */,
+				8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		8B3AC2601BDDFB49004808B4 /* SideBar */ = {
@@ -1167,8 +1177,6 @@
 				8B79DA651BDCE6FE0038EA96 /* MBProgressHUD+Message.h */,
 				8B79DA661BDCE6FE0038EA96 /* MBProgressHUD+Message.m */,
 				8B79DA671BDCE6FE0038EA96 /* MBProgressHUD.bundle */,
-				8B79DA681BDCE6FE0038EA96 /* MBProgressHUD.h */,
-				8B79DA691BDCE6FE0038EA96 /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -1739,7 +1747,6 @@
 				8B79DA741BDCE6FE0038EA96 /* ViewController+MASAdditions.m in Sources */,
 				8B5EB2F21BD0877C0078D13A /* QDHomeFeedArticleViewController.m in Sources */,
 				8B5EB33D1BD087C70078D13A /* QDSideBarFooterView.m in Sources */,
-				8B79DA771BDCE6FE0038EA96 /* MBProgressHUD.m in Sources */,
 				8BC1F2871BE53942007E205B /* NSDate+Extension.m in Sources */,
 				8B5EB3281BD0879A0078D13A /* QDFeed.m in Sources */,
 				8BC735651BC421F30045226E /* AppDelegate.m in Sources */,
@@ -1775,6 +1782,7 @@
 				8B41C0E51BDF9D2C00D964DE /* QDRadarData.m in Sources */,
 				8B5BF63D1BD511C1005B75B5 /* QDSearchViewController.m in Sources */,
 				8B79DA731BDCE6FE0038EA96 /* View+MASAdditions.m in Sources */,
+				8B37657F1BF81F2F001F6E82 /* QDPhotoBrowser.m in Sources */,
 				8BDE6CC41BE8FF81007AE5E1 /* QDFeedCacheTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
