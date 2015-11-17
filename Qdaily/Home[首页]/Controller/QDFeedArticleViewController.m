@@ -14,7 +14,8 @@
 #import <MJExtension.h>
 #import <WebViewJavascriptBridge.h>
 #import "QDCategoryFeedViewController.h"
-#import <MWPhotoBrowser.h>
+#import "QDPhotoBrowse.h"
+#import "QDWebViewFooter.h"
 
 @interface QDFeedArticleViewController () <UIWebViewDelegate, MWPhotoBrowserDelegate>
 
@@ -23,7 +24,7 @@
 @property (nonatomic, copy) NSArray *animationImages;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 /** webView 的尾部控件 */
-@property (nonatomic, weak) UIView *webViewFooter;
+@property (nonatomic, weak) QDWebViewFooter *webViewFooter;
 /** html 相关模型 */
 @property (nonatomic, strong) QDFeedArticleModel *article;
 /** JS跟 OC 互调的 bridge */
@@ -115,9 +116,32 @@
 
 #pragma mark - 设置 WebView尾部
 - (void)setupWebViewFooter {
-    UIView *webViewFooter = [[UIView alloc] init];
+    QDWebViewFooter *webViewFooter = [[QDWebViewFooter alloc] init];
     [self.webView.scrollView addSubview:webViewFooter];
     self.webViewFooter = webViewFooter;
+    
+    NSString *urlStr = [NSString stringWithFormat:@"/app/articles/info/%@.json?", _feed.post.ID];
+    [[QDFeedTool sharedFeedTool] get:urlStr finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (error) {
+            QDLogVerbose(@"%@", error);
+            return;
+        }
+        
+        self.webViewFooter.relatedFeeds = [QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"related"]];
+        NSMutableArray *recommendFeeds = [NSMutableArray array];
+        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend"]].firstObject];
+        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_two"]].firstObject];
+        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_three"]].firstObject];
+        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_four"]].firstObject];
+        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_five"]].firstObject];
+        self.webViewFooter.recommendFeeds = recommendFeeds;
+        
+        [self.webView loadHTMLString:self.article.body baseURL:QDBaseURL];
+        
+        // 添加对 webView ScrollView 的 contentSize 的监听
+        [self addObserverForWebViewContentSize];
+    }];
     
     [self layoutWebViewFooter];
 }
@@ -180,15 +204,14 @@
 - (void)pushPhotoBrowserWithPics: (NSArray *)pics currentIndex: (NSInteger)cur {
     // Browser
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:pics.count];
-    BOOL displayActionButton = YES;
+    BOOL displayActionButton = NO;
     BOOL displaySelectionButtons = NO;
     BOOL displayNavArrows = NO;
-    BOOL enableGrid = YES;
+    BOOL enableGrid = NO;
     BOOL startOnGrid = NO;
-    BOOL autoPlayOnAppear = NO;
     
     // Create browser
-    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    QDPhotoBrowse *browser = [[QDPhotoBrowse alloc] initWithDelegate:self];
     browser.displayActionButton = displayActionButton;
     browser.displayNavArrows = displayNavArrows;
     browser.displaySelectionButtons = displaySelectionButtons;
@@ -197,19 +220,26 @@
     browser.enableGrid = enableGrid;
     browser.startOnGrid = startOnGrid;
     browser.enableSwipeToDismiss = NO;
-    browser.autoPlayOnAppear = autoPlayOnAppear;
-    [browser setCurrentPhotoIndex:cur];
     
     // 添加 MWPhoto 模型
     for (int i = 0; i < pics.count; i++) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", QDBaseURL, pics[i]]];
+        NSString *urlStr = nil;
+        urlStr = pics[i];
+        if (![urlStr hasPrefix:@"http://"]) {
+            urlStr = [NSString stringWithFormat:@"%@%@", QDBaseURL, urlStr];
+        }
+        NSURL *url = [NSURL URLWithString:urlStr];
         MWPhoto *photo = [MWPhoto photoWithURL:url];
         [photos addObject:photo];
     }
     
     self.photos = photos;
     
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:browser] animated:NO completion:nil];
+    [browser setCurrentPhotoIndex:cur];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:nc animated:YES completion:nil];
+    
 }
 
 #pragma mark - MWPhotoBrowserDelegate
@@ -222,6 +252,10 @@
     if (index < _photos.count)
         return [_photos objectAtIndex:index];
     return nil;
+}
+
+- (void)photoBrowser:(QDPhotoBrowse *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    photoBrowser.labelTitle = [NSString stringWithFormat:@"%zd / %zd", index + 1, self.photos.count];
 }
 
 #pragma mark - webView delegate

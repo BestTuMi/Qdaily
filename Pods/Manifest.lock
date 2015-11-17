@@ -44,7 +44,7 @@ DEPENDENCIES:
   - FMDB (~> 2.5)
   - MJExtension (~> 2.5.12)
   - MJRefresh (~> 2.4.11)
-  - MWPhotoBrowser
+  - MWPhotoBrowser (~> 2.1.1)
   - pop (~> 1.0.8)
   - SDWebImage (~> 3.7.3)
   - WebViewJavascriptBridge (~> 4.1.4)

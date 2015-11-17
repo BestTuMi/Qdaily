@@ -18,7 +18,7 @@
 		8B0FF33F1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF33E1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m */; };
 		8B0FF3411BD7F74B006ECD9A /* QDNotificationHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */; };
 		8B34A6241BDA461A00B0DB92 /* QDAnimateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */; };
-		8B37657F1BF81F2F001F6E82 /* QDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */; };
+		8B376A841BF88455001F6E82 /* QDPhotoBrowse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B376A831BF88455001F6E82 /* QDPhotoBrowse.m */; };
 		8B3AC2641BDE0346004808B4 /* QDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3AC2621BDE0346004808B4 /* QDLoginViewController.m */; };
 		8B3AC2651BDE0346004808B4 /* QDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B3AC2631BDE0346004808B4 /* QDLoginViewController.xib */; };
 		8B40D9311BD9C9E8002B00B5 /* QDMainUserGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40D9301BD9C9E8002B00B5 /* QDMainUserGuideView.m */; };
@@ -39,6 +39,7 @@
 		8B5BF63D1BD511C1005B75B5 /* QDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5BF63C1BD511C1005B75B5 /* QDSearchViewController.m */; };
 		8B5BF63F1BD51222005B75B5 /* QDSideBarFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5BF63E1BD51222005B75B5 /* QDSideBarFooterView.xib */; };
 		8B5CBEE41BD2406700A6242F /* QDCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5CBEE31BD2406700A6242F /* QDCollectionView.m */; };
+		8B5D92421BF8E56C007C4CC1 /* QDWebViewFooterLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D92411BF8E56C007C4CC1 /* QDWebViewFooterLayout.m */; };
 		8B5EB2F01BD0877C0078D13A /* QDFeedArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */; };
 		8B5EB2F11BD0877C0078D13A /* QDFeedArticleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */; };
 		8B5EB2F21BD0877C0078D13A /* QDHomeFeedArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5EB2E31BD0877C0078D13A /* QDHomeFeedArticleViewController.m */; };
@@ -284,8 +285,9 @@
 		8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDNotificationHeaderCell.xib; sourceTree = "<group>"; };
 		8B34A6221BDA461A00B0DB92 /* QDAnimateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDAnimateButton.h; sourceTree = "<group>"; };
 		8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDAnimateButton.m; sourceTree = "<group>"; };
-		8B37657D1BF81F2F001F6E82 /* QDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPhotoBrowser.h; sourceTree = "<group>"; };
-		8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDPhotoBrowser.m; sourceTree = "<group>"; };
+		8B3769281BF86B91001F6E82 /* libMWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWPhotoBrowser.a; path = Qdaily/Others/Lib/MWPhotoBrowser/libMWPhotoBrowser.a; sourceTree = "<group>"; };
+		8B376A821BF88455001F6E82 /* QDPhotoBrowse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPhotoBrowse.h; sourceTree = "<group>"; };
+		8B376A831BF88455001F6E82 /* QDPhotoBrowse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDPhotoBrowse.m; sourceTree = "<group>"; };
 		8B3AC2611BDE0346004808B4 /* QDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDLoginViewController.h; sourceTree = "<group>"; };
 		8B3AC2621BDE0346004808B4 /* QDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDLoginViewController.m; sourceTree = "<group>"; };
 		8B3AC2631BDE0346004808B4 /* QDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDLoginViewController.xib; sourceTree = "<group>"; };
@@ -322,6 +324,8 @@
 		8B5BF63E1BD51222005B75B5 /* QDSideBarFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSideBarFooterView.xib; sourceTree = "<group>"; };
 		8B5CBEE21BD2406700A6242F /* QDCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCollectionView.h; sourceTree = "<group>"; };
 		8B5CBEE31BD2406700A6242F /* QDCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCollectionView.m; sourceTree = "<group>"; };
+		8B5D92401BF8E56C007C4CC1 /* QDWebViewFooterLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDWebViewFooterLayout.h; sourceTree = "<group>"; };
+		8B5D92411BF8E56C007C4CC1 /* QDWebViewFooterLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDWebViewFooterLayout.m; sourceTree = "<group>"; };
 		8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedArticleViewController.h; sourceTree = "<group>"; };
 		8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedArticleViewController.m; sourceTree = "<group>"; };
 		8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDFeedArticleViewController.xib; sourceTree = "<group>"; };
@@ -537,8 +541,8 @@
 		8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extension.m"; sourceTree = "<group>"; };
 		8B92F6A41BD0A4F600C4A870 /* QDHomeBaseFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHomeBaseFeedViewController.h; sourceTree = "<group>"; };
 		8B92F6A51BD0A4F600C4A870 /* QDHomeBaseFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHomeBaseFeedViewController.m; sourceTree = "<group>"; };
-		8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDWebViewFooter.h; sourceTree = "<group>"; };
-		8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDWebViewFooter.m; sourceTree = "<group>"; };
+		8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QDWebViewFooter.h; path = ../View/QDWebViewFooter.h; sourceTree = "<group>"; };
+		8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QDWebViewFooter.m; path = ../View/QDWebViewFooter.m; sourceTree = "<group>"; };
 		8BC1F2851BE53942007E205B /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		8BC1F2861BE53942007E205B /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		8BC57EB81BD1613400D7E883 /* list_loading_001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_loading_001@2x.png"; sourceTree = "<group>"; };
@@ -593,6 +597,7 @@
 		8BC735571BC421F30045226E /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		8BC735581BC421F30045226E /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8BC889CF1BFAB91800986C20 /* libPods-MWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MWPhotoBrowser.a"; path = "Pods/../build/Debug-iphoneos/libPods-MWPhotoBrowser.a"; sourceTree = "<group>"; };
 		8BDD90091BD5460400E5CA37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8BDE6CB71BE8FF81007AE5E1 /* QDFeedCacheTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedCacheTool.h; sourceTree = "<group>"; };
 		8BDE6CB81BE8FF81007AE5E1 /* QDFeedCacheTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedCacheTool.m; sourceTree = "<group>"; };
@@ -644,6 +649,7 @@
 		8B0F69451BF6F0D800C51FCF /* Article */ = {
 			isa = PBXGroup;
 			children = (
+				8B5D923C1BF8D7B7007C4CC1 /* View */,
 				8B37657C1BF81EEC001F6E82 /* Controller */,
 				8B0F69471BF6F19900C51FCF /* model */,
 			);
@@ -699,8 +705,8 @@
 				8B5EB2DF1BD0877C0078D13A /* QDFeedArticleViewController.h */,
 				8B5EB2E01BD0877C0078D13A /* QDFeedArticleViewController.m */,
 				8B5EB2E11BD0877C0078D13A /* QDFeedArticleViewController.xib */,
-				8B37657D1BF81F2F001F6E82 /* QDPhotoBrowser.h */,
-				8B37657E1BF81F2F001F6E82 /* QDPhotoBrowser.m */,
+				8B376A821BF88455001F6E82 /* QDPhotoBrowse.h */,
+				8B376A831BF88455001F6E82 /* QDPhotoBrowse.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -749,6 +755,17 @@
 			path = SSO;
 			sourceTree = "<group>";
 		};
+		8B5D923C1BF8D7B7007C4CC1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */,
+				8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */,
+				8B5D92401BF8E56C007C4CC1 /* QDWebViewFooterLayout.h */,
+				8B5D92411BF8E56C007C4CC1 /* QDWebViewFooterLayout.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		8B5EB2DD1BD0877C0078D13A /* Home[首页] */ = {
 			isa = PBXGroup;
 			children = (
@@ -793,8 +810,6 @@
 				8B5EB2ED1BD0877C0078D13A /* QDCarouselView.m */,
 				8B5EB2EE1BD0877C0078D13A /* QDScrollView.h */,
 				8B5EB2EF1BD0877C0078D13A /* QDScrollView.m */,
-				8B92F6A71BD0D32100C4A870 /* QDWebViewFooter.h */,
-				8B92F6A81BD0D32100C4A870 /* QDWebViewFooter.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1133,7 +1148,6 @@
 				8B79DB1F1BDCFBA20038EA96 /* UMSocial_Sdk_4.2.5 */,
 				8B79DB1B1BDCF9170038EA96 /* Sina */,
 				8B79DA4A1BDCE6FE0038EA96 /* Masonry */,
-				8B79DA641BDCE6FE0038EA96 /* MBProgressHUD */,
 				8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */,
 			);
 			path = Lib;
@@ -1307,6 +1321,7 @@
 		8BC735541BC421F30045226E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				8B79DA641BDCE6FE0038EA96 /* MBProgressHUD */,
 				8BC1F2851BE53942007E205B /* NSDate+Extension.h */,
 				8BC1F2861BE53942007E205B /* NSDate+Extension.m */,
 				8BC735551BC421F30045226E /* UIBarButtonItem+Extension.h */,
@@ -1377,6 +1392,8 @@
 		A01EE72F0959400C23B026E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BC889CF1BFAB91800986C20 /* libPods-MWPhotoBrowser.a */,
+				8B3769281BF86B91001F6E82 /* libMWPhotoBrowser.a */,
 				8BDE6CCA1BE8FF9D007AE5E1 /* libsqlite3.0.dylib */,
 				8B79DAFE1BDCF3B50038EA96 /* SystemConfiguration.framework */,
 				8B79DAF41BDCF2250038EA96 /* libz.dylib */,
@@ -1740,6 +1757,7 @@
 				8B5EB2FE1BD087830078D13A /* QDFavouriteViewController.m in Sources */,
 				8B5EB32F1BD087AF0078D13A /* QDMainRootViewController.m in Sources */,
 				8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */,
+				8B5D92421BF8E56C007C4CC1 /* QDWebViewFooterLayout.m in Sources */,
 				8B5EB3341BD087BE0078D13A /* QDSideBarCategory.m in Sources */,
 				8B41C0DC1BDF83B700D964DE /* QDUserCenterTableViewController.m in Sources */,
 				8BC735691BC421F30045226E /* UIView+Extension.m in Sources */,
@@ -1757,6 +1775,7 @@
 				8B422C8A1BD6677000D4AC8A /* QDResult.m in Sources */,
 				8B79DA6E1BDCE6FE0038EA96 /* MASLayoutConstraint.m in Sources */,
 				8B5EB3211BD0879A0078D13A /* QDFeedCompactCell.m in Sources */,
+				8B376A841BF88455001F6E82 /* QDPhotoBrowse.m in Sources */,
 				8B3AC2641BDE0346004808B4 /* QDLoginViewController.m in Sources */,
 				8B79DA6C1BDCE6FE0038EA96 /* MASConstraint.m in Sources */,
 				8BDE6CC51BE8FF81007AE5E1 /* QDFeedTool.m in Sources */,
@@ -1782,7 +1801,6 @@
 				8B41C0E51BDF9D2C00D964DE /* QDRadarData.m in Sources */,
 				8B5BF63D1BD511C1005B75B5 /* QDSearchViewController.m in Sources */,
 				8B79DA731BDCE6FE0038EA96 /* View+MASAdditions.m in Sources */,
-				8B37657F1BF81F2F001F6E82 /* QDPhotoBrowser.m in Sources */,
 				8BDE6CC41BE8FF81007AE5E1 /* QDFeedCacheTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1935,6 +1953,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib/Sina",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib/UMSocial_Sdk_4.2.5",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib/Masonry",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib/MWPhotoBrowser/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1990,6 +2012,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib/Sina",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib/UMSocial_Sdk_4.2.5",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib/Masonry",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib",
+					"$(PROJECT_DIR)/Qdaily/Others/Lib/MWPhotoBrowser/**",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
