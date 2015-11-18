@@ -89,6 +89,16 @@ static NSString * const separateCell = @"separateCell";
     [self startTrasition];
 }
 
+#pragma mark - viewWillDisAppear
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // 避免蒙版未清除
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        [MBProgressHUD hideHUDForView:window];
+    }
+}
+
 #pragma mark - lazyload
 - (NSArray *)animationImages {
     if (!_animationImages) {
@@ -467,12 +477,13 @@ static NSString * const separateCell = @"separateCell";
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [MBProgressHUD showMessage:@"加载失败"];
     
+    QDWeakSelf;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         for (UIWindow *window in [UIApplication sharedApplication].windows) {
             [MBProgressHUD hideHUDForView:window];
         }
         // pop
-        [self.navigationController popViewControllerAnimated:YES];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
     });
 }
 
