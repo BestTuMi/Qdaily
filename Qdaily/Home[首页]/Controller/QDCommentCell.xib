@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="QDCommentCell">
+            <rect key="frame" x="0.0" y="0.0" width="339" height="106"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="339" height="106"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3zT-KP-ZDq">
+                        <rect key="frame" x="15" y="15" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="4cr-wb-tMJ"/>
+                            <constraint firstAttribute="height" constant="25" id="6OT-Tq-7JD"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0T-yg-cbU">
+                        <rect key="frame" x="47" y="15" width="36" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oh5-S4-olV">
+                        <rect key="frame" x="47" y="37" width="33" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8W-OM-Ajq">
+                        <rect key="frame" x="286" y="15" width="38" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="100" image="comment_button_like_normal">
+                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3L-4L-Anc">
+                        <rect key="frame" x="234" y="16" width="34" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="100" image="article_feed_comment_normal">
+                            <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="4er-us-zsW">
+                        <rect key="frame" x="48" y="68" width="36" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Y2-RL-dKU" userLabel="separate">
+                        <rect key="frame" x="15" y="105" width="309" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="uuy-gP-QHf"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="A3L-4L-Anc" firstAttribute="centerY" secondItem="y8W-OM-Ajq" secondAttribute="centerY" constant="1" id="1kT-pB-V4d"/>
+                <constraint firstItem="2Y2-RL-dKU" firstAttribute="leading" secondItem="3zT-KP-ZDq" secondAttribute="leading" id="2BG-Gl-wDT"/>
+                <constraint firstAttribute="bottom" secondItem="2Y2-RL-dKU" secondAttribute="bottom" id="4cb-rt-HhL"/>
+                <constraint firstItem="4er-us-zsW" firstAttribute="top" secondItem="Oh5-S4-olV" secondAttribute="bottom" constant="15" id="6h8-gh-Umd"/>
+                <constraint firstItem="4er-us-zsW" firstAttribute="trailing" secondItem="y8W-OM-Ajq" secondAttribute="trailing" id="PPi-lg-qLI"/>
+                <constraint firstItem="4er-us-zsW" firstAttribute="leading" secondItem="Oh5-S4-olV" secondAttribute="leading" constant="1" id="Rhv-St-pl8"/>
+                <constraint firstAttribute="trailing" secondItem="y8W-OM-Ajq" secondAttribute="trailing" constant="15" id="SZN-nP-RwD"/>
+                <constraint firstItem="Oh5-S4-olV" firstAttribute="leading" secondItem="e0T-yg-cbU" secondAttribute="leading" id="TzU-SC-ho2"/>
+                <constraint firstItem="Oh5-S4-olV" firstAttribute="top" secondItem="e0T-yg-cbU" secondAttribute="bottom" constant="5" id="WA4-XT-zJ9"/>
+                <constraint firstItem="3zT-KP-ZDq" firstAttribute="top" secondItem="e0T-yg-cbU" secondAttribute="top" id="dQE-zw-93e"/>
+                <constraint firstItem="2Y2-RL-dKU" firstAttribute="trailing" secondItem="y8W-OM-Ajq" secondAttribute="trailing" id="djb-q5-81F"/>
+                <constraint firstItem="e0T-yg-cbU" firstAttribute="leading" secondItem="3zT-KP-ZDq" secondAttribute="trailing" constant="7" id="f1c-y2-isY"/>
+                <constraint firstItem="2Y2-RL-dKU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="iur-EC-hBc"/>
+                <constraint firstItem="3zT-KP-ZDq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="oDu-pW-Wfe"/>
+                <constraint firstItem="y8W-OM-Ajq" firstAttribute="leading" secondItem="A3L-4L-Anc" secondAttribute="trailing" constant="18" id="pRy-3B-ajP"/>
+                <constraint firstItem="3zT-KP-ZDq" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="qqE-f0-pfk"/>
+                <constraint firstItem="y8W-OM-Ajq" firstAttribute="trailing" secondItem="4er-us-zsW" secondAttribute="trailing" id="thO-7z-EvM"/>
+                <constraint firstItem="y8W-OM-Ajq" firstAttribute="centerY" secondItem="e0T-yg-cbU" secondAttribute="centerY" id="uBO-VD-OKz"/>
+            </constraints>
+            <size key="customSize" width="339" height="106"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="PPi-lg-qLI"/>
+                    <exclude reference="2BG-Gl-wDT"/>
+                    <exclude reference="thO-7z-EvM"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="avatar" destination="3zT-KP-ZDq" id="nyy-6G-1in"/>
+                <outlet property="commentCountBtn" destination="A3L-4L-Anc" id="D3y-xe-xw4"/>
+                <outlet property="contentLabel" destination="4er-us-zsW" id="ATN-EY-vfx"/>
+                <outlet property="indentation" destination="oDu-pW-Wfe" id="fiY-Ud-6xG"/>
+                <outlet property="nameLabel" destination="e0T-yg-cbU" id="t6K-TR-GkG"/>
+                <outlet property="praise_countBtn" destination="y8W-OM-Ajq" id="tLl-wt-tJx"/>
+                <outlet property="publish_timeLabel" destination="Oh5-S4-olV" id="dc7-4P-wOY"/>
+                <outlet property="separate" destination="2Y2-RL-dKU" id="Gkh-eG-ieA"/>
+            </connections>
+            <point key="canvasLocation" x="212.5" y="287"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="article_feed_comment_normal" width="10" height="10"/>
+        <image name="comment_button_like_normal" width="14" height="14"/>
+    </resources>
+</document>

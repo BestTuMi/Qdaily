@@ -14,6 +14,8 @@
 #import "QDAuthor.h"
 #import "QDRadarData.h"
 #import "QDFeedArticleModel.h"
+#import "QDChildComment.h"
+#import "QDComment.h"
 
 @implementation MJExtensionConfig
 
@@ -47,6 +49,24 @@
     
     [QDFeedArticleModel setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"Id" : @"id"};
+    }];
+    
+    [QDComment setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{
+                 @"Id" : @"id",
+                 };
+    }];
+    
+    [QDComment setupObjectClassInArray:^NSDictionary *{
+        return @{
+                 @"child_comments" : @"QDChildComment"
+                 };
+    }];
+    
+    [QDChildComment setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{
+                 @"Id" : @"id"
+                 };
     }];
 }
 

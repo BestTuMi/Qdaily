@@ -53,4 +53,10 @@
     self.record_countLabel.text = @(feed.post.record_count).stringValue;
 }
 
+- (CGFloat)cellHeight {
+    [self layoutIfNeeded];
+    CGRect rect = [self.detailLabel convertRect:self.detailLabel.bounds toView:self];
+    return CGRectGetMaxY(rect) + QDCommonMargin;
+}
+
 @end

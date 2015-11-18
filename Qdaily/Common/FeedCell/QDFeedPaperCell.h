@@ -12,6 +12,8 @@
 @interface QDFeedPaperCell : UICollectionViewCell
 /** 新闻信息 */
 @property (nonatomic, strong) QDFeed *feed;
+/** cell 的高度 */
+@property (nonatomic, assign)  CGFloat cellHeight;
 /** 返回 XIB 描述的对象 */
 + (instancetype)feedPaperCell;
 @end

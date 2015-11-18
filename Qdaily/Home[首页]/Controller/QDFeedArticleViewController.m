@@ -15,33 +15,66 @@
 #import <WebViewJavascriptBridge.h>
 #import "QDCategoryFeedViewController.h"
 #import "QDPhotoBrowse.h"
-#import "QDWebViewFooter.h"
+#import "QDFeedCompactCell.h"
+#import "QDFeedPaperCell.h"
+#import "QDRecommendCell.h"
+#import "QDCommentCell.h"
+#import "QDRefreshFooter.h"
+#import "QDComment.h"
+#import "QDChildComment.h"
+#import "QDSeparateCell.h"
 
-@interface QDFeedArticleViewController () <UIWebViewDelegate, MWPhotoBrowserDelegate>
+@interface QDFeedArticleViewController () <UIWebViewDelegate, MWPhotoBrowserDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, RecommendCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *transitionAnimView;
 /** 加载动画序列 */
 @property (nonatomic, copy) NSArray *animationImages;
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
-/** webView 的尾部控件 */
-@property (nonatomic, weak) QDWebViewFooter *webViewFooter;
+@property (weak, nonatomic) UIWebView *webView;
 /** html 相关模型 */
 @property (nonatomic, strong) QDFeedArticleModel *article;
 /** JS跟 OC 互调的 bridge */
 @property WebViewJavascriptBridge* bridge;
 /** 需要图片浏览器浏览的图片 */
 @property (nonatomic, strong)  NSArray *photos;
+/** 相关的新闻 */
+@property (nonatomic, copy) NSArray *releatedFeeds;
+/** 推荐的新闻 */
+@property (nonatomic, copy) NSArray *recommendFeeds;
+/** 评论 */
+@property (nonatomic, strong) NSMutableArray *comments;
+/** 底部数据数组 */
+@property (nonatomic, strong) NSMutableArray *footerDatas;
+/** collectionView */
+@property (nonatomic, weak) UICollectionView *collectionView;
+
+/** 是否有更多数据 */
+@property (nonatomic,  assign) BOOL has_more;
+/** 请求更多数据时传的值 */
+@property (nonatomic,  copy) NSString *last_time;
+
+/** 用于计算评论 cell 的高度 */
+@property (nonatomic, strong)  QDCommentCell *commentCellTool;
+/** 用于计算调查报告 cell 的高度 */
+@property (nonatomic, strong)  QDFeedPaperCell *paperCellTool;
+
 @end
 
 @implementation QDFeedArticleViewController
 
+static NSString * const compactIdentifier = @"feedCompactCell";
+static NSString * const paperIdentifier = @"feedPaperCell";
+static NSString * const recommendIdentifier = @"recommendCell";
+static NSString * const commentIdentifier = @"commentCell";
+static NSString * const separateCell = @"separateCell";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden = YES;
-    self.webView.scrollView.contentInset = UIEdgeInsetsZero;
+    [self setupCollectionView];
     
     [self setupWebView];
+    
+    [self setupDatas];
 
     [self startTrasition];
 }
@@ -62,13 +95,120 @@
     return _animationImages;
 }
 
+- (NSMutableArray *)comments {
+    if (!_comments) {
+        _comments = [NSMutableArray array];
+    }
+    return _comments;
+}
+
+- (NSMutableArray *)footerDatas {
+    if (!_footerDatas) {
+        _footerDatas = [NSMutableArray array];
+    }
+    return _footerDatas;
+}
+
 - (void)setFeed:(QDFeed *)feed {
     _feed = feed;
 }
 
+#pragma mark - 设置 collectionView
+- (void)setupCollectionView {
+    self.navigationController.navigationBarHidden = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    // layout
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    
+    // collectionView
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
+    [self.view insertSubview:collectionView atIndex:0];
+    collectionView.contentInset = UIEdgeInsetsMake(0, 0, QDToolBarH, 0);
+    collectionView.scrollIndicatorInsets = collectionView.contentInset;
+    self.collectionView = collectionView;
+    self.collectionView.backgroundColor = QDRGBWhiteColor(1, 1);
+    
+    // 手势
+    self.collectionView.delaysContentTouches = NO;
+    
+    // 初始 alpha 为0,网页加载完毕后再显示
+    self.collectionView.alpha = 0;
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    
+    // 注册
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedCompactCell class]) bundle:nil] forCellWithReuseIdentifier:compactIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDFeedPaperCell class]) bundle:nil] forCellWithReuseIdentifier:paperIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDRecommendCell class]) bundle:nil] forCellWithReuseIdentifier:recommendIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([QDCommentCell class]) bundle:nil] forCellWithReuseIdentifier:commentIdentifier];
+    [self.collectionView registerClass:[QDSeparateCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:separateCell];
+    
+    // 设置刷新控件
+    [self setupRefresh];
+}
+
+- (void)setupRefresh {
+    self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+}
+
+#pragma mark - 加载更多评论
+- (void)loadMore {
+    NSString *commentUrl = [NSString stringWithFormat:@"/app/comments/index/article/%@/%@.json?", _feed.post.ID, self.last_time];
+    [[QDFeedTool sharedFeedTool] get:commentUrl finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (error) {
+            QDLogVerbose(@"%@", error);
+        }
+        
+        self.has_more = [responseObject[@"response"][@"comments"][@"has_more"] boolValue];
+        if (self.has_more) {
+            self.last_time = responseObject[@"response"][@"comments"][@"last_time"];
+        }
+        
+        NSArray *comments = [QDComment objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
+        // 重新组织数据,补上子评论
+        for (int i = 0; i < comments.count; i++) {
+            QDComment *comment = comments[i];
+            // 添加评论
+            [self.comments addObject:comment];
+            // 如果有子评论,继续添加
+            if (comment.child_comments.count) { // 有子节点
+                for (int j = 0 ; j < comment.child_comments.count; j++) {
+                    QDChildComment *childComment = comment.child_comments[j];
+                    if (j == (comment.child_comments.count - 1)) {
+                        childComment.isLastComment = YES;
+                    }
+                    [self.comments addObject:childComment];
+                }
+            }
+        }
+
+        [self.collectionView reloadData];
+        
+        if (self.has_more) {
+            [self.collectionView.footer endRefreshing];
+        } else {
+            self.collectionView.footer.hidden = YES;
+        }
+        
+        // 重新布局(肯能会造成 inset 不正确)
+        [self layoutCollectionView];
+    }];
+
+}
+
 #pragma mark - 设置 WebView
 - (void)setupWebView {
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.collectionView addSubview:webView];
+    self.webView = webView;
+    self.webView.delegate = self;
     self.webView.scalesPageToFit = YES;
+    self.webView.scrollView.scrollEnabled = NO;
     
     // 实例化 bridge
     _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -109,17 +249,19 @@
         self.article = [QDFeedArticleModel objectWithKeyValues:responseObject[@"response"][@"article"]];
         [self.webView loadHTMLString:self.article.body baseURL:QDBaseURL];
         
-        // 添加对 webView ScrollView 的 contentSize 的监听
-        [self addObserverForWebViewContentSize];
     }];
 }
 
-#pragma mark - 设置 WebView尾部
-- (void)setupWebViewFooter {
-    QDWebViewFooter *webViewFooter = [[QDWebViewFooter alloc] init];
-    [self.webView.scrollView addSubview:webViewFooter];
-    self.webViewFooter = webViewFooter;
-    
+#pragma mark - 布局 collectionView
+- (void)layoutCollectionView {
+    // 获得 webview 的高度
+    CGFloat webViewHeight = [[self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    self.collectionView.contentInset = UIEdgeInsetsMake(webViewHeight, 0, QDWebViewToolBarH, 0);
+    self.webView.frame = CGRectMake(0, 0, QDScreenW, - webViewHeight);
+}
+
+#pragma mark - 初始化数据
+- (void)setupDatas {
     NSString *urlStr = [NSString stringWithFormat:@"/app/articles/info/%@.json?", _feed.post.ID];
     [[QDFeedTool sharedFeedTool] get:urlStr finished:^(NSDictionary *responseObject, NSError *error) {
         // 验证数据
@@ -128,40 +270,63 @@
             return;
         }
         
-        self.webViewFooter.relatedFeeds = [QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"related"]];
+        self.releatedFeeds = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"related"]];
         NSMutableArray *recommendFeeds = [NSMutableArray array];
-        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend"]].firstObject];
-        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_two"]].firstObject];
-        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_three"]].firstObject];
-        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_four"]].firstObject];
-        [recommendFeeds addObject:[QDFeedArticleModel objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_five"]].firstObject];
-        self.webViewFooter.recommendFeeds = recommendFeeds;
+        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend"]].firstObject];
+        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_two"]].firstObject];
+        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_three"]].firstObject];
+        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_four"]].firstObject];
+        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_five"]].firstObject];
+        self.recommendFeeds = recommendFeeds;
         
-        [self.webView loadHTMLString:self.article.body baseURL:QDBaseURL];
+        [self.footerDatas addObject:self.releatedFeeds];
+        [self.footerDatas addObject:self.recommendFeeds];
         
-        // 添加对 webView ScrollView 的 contentSize 的监听
-        [self addObserverForWebViewContentSize];
+        // 评论数据
+        self.last_time = @"0";
+        NSString *commentUrl = [NSString stringWithFormat:@"/app/comments/index/article/%@/%@.json?", _feed.post.ID, self.last_time];
+        [[QDFeedTool sharedFeedTool] get:commentUrl finished:^(NSDictionary *responseObject, NSError *error) {
+            // 验证数据
+            if (error) {
+                QDLogVerbose(@"%@", error);
+                return;
+            }
+            
+            // 清空评论
+            [self.comments removeAllObjects];
+            
+            self.has_more = [responseObject[@"response"][@"comments"][@"has_more"] boolValue];
+            if (self.has_more) {
+                self.last_time = responseObject[@"response"][@"comments"][@"last_time"];
+            }
+            
+            NSArray *comments = [QDComment objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
+            // 重新组织数据,补上子评论
+            for (int i = 0; i < comments.count; i++) {
+                QDComment *comment = comments[i];
+                // 添加评论
+                [self.comments addObject:comment];
+                // 如果有子评论,继续添加
+                if (comment.child_comments.count) { // 有子节点
+                    for (int j = 0 ; j < comment.child_comments.count; j++) {
+                        QDChildComment *childComment = comment.child_comments[j];
+                        if (j == (comment.child_comments.count - 1)) {
+                            childComment.isLastComment = YES;
+                        }
+                        [self.comments addObject:childComment];
+                    }
+                }
+            }
+            
+            [self.footerDatas addObject:self.comments];
+            
+            [self.collectionView reloadData];
+            
+            if (!self.has_more) {
+                self.collectionView.footer.hidden = YES;
+            }
+        }];
     }];
-    
-    [self layoutWebViewFooter];
-}
-
-- (void)addObserverForWebViewContentSize {
-    [self.webView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void)removeObserverForWebViewContentSize {
-    [self.webView removeObserver:self forKeyPath:@"contentSize"];
-}
-
-- (void)dealloc {
-    [self removeObserverForWebViewContentSize];
-}
-
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    // 监听到 webView 的 contentSize 变化后,重新布局尾部
-    [self layoutWebViewFooter];
 }
 
 #pragma mark - 开始转场动画
@@ -174,29 +339,6 @@
 
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - 布局 webView 的 footer
-- (void)layoutWebViewFooter {
-    // 取消对 webview的 contentSize的监听
-    // 避免无限递归
-    [self removeObserverForWebViewContentSize];
-    
-    self.webViewFooter.backgroundColor = QDRandomColor;
-    
-    // 获取当前 WebView 中 ScrollView 的 contentSize
-    CGSize newContentSize = self.webView.scrollView.contentSize;
-    self.webViewFooter.height = 300;
-    self.webViewFooter.y = newContentSize.height + QDCommonMargin;
-    self.webViewFooter.width = 320;
-    self.webViewFooter.x = 0;
-    
-    // 设置新的 contentSize
-    newContentSize.height += self.webViewFooter.height + QDWebViewToolBarH + QDCommonMargin;
-    self.webView.scrollView.contentSize = newContentSize;
-    
-    // 重新添加监听
-    [self addObserverForWebViewContentSize];
 }
 
 #pragma mark -
@@ -272,21 +414,125 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    // 为 webView 添加 footer
-    if (!self.webViewFooter) {
-        [self setupWebViewFooter];
-    }
+
+    // 获得 webview 的高度
+    CGFloat webViewHeight = [[self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    self.collectionView.contentInset = UIEdgeInsetsMake(webViewHeight, 0, QDWebViewToolBarH, 0);
+    self.webView.frame = CGRectMake(0, 0, QDScreenW, - webViewHeight);
     
+    self.collectionView.contentOffset = CGPointMake(0, - webViewHeight);
     // 转场
     [UIView animateWithDuration:0.25 animations:^{
         self.transitionAnimView.alpha = 0;
-        self.webView.alpha = 1.0;
+        self.collectionView.alpha = 1.0;
     }];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    QDLogVerbose(@"%@", request);
+//    QDLogVerbose(@"%@", request);
     return YES;
+}
+
+#pragma mark - collectionView datasource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return self.footerDatas.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (section == 0) {
+        return self.releatedFeeds.count;
+    } else if (section == 1) {
+        return 1;
+    } else {
+        return self.comments.count;
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        QDFeed *feed = self.releatedFeeds[indexPath.item];
+        if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) { // 好奇心实验室
+            // 注意:报告的类型是小图,所以要先判断
+            QDFeedPaperCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:paperIdentifier forIndexPath:indexPath];
+            feed.post.isNew = (indexPath.item == 0 || indexPath.item == 1) ? YES : NO;
+            cell.feed = feed;
+            return cell;
+        } else { // QDFeedCellTypeCompact
+            QDFeedCompactCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:compactIdentifier forIndexPath:indexPath];
+            cell.feed = feed;
+            return cell;
+        }
+    } else if (indexPath.section == 1) {
+        QDRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:recommendIdentifier forIndexPath:indexPath];
+        cell.delegate = self;
+        NSArray *recommends = self.recommendFeeds;
+        cell.recommends = recommends;
+        return cell;
+    } else { // 评论
+        QDCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:commentIdentifier forIndexPath:indexPath];
+        QDComment *comment = self.comments[indexPath.item];
+        cell.comment = comment;
+        return cell;
+    }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    QDSeparateCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:separateCell forIndexPath:indexPath];
+    return cell;
+}
+
+#pragma mark - layout delegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(QDScreenW, 10);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    if (section == 0) {
+        return 3;
+    } else {
+        return 0;
+    }
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        QDFeed *feed = self.releatedFeeds[indexPath.item];
+        if (feed.post.genre == QDGenrePaper || feed.post.genre == QDGenreReport || feed.post.genre == QDGenreVote) { // 好奇心实验室
+            // 注意:报告的类型是小图,所以要先判断
+            self.paperCellTool = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([QDFeedPaperCell class]) owner:nil options:nil].lastObject;
+            self.paperCellTool.feed = feed;
+            return CGSizeMake(QDScreenW, self.paperCellTool.cellHeight);
+        } else { // 这里只会有大 Cell
+            return CGSizeMake(QDScreenW, QDScreenW * 173 / 320);
+        }
+    } else if (indexPath.section == 1) {
+        return CGSizeMake(QDScreenW, QDScreenW * 240 / 320);
+    } else {
+        // 取模型
+        QDComment *comment = self.comments[indexPath.item];
+        self.commentCellTool = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([QDCommentCell class]) owner:nil options:nil].lastObject;
+        self.commentCellTool.comment = comment;
+        CGFloat cellHeight = self.commentCellTool.cellHeight;
+        return CGSizeMake(QDScreenW, cellHeight);
+    }
+}
+
+#pragma mark - recommend Cell delegate
+- (void)recommendCell:(QDRecommendCell *)cell didClickedAtIndex:(NSInteger)index {
+    QDFeedArticleViewController *articleVc = [[QDFeedArticleViewController alloc] init];
+    articleVc.feed = self.recommendFeeds[index];
+    [self.navigationController pushViewController:articleVc animated:YES];
+}
+
+#pragma mark - collectionView delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        QDFeedArticleViewController *articleVc = [[QDFeedArticleViewController alloc] init];
+        articleVc.feed = self.releatedFeeds[indexPath.item];
+        [self.navigationController pushViewController:articleVc animated:YES];
+    } else if (indexPath.section == 2) {
+        QDLogVerbose(@"弹窗");
+    }
 }
 
 @end

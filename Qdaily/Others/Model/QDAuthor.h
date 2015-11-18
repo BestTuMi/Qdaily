@@ -13,4 +13,6 @@
 @property (nonatomic, copy) NSString *userID;
 /** 作者姓名 */
 @property (nonatomic, copy)  NSString *name;
+/** 头像地址 */
+@property (nonatomic, copy)  NSString *avatar;
 @end

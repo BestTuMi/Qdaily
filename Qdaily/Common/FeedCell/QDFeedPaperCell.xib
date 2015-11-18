@@ -136,7 +136,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="hsY-h6-34e" userLabel="详细">
-                                <rect key="frame" x="15" y="59" width="290" height="17"/>
+                                <rect key="frame" x="15" y="59" width="36" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -155,6 +155,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="PnW-8T-62F"/>
+                                <exclude reference="aBt-0R-gxB"/>
                                 <exclude reference="cXs-Ue-pzg"/>
                             </mask>
                         </variation>
