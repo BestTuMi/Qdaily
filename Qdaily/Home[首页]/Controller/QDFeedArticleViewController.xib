@@ -6,6 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QDFeedArticleViewController">
             <connections>
+                <outlet property="commentBtn" destination="YSY-8V-Ok1" id="MIw-Q6-jig"/>
+                <outlet property="praiseBtn" destination="i9Q-eT-qGz" id="kCY-uE-Sav"/>
+                <outlet property="shareBtn" destination="elC-My-mwb" id="NTS-zM-6r1"/>
+                <outlet property="shareToolV" destination="Vnf-ON-f2o" id="DTG-QC-WZV"/>
                 <outlet property="transitionAnimView" destination="ql4-WK-RxE" id="Ijc-Uh-VQ5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -30,12 +34,73 @@
                                 <action selector="back:" destination="-1" eventType="touchUpInside" id="w2q-ge-M3L"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elC-My-mwb">
-                            <rect key="frame" x="567" y="14" width="18" height="22"/>
-                            <state key="normal" image="comment_toolbar_share_normal">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
+                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vnf-ON-f2o" userLabel="share">
+                            <rect key="frame" x="400" y="0.0" width="200" height="49"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9Q-eT-qGz" userLabel="like">
+                                    <rect key="frame" x="100" y="16" width="45" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="LwM-e1-Jtz"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                                    <state key="normal" title="20" image="comment_toolbar_favor_normal">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="comment_toolbar_favor_highlighted"/>
+                                    <connections>
+                                        <action selector="praiseBtnClick:" destination="-1" eventType="touchUpInside" id="5Oq-Vb-JWM"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elC-My-mwb" userLabel="share">
+                                    <rect key="frame" x="155" y="14" width="35" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="35" id="hOY-hB-2ms"/>
+                                    </constraints>
+                                    <state key="normal" image="comment_toolbar_share_normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="shareBtnClick:" destination="-1" eventType="touchUpInside" id="7SU-jh-ALy"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSY-8V-Ok1" userLabel="comment">
+                                    <rect key="frame" x="45" y="14" width="45" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="jax-gd-e5x"/>
+                                    </constraints>
+                                    <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
+                                    <state key="normal" title="20" image="comment_button_count_normal">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="commentBtnClick:" destination="-1" eventType="touchUpInside" id="5Gr-gq-pJ9"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="elC-My-mwb" firstAttribute="leading" secondItem="i9Q-eT-qGz" secondAttribute="trailing" constant="10" id="0EA-Wb-z1w"/>
+                                <constraint firstItem="i9Q-eT-qGz" firstAttribute="centerY" secondItem="YSY-8V-Ok1" secondAttribute="centerY" id="CYa-8X-oaR"/>
+                                <constraint firstAttribute="trailing" secondItem="elC-My-mwb" secondAttribute="trailing" constant="10" id="IUa-RD-EIc"/>
+                                <constraint firstItem="i9Q-eT-qGz" firstAttribute="centerY" secondItem="elC-My-mwb" secondAttribute="centerY" id="RIW-th-kXQ"/>
+                                <constraint firstAttribute="width" constant="200" id="Sma-Ki-hhV"/>
+                                <constraint firstItem="i9Q-eT-qGz" firstAttribute="leading" secondItem="YSY-8V-Ok1" secondAttribute="trailing" constant="10" id="TO0-Bm-fpQ"/>
+                                <constraint firstAttribute="centerY" secondItem="elC-My-mwb" secondAttribute="centerY" id="abL-2h-tsN"/>
+                                <constraint firstItem="i9Q-eT-qGz" firstAttribute="width" secondItem="YSY-8V-Ok1" secondAttribute="width" id="hTN-5U-OTS"/>
+                                <constraint firstItem="i9Q-eT-qGz" firstAttribute="width" secondItem="elC-My-mwb" secondAttribute="width" id="mhb-dc-fmt"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="hTN-5U-OTS"/>
+                                    <exclude reference="mhb-dc-fmt"/>
+                                </mask>
+                            </variation>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.58879009049999997" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -43,8 +108,9 @@
                         <constraint firstItem="EqU-Sv-prP" firstAttribute="leading" secondItem="qI8-px-QAj" secondAttribute="leading" id="PAW-2h-g2K"/>
                         <constraint firstItem="EqU-Sv-prP" firstAttribute="top" secondItem="qI8-px-QAj" secondAttribute="top" id="WTt-6O-gyh"/>
                         <constraint firstAttribute="bottom" secondItem="EqU-Sv-prP" secondAttribute="bottom" id="b2i-im-bb6"/>
-                        <constraint firstItem="elC-My-mwb" firstAttribute="centerY" secondItem="EqU-Sv-prP" secondAttribute="centerY" id="fjb-1N-kRm"/>
-                        <constraint firstAttribute="trailing" secondItem="elC-My-mwb" secondAttribute="trailing" constant="15" id="uEI-Hp-Lkp"/>
+                        <constraint firstItem="Vnf-ON-f2o" firstAttribute="top" secondItem="qI8-px-QAj" secondAttribute="top" id="m74-Tc-QvQ"/>
+                        <constraint firstAttribute="bottom" secondItem="Vnf-ON-f2o" secondAttribute="bottom" id="t50-6A-TbQ"/>
+                        <constraint firstAttribute="trailing" secondItem="Vnf-ON-f2o" secondAttribute="trailing" id="wJA-vf-rvO"/>
                     </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ql4-WK-RxE" userLabel="anim">
@@ -89,7 +155,10 @@
         </view>
     </objects>
     <resources>
+        <image name="comment_button_count_normal" width="16" height="16"/>
         <image name="comment_toolbar_back_normal" width="12" height="18"/>
+        <image name="comment_toolbar_favor_highlighted" width="15" height="14"/>
+        <image name="comment_toolbar_favor_normal" width="15" height="14"/>
         <image name="comment_toolbar_share_normal" width="18" height="14"/>
     </resources>
 </document>

@@ -57,6 +57,12 @@
 /** 用于计算调查报告 cell 的高度 */
 @property (nonatomic, strong)  QDFeedPaperCell *paperCellTool;
 
+/******* 工具条相关 ******/
+@property (weak, nonatomic) IBOutlet UIView *shareToolV;
+@property (weak, nonatomic) IBOutlet UIButton *shareBtn;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
+@property (weak, nonatomic) IBOutlet UIButton *praiseBtn;
+
 @end
 
 @implementation QDFeedArticleViewController
@@ -69,6 +75,8 @@ static NSString * const separateCell = @"separateCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupToolBar];
     
     [self setupCollectionView];
     
@@ -111,6 +119,39 @@ static NSString * const separateCell = @"separateCell";
 
 - (void)setFeed:(QDFeed *)feed {
     _feed = feed;
+}
+
+#pragma mark - 设置工具条
+- (void)setupToolBar {
+    // 取消点赞的高亮状态
+    [self.praiseBtn setAdjustsImageWhenHighlighted:NO];
+    
+    // 分享相关的数据
+    [self.praiseBtn setTitle:(self.feed.post.praise_count ? @(self.feed.post.praise_count).stringValue : @"") forState:UIControlStateNormal];
+    [self.commentBtn setTitle:(self.feed.post.comment_count ? @(self.feed.post.comment_count).stringValue : @"") forState:UIControlStateNormal];
+}
+
+#pragma mark - 点赞
+- (IBAction)praiseBtnClick:(UIButton *)button {
+    BOOL isCancel = self.praiseBtn.selected;
+    self.praiseBtn.selected = !self.praiseBtn.selected;
+    [[QDFeedTool sharedFeedTool] praiseWithPostId:_feed.post.ID.integerValue isCancel:isCancel finished:^(NSDictionary *responseObject, NSError *error) {
+        // 验证数据
+        if (error) {
+            QDLogVerbose(@"%@", error);
+        }
+        // 修改 button 的数据
+        NSInteger currentCount = self.praiseBtn.currentTitle.integerValue;
+        [self.praiseBtn setTitle:@(currentCount + (isCancel ? (-1) : 1)).stringValue forState:UIControlStateNormal];
+    }];
+}
+
+- (IBAction)shareBtnClick:(id)sender {
+    
+}
+
+- (IBAction)commentBtnClick:(id)sender {
+    
 }
 
 #pragma mark - 设置 collectionView
@@ -425,6 +466,7 @@ static NSString * const separateCell = @"separateCell";
     [UIView animateWithDuration:0.25 animations:^{
         self.transitionAnimView.alpha = 0;
         self.collectionView.alpha = 1.0;
+        self.shareToolV.alpha = 1.0;
     }];
 }
 

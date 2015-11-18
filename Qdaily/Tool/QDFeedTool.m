@@ -62,4 +62,25 @@
     }];
 }
 
+- (void)praiseWithPostId: (NSInteger)Id isCancel: (BOOL)isCancel finished: (FinishedBlock)finished {
+    NSInteger genre = isCancel ? 2 : 1;
+    NSDictionary *params = @{
+                             @"genre" : @(genre),
+                             @"id" : @(Id),
+                             @"praise_type" : @"article"
+                             };
+    NSString *urlStr = @"/app/praises/create_praise";
+    [[QDFeedTool sharedFeedTool] POST:urlStr parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        // 处理错误
+        if (responseObject[@"response"] == [NSNull null]) {
+            NSString *status = responseObject[@"meta"][@"status"];
+            finished(nil, [NSError errorWithDomain:@"com.qdaily.app" code:status.integerValue userInfo:responseObject[@"meta"]]);
+            return;
+        }
+        finished(responseObject, nil);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        finished(nil, error);
+    }];
+}
+
 @end

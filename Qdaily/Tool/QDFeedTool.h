@@ -33,4 +33,13 @@ typedef void(^FinishedBlock)(NSDictionary *responseObject, NSError *error);
  *  @param finished 完成后的回调
  */
 - (void)get: (NSString *)urlStr finished: (FinishedBlock)finished;
+
+/*!
+ *  @brief  点赞或取消点赞
+ *
+ *  @param Id       点赞的新闻的 ID
+ *  @param isCancel  是否是取消点赞
+ *  @param finished 完成后的回调
+ */
+- (void)praiseWithPostId: (NSInteger)Id isCancel: (BOOL)isCancel finished: (FinishedBlock)finished;
 @end
