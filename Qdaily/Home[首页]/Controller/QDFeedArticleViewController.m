@@ -62,7 +62,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 @property (weak, nonatomic) IBOutlet UIButton *praiseBtn;
-
+@property (weak, nonatomic) IBOutlet UIView *commentFieldV;
+@property (weak, nonatomic) IBOutlet UITextField *commentField;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarBottom;
 @end
 
 @implementation QDFeedArticleViewController
@@ -126,9 +128,28 @@ static NSString * const separateCell = @"separateCell";
     // 取消点赞的高亮状态
     [self.praiseBtn setAdjustsImageWhenHighlighted:NO];
     
+    // 添加对键盘的监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentFieldChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     // 分享相关的数据
     [self.praiseBtn setTitle:(self.feed.post.praise_count ? @(self.feed.post.praise_count).stringValue : @"") forState:UIControlStateNormal];
     [self.commentBtn setTitle:(self.feed.post.comment_count ? @(self.feed.post.comment_count).stringValue : @"") forState:UIControlStateNormal];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - 监听键盘
+- (void)commentFieldChange: (NSNotification *)note {
+    CGRect endFrame = [note.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    NSTimeInterval duration = [note.userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] doubleValue] ;
+    UIViewKeyframeAnimationOptions animationOptions = [note.userInfo[@"UIKeyboardAnimationCurveUserInfoKey"] integerValue];
+    self.toolBarBottom.constant = QDScreenH - endFrame.origin.y;
+    // 更新约束
+    [UIView animateKeyframesWithDuration:duration delay:0 options:animationOptions animations:^{
+        [self.view layoutIfNeeded];
+    } completion:nil];
 }
 
 #pragma mark - 点赞
@@ -151,7 +172,8 @@ static NSString * const separateCell = @"separateCell";
 }
 
 - (IBAction)commentBtnClick:(id)sender {
-    
+    self.commentFieldV.alpha = 1.0;
+    [self.commentField becomeFirstResponder];
 }
 
 #pragma mark - 设置 collectionView
@@ -575,6 +597,11 @@ static NSString * const separateCell = @"separateCell";
     } else if (indexPath.section == 2) {
         QDLogVerbose(@"弹窗");
     }
+}
+
+#pragma mark - scrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.commentField endEditing:YES];
 }
 
 @end
