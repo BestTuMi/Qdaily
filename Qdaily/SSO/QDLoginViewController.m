@@ -49,6 +49,9 @@
                 QDLogVerbose(@"%@", error);
             }
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            if ([self.delegate respondsToSelector:@selector(loginViewControllerDidLogin:)]) {
+                [self.delegate loginViewControllerDidLogin:self];
+            }
             QDLogVerbose(@"%@", responseObject[@"response"]);
         }];
     }];

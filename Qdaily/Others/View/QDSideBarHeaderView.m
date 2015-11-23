@@ -19,7 +19,7 @@
 #import "QDUserCenterTableViewController.h"
 #import <UIImageView+WebCache.h>
 
-@interface QDSideBarHeaderView ()
+@interface QDSideBarHeaderView () <LoginViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet QDPentagonView *outerLine;
 @property (weak, nonatomic) IBOutlet QDPentagonView *interLine;
 @property (weak, nonatomic) IBOutlet QDPentagonView *radarView;
@@ -87,6 +87,7 @@
 
 - (IBAction)login:(id)sender {
     QDLoginViewController *loginVc = [[QDLoginViewController alloc] init];
+    loginVc.delegate = self;
     QDNavigationController *navi = (QDNavigationController *)self.window.rootViewController;
     QDMainRootViewController *mainRootVc = navi.childViewControllers[0];
     
@@ -177,5 +178,9 @@
     }];
 }
 
+#pragma mark - loginVc delegate
+- (void)loginViewControllerDidLogin:(QDLoginViewController *)loginVc {
+    [self autoLogin];
+}
 
 @end

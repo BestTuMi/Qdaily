@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class QDLoginViewController;
+
+@protocol LoginViewControllerDelegate <NSObject>
+@required
+- (void)loginViewControllerDidLogin: (QDLoginViewController *)loginVc;
+@end
 
 @interface QDLoginViewController : UIViewController
-
+/** 代理 */
+@property (nonatomic, weak) id<LoginViewControllerDelegate> delegate;
 @end

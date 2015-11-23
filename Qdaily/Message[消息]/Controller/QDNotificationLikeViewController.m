@@ -78,7 +78,7 @@
 
 #pragma mark - tableView dataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,7 +87,7 @@
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:commentCell];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:commentCell];
-    cell.backgroundColor = QDRandomColor;
+//    cell.backgroundColor = QDRandomColor;
     return cell;
     
 }

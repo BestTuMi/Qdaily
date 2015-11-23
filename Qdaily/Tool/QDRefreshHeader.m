@@ -29,7 +29,7 @@ static inline double radians(double degrees) {
     [super prepare];
     
     self.mj_h = QDRefreshHeaderH;
-    self.ignoredScrollViewContentInsetTop = - QDRefreshHeaderH;
+    self.ignoredScrollViewContentInsetTop = - QDRefreshHeaderH;  
     
     // 地面
     UIImageView *foregroundView = [[UIImageView alloc] init];
