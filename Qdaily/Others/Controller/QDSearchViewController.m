@@ -234,18 +234,37 @@
     self.tableView.tableHeaderView = headerView;
 }
 
-// 设置输入框
+#pragma mark - 设置输入框
 - (void)setupSearchBar {
     UISearchBar *searchBar = [[UISearchBar alloc] init];
-    searchBar.frame = CGRectMake(15, 25, 300, 28);
+//    searchBar.frame = CGRectMake(15, 25, 250, 28);
     searchBar.tintColor = QDHighlightColor;
     searchBar.backgroundImage = [[UIImage alloc] init];
     searchBar.placeholder = @" 搜索";
-    searchBar.showsCancelButton = YES;
+    searchBar.showsCancelButton = NO;
     
     [self.naviBar addSubview:searchBar];
-    
     self.searchBar = searchBar;
+    
+    // 设置取消按钮
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelBtn setTitle:@"取消" forState: UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(searchBarCancelButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.naviBar addSubview:cancelBtn];
+    
+    // 设置约束
+    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.naviBar.mas_top).offset(20);
+        make.right.equalTo(self.naviBar.mas_right).offset(-10);
+        make.bottom.equalTo(self.naviBar.mas_bottom);
+        make.width.equalTo(@45);
+    }];
+    
+    [searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.naviBar.mas_leading).offset(10);
+        make.top.equalTo(self.naviBar.mas_top).offset(20);
+        make.right.equalTo(cancelBtn.mas_left);
+    }];
     
     // 设置代理
     self.searchBar.delegate = self;

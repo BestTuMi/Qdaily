@@ -23,6 +23,7 @@
 #import "QDComment.h"
 #import "QDChildComment.h"
 #import "QDSeparateCell.h"
+#import "QDCommentField.h"
 
 @interface QDFeedArticleViewController () <UIWebViewDelegate, MWPhotoBrowserDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, RecommendCellDelegate>
 
@@ -63,7 +64,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 @property (weak, nonatomic) IBOutlet UIButton *praiseBtn;
 @property (weak, nonatomic) IBOutlet UIView *commentFieldV;
-@property (weak, nonatomic) IBOutlet UITextField *commentField;
+@property (weak, nonatomic) IBOutlet QDCommentField *commentField;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarBottom;
 @end
 
@@ -181,6 +182,7 @@ static NSString * const separateCell = @"separateCell";
     
 }
 
+#pragma mark - 点赞按钮
 - (IBAction)commentBtnClick:(id)sender {
     self.commentFieldV.alpha = 1.0;
     [self.commentField becomeFirstResponder];

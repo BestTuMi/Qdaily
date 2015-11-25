@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		02E5C7F2857120930112B889 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A32B7A4A5AC712876EF90E3 /* libPods.a */; };
 		8B0078D31BC55ED700C444AE /* MJExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */; };
+		8B08F6E51C05385B0090BFCA /* QDCommentField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B08F6E41C05385B0090BFCA /* QDCommentField.m */; };
 		8B0F694A1BF6F1AC00C51FCF /* QDFeedArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0F69491BF6F1AC00C51FCF /* QDFeedArticleModel.m */; };
 		8B0FF3361BD7E79C006ECD9A /* QDCommentOnMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF32D1BD7E79C006ECD9A /* QDCommentOnMyViewController.m */; };
 		8B0FF3371BD7E79C006ECD9A /* QDMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0FF32F1BD7E79C006ECD9A /* QDMessageViewController.m */; };
@@ -273,6 +274,8 @@
 		6A32B7A4A5AC712876EF90E3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConfig.h; sourceTree = "<group>"; };
 		8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConfig.m; sourceTree = "<group>"; };
+		8B08F6E31C05385B0090BFCA /* QDCommentField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommentField.h; sourceTree = "<group>"; };
+		8B08F6E41C05385B0090BFCA /* QDCommentField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDCommentField.m; sourceTree = "<group>"; };
 		8B0F69481BF6F1AC00C51FCF /* QDFeedArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedArticleModel.h; sourceTree = "<group>"; };
 		8B0F69491BF6F1AC00C51FCF /* QDFeedArticleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedArticleModel.m; sourceTree = "<group>"; };
 		8B0FF32C1BD7E79C006ECD9A /* QDCommentOnMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDCommentOnMyViewController.h; sourceTree = "<group>"; };
@@ -783,6 +786,8 @@
 				8BC889DB1BFB1DC700986C20 /* QDCommentCell.xib */,
 				8B8536821BFC615C0014F78D /* QDSeparateCell.h */,
 				8B8536831BFC615C0014F78D /* QDSeparateCell.m */,
+				8B08F6E31C05385B0090BFCA /* QDCommentField.h */,
+				8B08F6E41C05385B0090BFCA /* QDCommentField.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1820,6 +1825,7 @@
 				8B79DA6B1BDCE6FE0038EA96 /* MASCompositeConstraint.m in Sources */,
 				8BE5488D1BD946FB00ADF5BB /* QDNewFeaturesFlowLayout.m in Sources */,
 				8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */,
+				8B08F6E51C05385B0090BFCA /* QDCommentField.m in Sources */,
 				8B5EB31F1BD0879A0078D13A /* QDFeedBannerCell.m in Sources */,
 				8B40D9341BD9C9FE002B00B5 /* QDSideBarUserGuideView.m in Sources */,
 				8B79DA751BDCE6FE0038EA96 /* MBProgressHUD+Message.m in Sources */,
@@ -1907,7 +1913,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1944,7 +1950,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
