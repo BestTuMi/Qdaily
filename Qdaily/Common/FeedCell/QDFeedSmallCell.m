@@ -11,6 +11,7 @@
 #import "QDCategory.h"
 #import <UIImageView+WebCache.h>
 #import "QDCollectionView.h"
+#import "UIImageView+Extension.h"
 
 static CGFloat commentBtnMargin = 3;
 
@@ -36,8 +37,8 @@ static CGFloat commentBtnMargin = 3;
     [self.categoryIcon sd_setImageWithURL: [NSURL URLWithString:feed.post.category.image_small] completed:nil];
     self.categoryTitle.text = feed.post.category.title;
     
-    [self.image_view sd_setImageWithURL:[NSURL URLWithString:feed.image] completed:nil];
-    
+    [self.image_view setResizedImageWithUrl:feed.image];
+
     [self.commentCountButton setTitle:@(feed.post.comment_count).stringValue forState:UIControlStateNormal];
     [self.praiseCountButton setTitle:@(feed.post.praise_count).stringValue forState:UIControlStateNormal];
     // 重新布局
