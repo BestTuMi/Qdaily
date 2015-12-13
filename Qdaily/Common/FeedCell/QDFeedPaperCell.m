@@ -11,6 +11,7 @@
 #import "QDPost.h"
 #import "QDCategory.h"
 #import <UIImageView+WebCache.h>
+#import "UIImageView+Extension.h"
 
 @interface QDFeedPaperCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *image_view;
@@ -42,7 +43,7 @@
     if (feed.post.genre == QDGenreReport) {
         image = feed.image;
     }
-    [self.image_view sd_setImageWithURL:[NSURL URLWithString:image] completed:nil];
+    [self.image_view setResizedImageWithUrl:image];
     self.titleLabel.text = feed.post.title;
     self.detailLabel.text = feed.post.detail;
     

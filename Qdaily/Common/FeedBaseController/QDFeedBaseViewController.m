@@ -22,6 +22,7 @@
 #import "QDRefreshHeader.h"
 #import "MBProgressHUD+Message.h"
 #import "QDFeedCacheTool.h"
+#import <SDWebImageManager.h>
 
 
 @interface QDFeedBaseViewController ()
@@ -54,6 +55,11 @@ static NSString * const paperIdentifier = @"feedPaperCell";
     
     [self setupRefresh];
     
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 #pragma mark - lazyload

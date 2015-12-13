@@ -182,7 +182,6 @@
 		8B79DA741BDCE6FE0038EA96 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B79DA631BDCE6FE0038EA96 /* ViewController+MASAdditions.m */; };
 		8B79DA751BDCE6FE0038EA96 /* MBProgressHUD+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B79DA661BDCE6FE0038EA96 /* MBProgressHUD+Message.m */; };
 		8B79DA761BDCE6FE0038EA96 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B79DA671BDCE6FE0038EA96 /* MBProgressHUD.bundle */; };
-		8B79DABB1BDCEDDB0038EA96 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */; };
 		8B79DB1A1BDCF8AF0038EA96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DAFE1BDCF3B50038EA96 /* SystemConfiguration.framework */; };
 		8B79DB1E1BDCF9170038EA96 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B79DB1C1BDCF9170038EA96 /* libSocialSina.a */; };
 		8B79DB3A1BDCFBA20038EA96 /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8B79DB201BDCFBA20038EA96 /* UMSocialLocalizable.strings */; };
@@ -523,7 +522,6 @@
 		8B79DA651BDCE6FE0038EA96 /* MBProgressHUD+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Message.h"; sourceTree = "<group>"; };
 		8B79DA661BDCE6FE0038EA96 /* MBProgressHUD+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Message.m"; sourceTree = "<group>"; };
 		8B79DA671BDCE6FE0038EA96 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		8B79DAEA1BDCF1DD0038EA96 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8B79DAEC1BDCF1EF0038EA96 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8B79DAEE1BDCF2040038EA96 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -649,7 +647,6 @@
 			files = (
 				8B79DB3B1BDCFBA20038EA96 /* libUMSocial_Sdk_4.2.5.a in Frameworks */,
 				8B79DB1A1BDCF8AF0038EA96 /* SystemConfiguration.framework in Frameworks */,
-				8B79DABB1BDCEDDB0038EA96 /* Reveal.framework in Frameworks */,
 				02E5C7F2857120930112B889 /* libPods.a in Frameworks */,
 				8B79DB1E1BDCF9170038EA96 /* libSocialSina.a in Frameworks */,
 			);
@@ -1178,7 +1175,6 @@
 				8B79DB1F1BDCFBA20038EA96 /* UMSocial_Sdk_4.2.5 */,
 				8B79DB1B1BDCF9170038EA96 /* Sina */,
 				8B79DA4A1BDCE6FE0038EA96 /* Masonry */,
-				8B79DABA1BDCEDDB0038EA96 /* Reveal.framework */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1501,9 +1497,11 @@
 				TargetAttributes = {
 					8B6699951BC3ED9900E2BD2B = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = M9E2M4YJUQ;
 					};
 					8B6699AE1BC3ED9900E2BD2B = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = M9E2M4YJUQ;
 						TestTargetID = 8B6699951BC3ED9900E2BD2B;
 					};
 				};
@@ -1901,7 +1899,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 45167966@qq.com (37LUM84QWG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 45167966@qq.com (37LUM84QWG)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1944,7 +1943,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 45167966@qq.com (37LUM84QWG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 45167966@qq.com (37LUM84QWG)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1970,6 +1970,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib",
@@ -2014,12 +2016,10 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.c344081.-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2029,6 +2029,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Qdaily/Others/Lib",
@@ -2073,12 +2075,10 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.c344081.-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -2086,6 +2086,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2097,6 +2099,7 @@
 				INFOPLIST_FILE = QdailyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Qdaily.app/Qdaily";
 			};
 			name = Debug;
@@ -2105,6 +2108,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2112,6 +2117,7 @@
 				INFOPLIST_FILE = QdailyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Qdaily.app/Qdaily";
 			};
 			name = Release;
