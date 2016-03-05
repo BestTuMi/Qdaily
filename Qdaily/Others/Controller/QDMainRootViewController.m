@@ -8,6 +8,7 @@
 
 #import "QDMainRootViewController.h"
 #import "QDNavigationController.h"
+#import "Masonry.h"
 
 // 目录
 #import "QDHomeViewController.h"
@@ -172,7 +173,7 @@
     // 取消自动内边距
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIView *mainView = [[UIView alloc] init];
 
     // 添加边缘滑动手势
     UIScreenEdgePanGestureRecognizer *edgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -185,6 +186,10 @@
 
     [self.view addSubview:mainView];
     _mainView = mainView;
+    
+    [mainView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 #pragma mark - 设置左侧菜单视图

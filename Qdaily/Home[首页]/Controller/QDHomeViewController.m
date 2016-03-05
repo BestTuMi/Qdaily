@@ -11,6 +11,7 @@
 #import "QDHomeLabFeedViewController.h"
 #import "QDScrollView.h"
 #import "QDCollectionView.h"
+#import "Masonry.h"
 
 @interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 /** ScrollView */
@@ -124,6 +125,10 @@
     
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
+    
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     NSInteger count = self.childViewControllers.count;
     scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
