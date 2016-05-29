@@ -246,6 +246,7 @@
 		8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */; };
 		8BC735691BC421F30045226E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735581BC421F30045226E /* UIView+Extension.m */; };
 		8BC7356C1BC421F30045226E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7355E1BC421F30045226E /* main.m */; };
+		8BDC35AE1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC35AD1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m */; };
 		8BDD900A1BD5460400E5CA37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BDD90091BD5460400E5CA37 /* Images.xcassets */; };
 		8BDE6CC41BE8FF81007AE5E1 /* QDFeedCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE6CB81BE8FF81007AE5E1 /* QDFeedCacheTool.m */; };
 		8BDE6CC51BE8FF81007AE5E1 /* QDFeedTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE6CBA1BE8FF81007AE5E1 /* QDFeedTool.m */; };
@@ -615,6 +616,8 @@
 		8BC735581BC421F30045226E /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BC889CF1BFAB91800986C20 /* libPods-MWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MWPhotoBrowser.a"; path = "Pods/../build/Debug-iphoneos/libPods-MWPhotoBrowser.a"; sourceTree = "<group>"; };
+		8BDC35AC1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SafeNavigationBar.h"; sourceTree = "<group>"; };
+		8BDC35AD1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SafeNavigationBar.m"; sourceTree = "<group>"; };
 		8BDD90091BD5460400E5CA37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8BDE6CB71BE8FF81007AE5E1 /* QDFeedCacheTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFeedCacheTool.h; sourceTree = "<group>"; };
 		8BDE6CB81BE8FF81007AE5E1 /* QDFeedCacheTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFeedCacheTool.m; sourceTree = "<group>"; };
@@ -1359,6 +1362,8 @@
 				8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */,
 				8B090F4E1C0C8A2F00FA9D08 /* UIImageView+Extension.h */,
 				8B090F4F1C0C8A2F00FA9D08 /* UIImageView+Extension.m */,
+				8BDC35AC1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.h */,
+				8BDC35AD1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1798,6 +1803,7 @@
 				8B79DA741BDCE6FE0038EA96 /* ViewController+MASAdditions.m in Sources */,
 				8B5EB2F21BD0877C0078D13A /* QDHomeFeedArticleViewController.m in Sources */,
 				8B672A711C088E84008456C5 /* QDChildComment.m in Sources */,
+				8BDC35AE1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m in Sources */,
 				8B5EB33D1BD087C70078D13A /* QDSideBarFooterView.m in Sources */,
 				8B672A6E1C088E84008456C5 /* QDFeedArticleViewController.m in Sources */,
 				8BC1F2871BE53942007E205B /* NSDate+Extension.m in Sources */,

@@ -190,7 +190,7 @@ static NSString * const separateCell = @"separateCell";
 
 #pragma mark - 设置 collectionView
 - (void)setupCollectionView {
-    self.navigationController.navigationBarHidden = YES;
+    self.safe_navigationBarHidden = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     // layout
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

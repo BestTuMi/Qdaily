@@ -33,7 +33,7 @@
     
     // 添加一个手势
     id target = self.interactivePopGestureRecognizer.delegate;
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:NSSelectorFromString(@"handleNavigationTransition:")];
     [self.view addGestureRecognizer:pan];
     // 禁用系统自带边缘滑动手势
     self.interactivePopGestureRecognizer.enabled = NO;
@@ -41,13 +41,22 @@
     pan.delegate = self;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.childViewControllers.lastObject;
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.childViewControllers.count == 1) { // 根控制器
+    if (self.childViewControllers.lastObject.forbiddenGestureTransition) {  // 禁用滑动返回
         return NO;
     }
-    else {
-        return YES;
+    BOOL viewTransitionInProgress = [objc_getAssociatedObject(self, NSSelectorFromString(@"viewTransitionInProgress")) boolValue];
+    if (viewTransitionInProgress) {
+        return NO;
     }
+    if (self.childViewControllers.count == 1) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

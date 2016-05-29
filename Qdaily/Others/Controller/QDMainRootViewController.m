@@ -165,7 +165,7 @@
 
 #pragma mark - 设置导航条
 - (void)setupNavi {
-    self.navigationController.navigationBarHidden = YES;
+    self.safe_navigationBarHidden = YES;
 }
 
 #pragma mark - 设置主视图

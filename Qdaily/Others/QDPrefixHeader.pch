@@ -16,6 +16,7 @@
 #import "UIButton+Extension.h"
 #import "QDFeedTool.h"
 #import "NSDate+Extension.h"
+#import "UINavigationController+SafeNavigationBar.h"
 
 #define QDWeakSelf __weak typeof(self) weakSelf = self
 /** Base Url */

@@ -21,11 +21,8 @@
     [super viewDidLoad];
     
     [self setupToolBar];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    
+    self.safe_navigationBarHidden = YES;
 }
 
 - (void)setupToolBar {

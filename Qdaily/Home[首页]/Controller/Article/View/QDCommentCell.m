@@ -41,8 +41,8 @@ static CGFloat const QDPreferredMaxLayoutWidth = 260;
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:comment.author.avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         CGRect rect = self.avatar.bounds;
-        UIGraphicsBeginImageContext(rect.size);
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:CGRectGetWidth(rect)];
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:CGRectGetWidth(rect) * 0.5];
         // 裁剪上下文
         [path addClip];
         // 绘制

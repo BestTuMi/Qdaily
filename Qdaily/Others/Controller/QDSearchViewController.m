@@ -99,7 +99,7 @@
 
 #pragma mark - 设置导航栏
 - (void)setupNavi {
-    self.navigationController.navigationBarHidden = YES;
+    self.safe_navigationBarHidden = YES;
     
     QDCustomNaviBar *naviBar = [QDCustomNaviBar naviBarWithTitle:nil];
     
