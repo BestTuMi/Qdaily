@@ -28,7 +28,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@", path];
     
-    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         // 处理错误
         // 有响应, 无response 字段可能是登录失败
@@ -40,15 +40,15 @@
         
         // 有返回的数据
         finished(responseObject, nil);
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         finished(nil, error);
     }];
 }
 
 - (void)get: (NSString *)urlStr finished: (FinishedBlock)finished {
-    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        // 处理错误
+    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil progress:nil success:^
+        (NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+     // 处理错误
         if (responseObject[@"response"] == [NSNull null]) {
              NSString *status = responseObject[@"meta"][@"status"];
             finished(nil, [NSError errorWithDomain:@"com.qdaily.app" code:status.integerValue userInfo:responseObject[@"meta"]]);
@@ -70,7 +70,7 @@
                              @"praise_type" : @"article"
                              };
     NSString *urlStr = @"/app/praises/create_praise";
-    [[QDFeedTool sharedFeedTool] POST:urlStr parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 处理错误
         if (responseObject[@"response"] == [NSNull null]) {
             NSString *status = responseObject[@"meta"][@"status"];
@@ -78,7 +78,7 @@
             return;
         }
         finished(responseObject, nil);
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         finished(nil, error);
     }];
 }

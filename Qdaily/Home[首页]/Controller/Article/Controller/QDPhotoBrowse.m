@@ -60,8 +60,11 @@
 - (void)savePhoto {
     id <MWPhoto> photo = [self photoAtIndex:self.currentIndex];
     if ([photo underlyingImage]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
         [self performSelector:@selector(showProgressHUDWithMessage:) withObject:@"正在保存..."];
         [self performSelector:@selector(actuallySavePhoto:) withObject:photo afterDelay:0];
+#pragma clang diagnostic pop
     }
 }
 
@@ -73,7 +76,10 @@
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
     [self performSelector:@selector(showProgressHUDCompleteMessage:) withObject:error ? @"保存失败" : @"保存成功"];
+#pragma clang diagnostic pop
     [self hideControlsAfterDelay];
 }
 
