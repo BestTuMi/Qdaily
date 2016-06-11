@@ -25,6 +25,10 @@
 
 @implementation AppDelegate
 
++ (AppDelegate *)sharedAppdelegate {
+    return [UIApplication sharedApplication].delegate;
+}
+
 #pragma mark - lazyload
 - (QDNewFeaturesViewController *)featuresVc {
     if (!_featuresVc) {

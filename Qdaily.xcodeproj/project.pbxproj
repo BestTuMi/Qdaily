@@ -291,6 +291,7 @@
 		8B0FF33D1BD7F4D0006ECD9A /* QDNotificationHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNotificationHeaderCell.h; sourceTree = "<group>"; };
 		8B0FF33E1BD7F4D0006ECD9A /* QDNotificationHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNotificationHeaderCell.m; sourceTree = "<group>"; };
 		8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDNotificationHeaderCell.xib; sourceTree = "<group>"; };
+		8B2DCDC61D070B1300904729 /* Macro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		8B34A6221BDA461A00B0DB92 /* QDAnimateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDAnimateButton.h; sourceTree = "<group>"; };
 		8B34A6231BDA461A00B0DB92 /* QDAnimateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDAnimateButton.m; sourceTree = "<group>"; };
 		8B3769281BF86B91001F6E82 /* libMWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWPhotoBrowser.a; path = Qdaily/Others/Lib/MWPhotoBrowser/libMWPhotoBrowser.a; sourceTree = "<group>"; };
@@ -606,8 +607,8 @@
 		8BC57EDF1BD1613400D7E883 /* list_loading_020@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_loading_020@3x.png"; sourceTree = "<group>"; };
 		8BC57EE01BD1613400D7E883 /* list_loading_021@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_loading_021@2x.png"; sourceTree = "<group>"; };
 		8BC57EE11BD1613400D7E883 /* list_loading_021@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list_loading_021@3x.png"; sourceTree = "<group>"; };
-		8BC7354D1BC421F30045226E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		8BC7354E1BC421F30045226E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8BC7354D1BC421F30045226E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Others/AppDelegate.h; sourceTree = "<group>"; };
+		8BC7354E1BC421F30045226E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Others/AppDelegate.m; sourceTree = "<group>"; };
 		8BC735511BC421F30045226E /* QDConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConst.h; sourceTree = "<group>"; };
 		8BC735521BC421F30045226E /* QDConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDConst.m; sourceTree = "<group>"; };
 		8BC735531BC421F30045226E /* QDPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDPrefixHeader.pch; sourceTree = "<group>"; };
@@ -697,6 +698,14 @@
 				8B0FF3401BD7F74B006ECD9A /* QDNotificationHeaderCell.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8B2DCDC51D070A7E00904729 /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				8B2DCDC61D070B1300904729 /* Macro.h */,
+			);
+			path = Macros;
 			sourceTree = "<group>";
 		};
 		8B3AC2601BDDFB49004808B4 /* SideBar */ = {
@@ -1085,6 +1094,9 @@
 				8BE548871BD935B600ADF5BB /* NewFeatuers[新特性] */,
 				8BDE6CB61BE8FF81007AE5E1 /* Tool */,
 				8BC7354C1BC421F30045226E /* Others */,
+				8B2DCDC51D070A7E00904729 /* Macros */,
+				8BC7354D1BC421F30045226E /* AppDelegate.h */,
+				8BC7354E1BC421F30045226E /* AppDelegate.m */,
 				8B6699991BC3ED9900E2BD2B /* Supporting Files */,
 			);
 			path = Qdaily;
@@ -1334,8 +1346,6 @@
 				8B5EB3311BD087BE0078D13A /* Model */,
 				8B5EB3351BD087C70078D13A /* View */,
 				8B79DA491BDCE6FE0038EA96 /* Lib */,
-				8BC7354D1BC421F30045226E /* AppDelegate.h */,
-				8BC7354E1BC421F30045226E /* AppDelegate.m */,
 				8BC7355E1BC421F30045226E /* main.m */,
 				8B0078D11BC55ED700C444AE /* MJExtensionConfig.h */,
 				8B0078D21BC55ED700C444AE /* MJExtensionConfig.m */,

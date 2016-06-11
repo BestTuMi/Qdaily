@@ -30,7 +30,7 @@
  */
 - (BOOL)canLogin;
 
-- (void)weiboLoginWithViewController: (__weak UIViewController *)weakPresentingVc finished: (void (^)(QDUserAccountModel *userAccount, NSError *error))finished;
+- (RACSignal *)weiboLoginWithViewController: (__weak UIViewController *)weakPresentingVc;
 
 /*!
  *  @brief  登录服务器

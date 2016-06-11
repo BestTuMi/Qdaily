@@ -12,48 +12,39 @@
 #import "QDUserAccountModel.h"
 
 @interface QDLoginViewController ()
-
+@property (weak, nonatomic) IBOutlet UIButton *weiboBtn;    ///< weibo按钮
 @end
 
 @implementation QDLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-}
-
-- (IBAction)weiboLogin:(id)sender {
-    QDWeakSelf;
-    [[QDUserAccountViewModel sharedInstance] weiboLoginWithViewController:weakSelf finished:^(QDUserAccountModel *userAccount, NSError *error) {
-        // 验证数据
-        if (error) {
-            [MBProgressHUD showError:error.userInfo[@"msg"]];
-            return;
-        }
-        
+    @weakify(self);
+    
+    void(^doNext)(QDUserAccountModel *) = ^(QDUserAccountModel *userAccount){
+        @strongify(self);
         // 发起登录请求 (在回到前台的时候才调用)
         [[QDUserAccountViewModel sharedInstance] login:userAccount finished:^(NSDictionary *responseObject, NSError *error) {
             // 验证数据
             if (error) {
                 QDLogVerbose(@"%@", error);
+                return;
             }
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
             if ([self.delegate respondsToSelector:@selector(loginViewControllerDidLogin:)]) {
                 [self.delegate loginViewControllerDidLogin:self];
             }
             QDLogVerbose(@"%@", responseObject[@"response"]);
         }];
+    };
+    
+    _weiboBtn.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [[[[QDUserAccountViewModel sharedInstance] weiboLoginWithViewController:self]
+                 doNext:doNext]
+                catch:^RACSignal *(NSError *error) {
+                    [MBProgressHUD showError:error.userInfo[@"msg"]];
+                    return [RACSignal empty];
+                }];
     }];
 }
 
