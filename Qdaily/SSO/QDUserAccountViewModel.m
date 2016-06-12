@@ -85,47 +85,31 @@
         snsPlatform.loginClickHandler(weakPresentingVc,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
             @strongify(self);
             // 验证数据
-            if (response.responseCode == UMSResponseCodeNetworkError) {
-                NSError *error = [NSError errorWithDomain:@"com.sina.weibo" code:response.responseCode userInfo:@{@"msg":@"网络错误"}];
-                [subscriber sendError:error];
+            if (response.responseCode != UMSResponseCodeSuccess) {
+                [subscriber sendError:[NSError errorWithDomain:@"com.sina.weibo" code:response.responseCode userInfo:@{NSLocalizedDescriptionKey : response.message}]];
                 return;
             }
-    
-            if (response.responseCode == UMSREsponseCodeTokenInvalid) {
-                NSError *error = [NSError errorWithDomain:@"com.sina.weibo" code:response.responseCode userInfo:@{@"msg":@"授权用户token错误"}];
-                [subscriber sendError:error];
-                return;
-            }
-    
-            if (response.responseCode == UMSResponseCodeBaned) {
-                NSError *error = [NSError errorWithDomain:@"com.sina.weibo" code:response.responseCode userInfo:@{@"msg":@"用户被封禁"}];
-                [subscriber sendError:error];
-                return;
-            }
-    
             //  获取微博用户名、uid、token等
-            if (response.responseCode == UMSResponseCodeSuccess) {
-    
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-    
-                // 设置模型
-                QDUserAccountModel *userAccount = [[QDUserAccountModel alloc] init];
-                userAccount.username = snsAccount.userName;
-                userAccount.uid = snsAccount.usid;
-                userAccount.token = snsAccount.accessToken;
-                userAccount.face = snsAccount.iconURL;
-                // 根据登录类型选择
-                userAccount.type = 1;
-                
-                self.userAccountModel = userAccount;
-                
-                // 保存授权模型
-                [self.userAccountModel saveUserAccount];
-      
-                // 完成
-                [subscriber sendNext:userAccount];
-                [subscriber sendCompleted];
-            }});
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
+
+            // 设置模型
+            QDUserAccountModel *userAccount = [[QDUserAccountModel alloc] init];
+            userAccount.username = snsAccount.userName;
+            userAccount.uid = snsAccount.usid;
+            userAccount.token = snsAccount.accessToken;
+            userAccount.face = snsAccount.iconURL;
+            // 根据登录类型选择
+            userAccount.type = 1;
+            
+            self.userAccountModel = userAccount;
+            
+            // 保存授权模型
+            [self.userAccountModel saveUserAccount];
+  
+            // 完成
+            [subscriber sendNext:userAccount];
+            [subscriber sendCompleted];
+            });
         return nil;
     }];
 }
