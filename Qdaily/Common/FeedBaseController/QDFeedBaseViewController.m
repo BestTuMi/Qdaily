@@ -72,12 +72,12 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - 设置刷新组件
 - (void)setupRefresh {
-    self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
-    self.collectionView.footer.automaticallyChangeAlpha = YES;
+    self.collectionView.mj_footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
+    self.collectionView.mj_footer.automaticallyChangeAlpha = YES;
     
     // 添加刷新组件
-    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
-    self.collectionView.header.automaticallyChangeAlpha = YES;
+    self.collectionView.mj_header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
+    self.collectionView.mj_header.automaticallyChangeAlpha = YES;
 }
 
 /*!
@@ -105,7 +105,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         // 验证数据
         if (responseObject == nil) {
             // 停止下拉刷新
-            [self.collectionView.header endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
             return;
         }
         
@@ -113,7 +113,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         if (error) {
             QDLogVerbose(@"%@", error);
             // 停止下拉刷新
-            [self.collectionView.header endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
             return;
         }
         
@@ -132,13 +132,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         
         // 刷新CollectionView
         [self.collectionView reloadData];
-        [self.collectionView.header endRefreshing];
+        [self.collectionView.mj_header endRefreshing];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
+            self.collectionView.mj_footer.hidden = YES;
         } else {
             // 结束刷新
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
         }
     }];
 }
@@ -146,7 +146,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 #pragma mark - 处理模型数据
 - (void)handleFeeds: (NSDictionary *)responseObject pullingDown: (BOOL)pullingDown {
     // 新闻
-    NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+    NSArray *news = [QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
     
     // 添加到 collectionView 数据源
     [self.feeds addObjectsFromArray:news];
@@ -164,7 +164,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         if (responseObject == nil) {
             [MBProgressHUD showError:error.userInfo[@"msg"]];
             // 停止上拉加载
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
             return;
         }
         
@@ -172,7 +172,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         if (error) {
             QDLogVerbose(@"%@", error);
             // 停止上拉加载
-            [self.collectionView.header endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
             return;
         }
 
@@ -191,10 +191,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         [self.collectionView reloadData];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
+            self.collectionView.mj_footer.hidden = YES;
         } else {
             // 结束刷新
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
         }
     }];
 }

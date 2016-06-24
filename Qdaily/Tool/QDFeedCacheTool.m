@@ -168,7 +168,7 @@
             NSData *data = [feedContent dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *feedDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             // 字典转模型
-            QDFeed *feed = [QDFeed objectWithKeyValues:feedDict];
+            QDFeed *feed = [QDFeed mj_objectWithKeyValues:feedDict];
             [arrayM addObject:feed];
         }
         

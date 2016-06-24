@@ -63,17 +63,17 @@
 
 - (void)viewDidLayoutSubviews {
     // 放到背景层后面
-    [self.tableView insertSubview:self.tableView.header atIndex:0];
+    [self.tableView insertSubview:self.tableView.mj_header atIndex:0];
 }
 
 - (void)setupRefresh {
-    self.tableView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadComments)];
+    self.tableView.mj_header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadComments)];
 }
 
 - (void)loadComments {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 如果有被评论的数据...就隐藏自定义的背景
-        [self.tableView.header endRefreshing];
+        [self.tableView.mj_header endRefreshing];
     });
 }
 

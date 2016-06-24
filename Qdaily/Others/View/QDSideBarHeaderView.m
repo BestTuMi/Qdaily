@@ -128,7 +128,7 @@
             
             // 设置模型
             self.userCenterVm = [QDUserCenterVM sharedInstance];
-            self.userCenterVm.userCenterModel = [QDUserCenterModel objectWithKeyValues:responseObject[@"response"]];
+            self.userCenterVm.userCenterModel = [QDUserCenterModel mj_objectWithKeyValues:responseObject[@"response"]];
             
             // 保存登录状态
             self.isLogin = YES;

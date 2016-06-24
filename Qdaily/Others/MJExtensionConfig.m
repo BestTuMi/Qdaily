@@ -20,50 +20,50 @@
 @implementation MJExtensionConfig
 
 + (void)load {
-    [QDSideBarCategory setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDSideBarCategory mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
     
-    [QDCategory setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDCategory mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
     
-    [QDPost setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDPost mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"ID" : @"id",
                  @"detail" : @"description"
                  };
     }];
     
-    [QDAuthor setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDAuthor mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"userID" : @"id"
                  };
     }];
     
-    [QDRadarData setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDRadarData mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"geneID" : @"id"
                  };
     }];
     
-    [QDFeedArticleModel setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDFeedArticleModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"Id" : @"id"};
     }];
     
-    [QDComment setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDComment mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"Id" : @"id",
                  };
     }];
     
-    [QDComment setupObjectClassInArray:^NSDictionary *{
+    [QDComment mj_setupObjectClassInArray:^NSDictionary *{
         return @{
                  @"child_comments" : @"QDChildComment"
                  };
     }];
     
-    [QDChildComment setupReplacedKeyFromPropertyName:^NSDictionary *{
+    [QDChildComment mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{
                  @"Id" : @"id"
                  };

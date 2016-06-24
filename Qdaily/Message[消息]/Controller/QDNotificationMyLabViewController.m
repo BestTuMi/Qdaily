@@ -69,12 +69,12 @@ static NSString * const paperIdentifier = @"feedPaperCell";
 
 #pragma mark - 设置刷新组件
 - (void)setupRefresh {
-    self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
-    self.collectionView.footer.automaticallyChangeAlpha = YES;
+    self.collectionView.mj_footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreNews)];
+    self.collectionView.mj_footer.automaticallyChangeAlpha = YES;
     
     // 添加刷新组件
-    self.collectionView.header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
-    self.collectionView.header.automaticallyChangeAlpha = YES;
+    self.collectionView.mj_header = [QDRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(setupFeeds)];
+    self.collectionView.mj_header.automaticallyChangeAlpha = YES;
 }
 
 #pragma mark - setupFeeds
@@ -87,13 +87,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         // 验证数据
         if (responseObject == nil) {
             [MBProgressHUD showError: error.userInfo[@"msg"]];
-            [self.collectionView.header endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
             return;
         }
         
         if (error) {
             QDLogVerbose(@"%@", error);
-            [self.collectionView.header endRefreshing];
+            [self.collectionView.mj_header endRefreshing];
         }
         
         // 移除模型数组所有元素
@@ -104,7 +104,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
         
         // 新闻
-        NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+        NSArray *news = [QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
         // 添加到 collectionView 数据源
         [self.feeds addObjectsFromArray:news];
         
@@ -113,13 +113,13 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         
         // 刷新CollectionView
         [self.collectionView reloadData];
-        [self.collectionView.header endRefreshing];
+        [self.collectionView.mj_header endRefreshing];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
+            self.collectionView.mj_footer.hidden = YES;
         } else {
             // 结束刷新
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
         }
     }];
 }
@@ -145,7 +145,7 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
         
         // 新闻
-        NSArray *news = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
+        NSArray *news = [QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"feeds"][@"list"]];
         // 添加到 collectionView 数据源
         [self.feeds addObjectsFromArray:news];
         
@@ -156,10 +156,10 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         [self.collectionView reloadData];
         
         if (!self.has_more) { // 表示没有数据了,隐藏 Footer
-            self.collectionView.footer.hidden = YES;
+            self.collectionView.mj_footer.hidden = YES;
         } else {
             // 结束刷新
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
         }
     }];
 }
