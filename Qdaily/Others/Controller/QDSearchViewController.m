@@ -114,7 +114,7 @@
 
 #pragma mark - 设置刷新组件
 - (void)setupRefresh {
-    self.tableView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreResults)];
+    self.tableView.mj_footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreResults)];
 }
 
 #pragma mark - 加载搜索结果
@@ -127,7 +127,9 @@
     NSString *searchUrl = [NSString stringWithFormat:@"http://app.qdaily.com/app/searches/post_list?last_time=0&search=%@", searchStr];
 
     QDWeakSelf;
-    [self.manager GET:searchUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.manager GET:searchUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        QDLogVerbose(@"%@", responseObject);
         
         // 移除所有模型
         [weakSelf.results removeAllObjects];
@@ -140,7 +142,7 @@
         [weakSelf setupHeaderView];
         weakSelf.tableView.tableHeaderView.hidden = NO;
         
-        NSArray *results = [QDResult objectArrayWithKeyValuesArray:responseObject[@"response"][@"searches"][@"list"]];
+        NSArray *results = [QDResult mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"searches"][@"list"]];
         
         [weakSelf.results addObjectsFromArray:results];
         
@@ -148,9 +150,10 @@
         [weakSelf.tableView reloadData];
         
         if (weakSelf.results.count >= weakSelf.totalNumber) {
-            weakSelf.tableView.footer.hidden = YES;
+            weakSelf.tableView.mj_footer.hidden = YES;
         }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }
@@ -165,12 +168,12 @@
     NSString *searchUrl = [NSString stringWithFormat:@"http://app.qdaily.com/app/searches/post_list?last_time=%@&search=%@", self.last_time, searchStr];
     
     QDWeakSelf;
-    [self.manager GET:searchUrl parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.manager GET:searchUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 获取页面加载相关信息
         weakSelf.last_time = responseObject[@"response"][@"searches"][@"last_time"];
         weakSelf.has_more = [responseObject[@"response"][@"searches"][@"has_more"] boolValue];
         
-        NSArray *results = [QDResult objectArrayWithKeyValuesArray:responseObject[@"response"][@"searches"][@"list"]];
+        NSArray *results = [QDResult mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"searches"][@"list"]];
         
         [weakSelf.results addObjectsFromArray:results];
         
@@ -179,13 +182,13 @@
         
         // (服务器数据有可能会被删除,所以判断大于等于),减1是因为第一个模型是总数
         if (weakSelf.results.count >=  weakSelf.totalNumber) { // 超出总数,没有更多了
-            weakSelf.tableView.footer.hidden = YES;
+            weakSelf.tableView.mj_footer.hidden = YES;
         } else {
             // 停止刷新
-            [weakSelf.tableView.footer endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
         }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [weakSelf.tableView.footer endRefreshing];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [weakSelf.tableView.mj_footer endRefreshing];
     }];
 }
 

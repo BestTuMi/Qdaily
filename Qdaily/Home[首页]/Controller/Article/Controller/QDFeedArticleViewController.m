@@ -227,7 +227,7 @@ static NSString * const separateCell = @"separateCell";
 }
 
 - (void)setupRefresh {
-    self.collectionView.footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+    self.collectionView.mj_footer = [QDRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
 }
 
 #pragma mark - 加载更多评论
@@ -244,7 +244,7 @@ static NSString * const separateCell = @"separateCell";
             self.last_time = responseObject[@"response"][@"comments"][@"last_time"];
         }
         
-        NSArray *comments = [QDComment objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
+        NSArray *comments = [QDComment mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
         // 重新组织数据,补上子评论
         for (int i = 0; i < comments.count; i++) {
             QDComment *comment = comments[i];
@@ -265,9 +265,9 @@ static NSString * const separateCell = @"separateCell";
         [self.collectionView reloadData];
         
         if (self.has_more) {
-            [self.collectionView.footer endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
         } else {
-            self.collectionView.footer.hidden = YES;
+            self.collectionView.mj_footer.hidden = YES;
         }
         
         // 重新布局(肯能会造成 inset 不正确)
@@ -286,9 +286,7 @@ static NSString * const separateCell = @"separateCell";
     self.webView.scrollView.scrollEnabled = NO;
     
     // 实例化 bridge
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        
-    }];
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
     
     // 注册 JS 调用给的方法
     [_bridge registerHandler:@"qdaily::gotoPage" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -321,7 +319,7 @@ static NSString * const separateCell = @"separateCell";
             return;
         }
         
-        self.article = [QDFeedArticleModel objectWithKeyValues:responseObject[@"response"][@"article"]];
+        self.article = [QDFeedArticleModel mj_objectWithKeyValues:responseObject[@"response"][@"article"]];
         [self.webView loadHTMLString:self.article.body baseURL:QDBaseURL];
         
     }];
@@ -345,13 +343,13 @@ static NSString * const separateCell = @"separateCell";
             return;
         }
         
-        self.releatedFeeds = [QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"related"]];
+        self.releatedFeeds = [QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"related"]];
         NSMutableArray *recommendFeeds = [NSMutableArray array];
-        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend"]].firstObject];
-        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_two"]].firstObject];
-        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_three"]].firstObject];
-        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_four"]].firstObject];
-        [recommendFeeds addObject:[QDFeed objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_five"]].firstObject];
+        [recommendFeeds addObject:[QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend"]].firstObject];
+        [recommendFeeds addObject:[QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_two"]].firstObject];
+        [recommendFeeds addObject:[QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_three"]].firstObject];
+        [recommendFeeds addObject:[QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_four"]].firstObject];
+        [recommendFeeds addObject:[QDFeed mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"recommend_five"]].firstObject];
         self.recommendFeeds = recommendFeeds;
         
         [self.footerDatas addObject:self.releatedFeeds];
@@ -375,7 +373,7 @@ static NSString * const separateCell = @"separateCell";
                 self.last_time = responseObject[@"response"][@"comments"][@"last_time"];
             }
             
-            NSArray *comments = [QDComment objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
+            NSArray *comments = [QDComment mj_objectArrayWithKeyValuesArray:responseObject[@"response"][@"comments"][@"list"]];
             // 重新组织数据,补上子评论
             for (int i = 0; i < comments.count; i++) {
                 QDComment *comment = comments[i];
@@ -398,7 +396,7 @@ static NSString * const separateCell = @"separateCell";
             [self.collectionView reloadData];
             
             if (!self.has_more) {
-                self.collectionView.footer.hidden = YES;
+                self.collectionView.mj_footer.hidden = YES;
             }
         }];
     }];

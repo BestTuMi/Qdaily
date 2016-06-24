@@ -44,7 +44,7 @@
         [self.collectionView reloadData];
         
         // 结束刷新
-        [self.collectionView.footer endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
     }];
 }
 

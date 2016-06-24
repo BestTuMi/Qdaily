@@ -127,7 +127,7 @@
     params[@"uid"] = userAccount.uid;
     params[@"username"] = userAccount.username;
     
-    [[QDFeedTool sharedFeedTool] POST:urlStr parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         // 处理错误
         // 有响应, 无response 字段可能是登录失败
@@ -140,7 +140,7 @@
         // 有返回的数据
         finished(responseObject, nil);
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         finished(nil, error);
     }];
 }

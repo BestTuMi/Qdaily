@@ -445,16 +445,16 @@
     [self.categories addObjectsFromArray:@[categoryHome, categoryLab, categoryFavourite, categoryMsg]];
     
     // 剩下的从网络抓取
-    [self.manager GET:@"app/homes/left_sidebar.json?" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self.manager GET:@"app/homes/left_sidebar.json?" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 字典转模型
-        NSArray *categories = [QDSideBarCategory objectArrayWithKeyValuesArray:responseObject[@"response"]];
+        NSArray *categories = [QDSideBarCategory mj_objectArrayWithKeyValuesArray:responseObject[@"response"]];
         [self.categories addObjectsFromArray:categories];
         // 刷新表格
         [self.sideBarTableView reloadData];
-
+        
         // 更改默认选中菜单的状态
         [self.sideBarTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }

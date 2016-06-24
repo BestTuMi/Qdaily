@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sepratorAtOffineCos;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sepratorAtSettingCos;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sepratorHeaderCos;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 /** 所属控制器 */
 @property (nonatomic, weak) QDMainRootViewController *mainRootViewController;
 @end
@@ -31,20 +32,21 @@
     self.sepratorAtOffineCos.constant = 0.5;
     self.sepratorAtSettingCos.constant = 0.5;
     self.sepratorHeaderCos.constant = 0.5;
+    
+    @weakify(self);
+    [[_searchButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        QDSearchViewController *searchVc = [[QDSearchViewController alloc] init];
+        QDNavigationController *navi = [[QDNavigationController alloc] initWithRootViewController:searchVc];
+        [self.mainRootViewController presentViewController:navi animated:YES completion:nil];
+        // 隐藏侧边栏
+        [self.mainRootViewController hideSideBar];
+    }];
 }
 
 - (void)didMoveToWindow {
     // 取出 mainRootViewController,方便后续调用
     _mainRootViewController = ((QDNavigationController *)(self.window.rootViewController)).childViewControllers[0];
-}
-
-#pragma mark - 搜索
-- (IBAction)searchBtnClick:(id)sender {
-    QDSearchViewController *searchVc = [[QDSearchViewController alloc] init];
-    QDNavigationController *navi = [[QDNavigationController alloc] initWithRootViewController:searchVc];
-    [_mainRootViewController presentViewController:navi animated:YES completion:nil];
-    // 隐藏侧边栏
-    [_mainRootViewController hideSideBar];
 }
 
 @end

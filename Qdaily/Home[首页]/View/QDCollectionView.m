@@ -32,9 +32,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    if (self.header) {
+    if (self.mj_header) {
         // 避免覆盖在视图上
-        [self insertSubview:self.header atIndex:0];
+        [self insertSubview:self.mj_header atIndex:0];
     }
     
     // 初始化时是否需要上滚(在执行时清空标记)
@@ -55,12 +55,12 @@
     CGFloat newOffsetY = newOffset.y;
     CGFloat originalOffsetY = self.originalOffset.y;
 
-    // 如果移动距离大于200,隐藏侧边菜单按钮....其他可能的操作
+    // 如果移动距离大于100,隐藏侧边菜单按钮....其他可能的操作
+    // 回到拖动点重新显示
     CGFloat deltaOffsetY = newOffsetY - originalOffsetY;
     NSDictionary *userInfo = @{@"deltaOffsetY" : @(deltaOffsetY)};
-    if (deltaOffsetY >= 100) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:QDCollectionViewIdelStateNotification object:nil userInfo:userInfo];
-    } else if (deltaOffsetY <= -100) {
+    if (fabs(deltaOffsetY) >= 100 || deltaOffsetY == 0) {
+        QDLogFunc;
         [[NSNotificationCenter defaultCenter] postNotificationName:QDCollectionViewIdelStateNotification object:nil userInfo:userInfo];
     }
 }

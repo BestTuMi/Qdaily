@@ -2,8 +2,8 @@ platform :ios, "8.0"
 
 target :"Qdaily" do
     pod 'AFNetworking', '~> 3.0'
-    pod 'MJRefresh', '~> 2.4.11'
-    pod 'MJExtension', '~> 2.5.12'
+    pod 'MJRefresh', '~> 3.1.0'
+    pod 'MJExtension', '~> 3.0'
     pod 'SDWebImage', '~> 3.0'
     pod 'pop', '~> 1.0'
     pod 'FMDB', '~> 2.5'

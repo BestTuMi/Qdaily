@@ -27,7 +27,7 @@
 
 - (void)loadGenesData: (void (^)(NSDictionary *responseObject, NSError *error))finished {
     NSString *urlStr = @"/app/users/radar?";
-    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[QDFeedTool sharedFeedTool] GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         // 验证数据
         if (responseObject[@"response"] == [NSNull null]) {
             NSString *status = responseObject[@"meta"][@"status"];
@@ -36,7 +36,7 @@
         }
         
         // 处理数据
-        NSArray *genes = [QDRadarData objectArrayWithKeyValuesArray:responseObject[@"response"]];
+        NSArray *genes = [QDRadarData mj_objectArrayWithKeyValuesArray:responseObject[@"response"]];
         // 注意创建五边形时顶点要与数据对应起来
         [self.userCenterModel.genes addObject:genes[3]];
         [self.userCenterModel.genes addObject:genes[2]];
@@ -46,7 +46,7 @@
         
         finished(responseObject, nil);
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         finished(nil, error);
     }];
 }

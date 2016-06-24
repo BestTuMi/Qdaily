@@ -12,6 +12,7 @@
 #import "QDScrollView.h"
 #import "QDCollectionView.h"
 #import "Masonry.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface QDHomeViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 /** ScrollView */
@@ -71,8 +72,7 @@
 
 #pragma mark - dealloc
 - (void)dealloc {
-    [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    QDLogFunc;
 }
 
 #pragma mark -
@@ -134,16 +134,18 @@
     scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
     
     // 监听 offset 的改变,改变蒙版的透明度
-    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    
+    @weakify(self);
+    [[[RACObserve(scrollView, contentOffset) map:^id(id value) {
+        return @([value CGPointValue].x);
+    }] deliverOnMainThread] subscribeNext:^(id x) {
+        @strongify(self);
+        CGFloat newOffsetX = [x doubleValue];
+        self.homeFeedVc.maskView.alpha = newOffsetX / self.view.width * 0.88;
+        self.labFeedVc.maskView.alpha = (1 - newOffsetX / self.view.width) * 0.88;
+    }];
+
     // 默认选中首页,下面这个方法懒加载视图
     [self scrollViewDidEndScrollingAnimation:scrollView];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    CGFloat newOffsetX = [change[NSKeyValueChangeNewKey] CGPointValue].x;
-    self.homeFeedVc.maskView.alpha = newOffsetX / self.view.width * 0.88;
-    self.labFeedVc.maskView.alpha = (1 - newOffsetX / self.view.width) * 0.88;
 }
 
 #pragma mark - 设置顶部自定义导航条
@@ -215,8 +217,52 @@
     indicator.centerX = qButton.centerX;
     self.selectedButton = qButton;
     
-    // 添加通知监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNaviBarStatus:) name:QDFeedCollectionViewOffsetChangedNotification object:nil];
+    // 监听以改变导航条
+    @weakify(self);
+    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QDFeedCollectionViewOffsetChangedNotification object:nil] takeUntil:[self rac_willDeallocSignal]]
+       deliverOnMainThread]
+     subscribeNext:^(NSNotification *note) {
+         @strongify(self);
+         CGPoint newOffset = [note.userInfo[NSKeyValueChangeNewKey] CGPointValue];
+         
+         CGPoint oldOffset = [note.userInfo[NSKeyValueChangeOldKey] CGPointValue];
+         
+         CGFloat offsetY = newOffset.y - oldOffset.y;
+         
+         if (newOffset.y > -QDNaviBarMaxY) {
+             // 变化比例
+             CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
+             CGFloat scaleSy = sy <= 0.7 ? 0.7 : sy;
+             CGFloat alphaSy = sy <= 0.7 ? sy * 0.2 : sy;
+             
+             self.naviBarContentV.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
+             self.naviBarContentV.alpha = alphaSy;
+             
+             if (newOffset.y <= 0) { // naviBar消失之前 或 即将下拉出现
+                 
+                 if (self.naviBar.y - offsetY >= 0) { // 避免出现下拉瞬间超过0
+                     self.naviBar.y = 0;
+                 } else {
+                     self.naviBar.y -= offsetY;
+                 }
+                 
+                 // 更改状态栏状态
+                 [self changeStatusBarStateWithOffsetY:newOffset.y];
+                 
+             } else { // naviBar消失之后
+                 // 保持 naviBar 位置不变
+                 self.naviBar.y = - QDNaviBarMaxY;
+                 // 更改状态栏状态
+                 [self changeStatusBarStateWithOffsetY:0];
+             }
+             
+         } else {
+             // 更改状态栏状态
+             [self changeStatusBarStateWithOffsetY:- QDNaviBarMaxY];
+             [self resetNaviBar];
+         }
+        
+    }];
 }
 
 #pragma mark - 更新选项卡状态(包括指示器位置)
@@ -286,47 +332,6 @@
 }
 
 #pragma mark - 改变 NaviBar 的属性
-- (void)updateNaviBarStatus:(NSNotification *)note {
-    
-    CGPoint newOffset = [note.userInfo[NSKeyValueChangeNewKey] CGPointValue];
-    
-    CGPoint oldOffset = [note.userInfo[NSKeyValueChangeOldKey] CGPointValue];
-    
-    CGFloat offsetY = newOffset.y - oldOffset.y;
-
-    if (newOffset.y > -QDNaviBarMaxY) {
-        // 变化比例
-        CGFloat sy = ((- newOffset.y) / QDNaviBarMaxY);
-        CGFloat scaleSy = sy <= 0.7 ? 0.7 : sy;
-        CGFloat alphaSy = sy <= 0.7 ? sy * 0.2 : sy;
-        
-        self.naviBarContentV.transform = CGAffineTransformMakeScale(scaleSy, scaleSy);
-        self.naviBarContentV.alpha = alphaSy;
-    
-        if (newOffset.y <= 0) { // naviBar消失之前 或 即将下拉出现
-            
-            if (self.naviBar.y - offsetY >= 0) { // 避免出现下拉瞬间超过0
-                self.naviBar.y = 0;
-            } else {
-                self.naviBar.y -= offsetY;
-            }
-            
-        // 更改状态栏状态
-        [self changeStatusBarStateWithOffsetY:newOffset.y];
-            
-        } else { // naviBar消失之后
-            // 保持 naviBar 位置不变
-            self.naviBar.y = - QDNaviBarMaxY;
-            // 更改状态栏状态
-            [self changeStatusBarStateWithOffsetY:0];
-        }
-        
-    } else {
-        // 更改状态栏状态
-        [self changeStatusBarStateWithOffsetY:-QDNaviBarMaxY];
-        [self resetNaviBar];
-    }
-}
 
 - (void)resetNaviBar {
     self.naviBarContentV.transform = CGAffineTransformIdentity;
