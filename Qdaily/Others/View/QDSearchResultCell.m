@@ -34,6 +34,7 @@ static NSString *const resultCell = @"resultCell";
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

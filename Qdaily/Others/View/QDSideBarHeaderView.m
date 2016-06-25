@@ -41,7 +41,7 @@
 }
 
 - (void)awakeFromNib {
-   
+   [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     // 登陆按钮

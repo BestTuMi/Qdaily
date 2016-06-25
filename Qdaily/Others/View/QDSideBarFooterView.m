@@ -27,6 +27,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     // 设置分割线
     self.sepratorAtOffineCos.constant = 0.5;

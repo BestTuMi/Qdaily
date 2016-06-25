@@ -23,6 +23,7 @@ static inline double radians(double degree) {
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self setSubScore];
 }
 

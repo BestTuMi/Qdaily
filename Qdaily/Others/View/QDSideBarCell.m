@@ -23,6 +23,7 @@
 @implementation QDSideBarCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

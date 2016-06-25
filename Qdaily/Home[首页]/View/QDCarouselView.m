@@ -41,7 +41,7 @@ static NSInteger const timeInterval = 5;
 static NSString *const identifier = @"feedCompactCell";
 
 - (void)awakeFromNib {
-    
+    [super awakeFromNib];
     // 创建 ScrollView
     [self setupMainView];
     

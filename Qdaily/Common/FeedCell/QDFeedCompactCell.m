@@ -24,6 +24,7 @@
 @implementation QDFeedCompactCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

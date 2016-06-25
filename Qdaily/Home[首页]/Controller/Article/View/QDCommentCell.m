@@ -31,6 +31,7 @@ static CGFloat const QDPreferredMaxLayoutWidth = 260;
 @implementation QDCommentCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

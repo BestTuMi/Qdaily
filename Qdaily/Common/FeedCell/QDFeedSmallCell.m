@@ -28,6 +28,7 @@ static CGFloat commentBtnMargin = 3;
 @implementation QDFeedSmallCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

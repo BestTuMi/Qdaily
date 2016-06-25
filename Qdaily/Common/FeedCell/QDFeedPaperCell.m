@@ -27,6 +27,7 @@
 @implementation QDFeedPaperCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 

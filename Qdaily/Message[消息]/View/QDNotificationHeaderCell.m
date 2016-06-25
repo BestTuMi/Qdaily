@@ -22,6 +22,7 @@ static NSString *const notifyHeaderCell = @"notifyHeaderCell";
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
 }
 
 - (void)setFrame:(CGRect)frame {
