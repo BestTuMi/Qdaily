@@ -35,7 +35,6 @@
 #import <MJExtension.h>
 #import <POP.h>
 
-#define SideBarKeyPath @"frame"
 
 @interface QDMainRootViewController () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate>
 /** 侧边菜单视图 */
@@ -59,6 +58,9 @@
 /** 信息流控制器 */
 @property (nonatomic, strong)  QDCategoryFeedViewController *categoryFeedVc;
 
+/** sideBar frame 改变的信号 */
+@property (nonatomic, strong)  RACSignal *sideBarFrameSignal;
+
 /*********** tableView相关 **********/
 /** 目录模型数组 */
 @property (nonatomic, strong)  NSMutableArray *categories;
@@ -79,7 +81,15 @@
     [self setupSideBarButton];
     
     // 添加监听
-    [self addObservers];
+    @weakify(self);
+    [[[[[NSNotificationCenter defaultCenter]
+       rac_addObserverForName:QDShowSideBarNNotification object:nil]
+      takeUntil:[self rac_willDeallocSignal]]
+     deliverOnMainThread]
+     subscribeNext:^(id x) {
+        @strongify(self);
+        [self showSideBar];
+    }];
 }
 
 #pragma mark - 判断是否显示新手引导
@@ -89,11 +99,6 @@
         // 需要显示新手引导
         [QDMainUserGuideView show];
     }
-}
-
-- (void)dealloc {
-    // 移除监听
-    [self.sideBar removeObserver:self forKeyPath:SideBarKeyPath];
 }
 
 #pragma mark - lazyload
@@ -107,10 +112,18 @@
         // 使用主视图控制器的 target
         UIPanGestureRecognizer *maskPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         [_maskView addGestureRecognizer:maskPan];
-        
+
         // 额外增加一个点击手势,直接收起菜单
         UITapGestureRecognizer *maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sideBarButttonClick)];
         [_maskView addGestureRecognizer:maskTap];
+        
+        RAC(_maskView, alpha) = [[_sideBarFrameSignal map:^id(id value) {
+            // Alpha 最终值为0.6
+            CGRect frame = [value CGRectValue];
+            return @(CGRectGetMaxX(frame) / CGRectGetWidth(frame) * 0.6);
+        }] filter:^BOOL(id value) {
+            return [value doubleValue] <= 0.6;
+        }];
     }
     return _maskView;
 }
@@ -180,7 +193,7 @@
     // 滑动范围为左侧
     edgePanGesture.edges = UIRectEdgeLeft;
     [mainView addGestureRecognizer:edgePanGesture];
-    
+
     // 设置手势代理
     edgePanGesture.delegate = self;
 
@@ -189,6 +202,32 @@
     
     [mainView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
+    }];
+    
+    @weakify(self);
+    [[[self
+       rac_signalForSelector:@selector(pan:)]
+      map:^id(RACTuple *tuple) {
+        @strongify(self);
+        // 获取偏移值(在手势所在的视图)
+        UIPanGestureRecognizer *panGesture = tuple.first;
+        CGPoint offsetP = [panGesture translationInView:panGesture.view];
+        CGFloat offsetX = offsetP.x;
+        // 复位
+        [panGesture setTranslation:CGPointZero inView:panGesture.view];
+        
+        // 添加蒙版层
+        [self.mainView addSubview:self.maskView];
+        
+        return RACTuplePack(@(offsetX), panGesture);
+    }]
+     subscribeNext:^(RACTuple *tuple) {
+        @strongify(self);
+        // 改变菜单 frame
+        self.sideBar.x += [tuple.first doubleValue];
+
+        // 改变菜单的 frame并改变蒙版的 alpha
+        [self sideBarFrameWithPanGetsture:tuple.second];
     }];
 }
 
@@ -207,9 +246,23 @@
     // 添加模糊特效层
     [sideBar addBlurViewWithAlpha:0.8];
     
-    // 使用 KVO 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
-    [sideBar addObserver:self forKeyPath:SideBarKeyPath options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    
+    // 监听左侧菜单 Frame 变化,并改变菜单按钮 Frame 和其他值
+    self.sideBarFrameSignal =
+    [[[sideBar rac_valuesForKeyPath:@keypath(sideBar, frame) observer:self]
+     filter:^BOOL(id value) {
+         // sideBar 的位置改变
+         CGFloat new = [value CGRectValue].origin.x;
+         
+         if (new == 0) { // 完全显示出来
+             if (QDShouldShowSideBarUserGuide) {
+                 // 需要显示 sideBar 的新手引导
+                 [QDSideBarUserGuideView show];
+             }
+         }
+         
+         return YES;
+     }] deliverOnMainThread];
+
     // 添加滑动手势
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
     [sideBar addGestureRecognizer:panGesture];
@@ -265,10 +318,35 @@
 - (void)setupSideBarButton {
 
     QDAnimateButton *sideBarButton = [QDAnimateButton buttonWithOrigin:CGPointMake(15, QDScreenH - 60)];
-    sideBarButton.tintColor = QDRGBWhiteColor(1.0, 1.0);
-    [sideBarButton addTarget:self action:@selector(sideBarButttonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:sideBarButton];
+    [sideBarButton addTarget:self action:@selector(sideBarButttonClick) forControlEvents:UIControlEventTouchUpInside];
+    sideBarButton.tintColor = QDRGBWhiteColor(1.0, 1.0);
     _sideBarButton = sideBarButton;
+    
+    // 有其他手势调用这个方法,使用 SEL 形式的信号
+    @weakify(self);
+    [[[self
+     rac_signalForSelector:@selector(sideBarButttonClick)]
+     map:^id(id value) {
+         @strongify(self);
+         BOOL shouldShowSideBar = self.sideBar.x != 0;
+         return @(shouldShowSideBar);
+     }]
+     subscribeNext:^(id x) {
+        @strongify(self);
+         if ([x boolValue]) {
+             [self showSideBar];
+         } else {
+             [self hideSideBar];
+         }
+        // 内部动画
+        BOOL showMenu = ![x boolValue];
+        [self.sideBarButton touchUpInsideHandler:showMenu];
+    }];
+    
+    RAC(self.sideBarButton, x) = [_sideBarFrameSignal map:^id(id value) {
+        return @(CGRectGetMaxX([value CGRectValue]) + 15);
+    }];
 }
 
 #pragma mark - 改变主视图上的子控制器视图
@@ -289,50 +367,13 @@
     [self.mainView addSubview:mainViewChildVc.view];
 }
 
-#pragma mark - 添加必要的监听
-- (void)addObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSideBar) name:QDShowSideBarNNotification object:nil];
-}
-
-#pragma mark - 移除监听
-- (void)removeObservers {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    // 监听 sideBar 的位置改变
-    CGFloat new = [change[NSKeyValueChangeNewKey] CGRectValue].origin.x;
-    CGFloat old = [change[NSKeyValueChangeOldKey] CGRectValue].origin.x;
-    CGFloat offsetX = new - old;
-
-    self.sideBarButton.x += offsetX;
-    
-    if (new == 0) { // 完全显示出来
-        if (QDShouldShowSideBarUserGuide) {
-            // 需要显示 sideBar 的新手引导
-            [QDSideBarUserGuideView show];
-        }
-    }
-    
-    // 设置蒙版透明度
-    [self setMaskViewAlpha];
-}
-
 #pragma mark - 显示隐藏左侧菜单
-- (void)sideBarButttonClick {
-    if (self.sideBar.x == 0) {
-        [self hideSideBar];
-    } else {
-        [self showSideBar];
-    }
-    // 内部动画
-    BOOL showMenu = !(self.sideBar.x == 0);
-    [self.sideBarButton touchUpInsideHandler:showMenu];
-}
+
+- (void)sideBarButttonClick {}
 
 - (void)showSideBar {
+    // 添加蒙版层
+    [self.mainView addSubview:self.maskView];
     [UIView animateWithDuration:0.25 animations:^{
         self.sideBar.x = 0;
     }];
@@ -348,28 +389,7 @@
 
 #pragma mark - 滑动显示左侧菜单
 - (void)pan: (UIPanGestureRecognizer *)panGesture {
-    // 获取偏移值(在手势所在的视图)
-    CGPoint offsetP = [panGesture translationInView:panGesture.view];
-    CGFloat offsetX = offsetP.x;
-    
-    // 改变菜单 frame
-    _sideBar.x += offsetX;
-    
-    // 添加蒙版层
-    [self.mainView addSubview:self.maskView];
-    
-    // 复位
-    [panGesture setTranslation:CGPointZero inView:panGesture.view];
-    
-    // 改变菜单的 frame并改变蒙版的 alpha
-    [self sideBarFrameWithPanGetsture:panGesture];
-    
-}
-
-#pragma mark - 设置蒙版层透明度
-- (void)setMaskViewAlpha {
-    // Alpha 最终值为0.6
-    self.maskView.alpha = CGRectGetMaxX(self.sideBar.frame) / self.sideBar.width * 0.6 >= 0.6 ? 0.6 : CGRectGetMaxX(self.sideBar.frame) / self.sideBar.width * 0.6;
+    // 空实现
 }
 
 #pragma mark - 计算菜单的 Frame
