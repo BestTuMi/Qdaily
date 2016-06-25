@@ -7,7 +7,7 @@ target :"Qdaily" do
     pod 'SDWebImage', '~> 3.0'
     pod 'pop', '~> 1.0'
     pod 'FMDB', '~> 2.5'
-    pod 'WebViewJavascriptBridge'
+    pod 'WebViewJavascriptBridge', '~> 4.1'
     pod 'MWPhotoBrowser', '~> 2.1'
     pod 'ReactiveCocoa', '~> 2.0'
     #pod 'Reveal-iOS-SDK', '~> 1.5.1'

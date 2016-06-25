@@ -37,7 +37,6 @@
 @property (nonatomic, weak)  UIViewController *willShowVc;
 /** 选项卡按钮数组 */
 @property (nonatomic, strong) NSMutableArray *tabButtons;
-
 /** 更新状态栏的状态 */
 @property (nonatomic, assign)  BOOL statusBarHidden;
 @end
@@ -133,19 +132,19 @@
     NSInteger count = self.childViewControllers.count;
     scrollView.contentSize = CGSizeMake(QDScreenW * count, QDScreenH);
     
-    // 监听 offset 的改变,改变蒙版的透明度
-    @weakify(self);
-    [[[RACObserve(scrollView, contentOffset) map:^id(id value) {
-        return @([value CGPointValue].x);
-    }] deliverOnMainThread] subscribeNext:^(id x) {
-        @strongify(self);
-        CGFloat newOffsetX = [x doubleValue];
-        self.homeFeedVc.maskView.alpha = newOffsetX / self.view.width * 0.88;
-        self.labFeedVc.maskView.alpha = (1 - newOffsetX / self.view.width) * 0.88;
-    }];
-
     // 默认选中首页,下面这个方法懒加载视图
     [self scrollViewDidEndScrollingAnimation:scrollView];
+    
+    // 监听 offset 的改变,改变蒙版的透明度
+    @weakify(self);
+    [[RACObserve(scrollView, contentOffset)
+        map:^id(id value) {
+           return @([value CGPointValue].x / self.view.width);
+        }] subscribeNext:^(id percentValue) {
+            @strongify(self);
+            self.homeFeedVc.maskView.alpha = [percentValue doubleValue] * 0.88;
+            self.labFeedVc.maskView.alpha = (1- [percentValue doubleValue]) * 0.88;
+        }];
 }
 
 #pragma mark - 设置顶部自定义导航条
@@ -219,7 +218,9 @@
     
     // 监听以改变导航条
     @weakify(self);
-    [[[[[NSNotificationCenter defaultCenter] rac_addObserverForName:QDFeedCollectionViewOffsetChangedNotification object:nil] takeUntil:[self rac_willDeallocSignal]]
+    [[[[[NSNotificationCenter defaultCenter]
+        rac_addObserverForName:QDFeedCollectionViewOffsetChangedNotification object:nil]
+       takeUntil:[self rac_willDeallocSignal]]
        deliverOnMainThread]
      subscribeNext:^(NSNotification *note) {
          @strongify(self);
@@ -317,7 +318,6 @@
         
         // 添加到 ScrollView 上
         [scrollView addSubview:self.willShowVc.view];
-
     }
 }
 

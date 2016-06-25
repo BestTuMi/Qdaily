@@ -36,7 +36,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
-  - WebViewJavascriptBridge (5.0.5)
+  - WebViewJavascriptBridge (4.1.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -47,7 +47,7 @@ DEPENDENCIES:
   - pop (~> 1.0)
   - ReactiveCocoa (~> 2.0)
   - SDWebImage (~> 3.0)
-  - WebViewJavascriptBridge
+  - WebViewJavascriptBridge (~> 4.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -60,8 +60,8 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
-  WebViewJavascriptBridge: a4d502315f1b8d9a51cd6a9174147ed567ec3bc5
+  WebViewJavascriptBridge: e7b6669bebfc4f151daa0fdec3c8c24c8dc3a24e
 
-PODFILE CHECKSUM: 2256e5466584c2e6865c46fe6ec8022e8a1d462c
+PODFILE CHECKSUM: 7c75ad481be0b78e5cf5bc17027e0bae3f189e7a
 
 COCOAPODS: 1.0.1

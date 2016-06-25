@@ -34,7 +34,7 @@
 /** html 相关模型 */
 @property (nonatomic, strong) QDFeedArticleModel *article;
 /** JS跟 OC 互调的 bridge */
-@property WebViewJavascriptBridge* bridge;
+@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 /** 需要图片浏览器浏览的图片 */
 @property (nonatomic, strong)  NSArray *photos;
 /** 相关的新闻 */
@@ -281,12 +281,12 @@ static NSString * const separateCell = @"separateCell";
     UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.collectionView addSubview:webView];
     self.webView = webView;
-    self.webView.delegate = self;
     self.webView.scalesPageToFit = YES;
     self.webView.scrollView.scrollEnabled = NO;
+    self.webView.delegate = self;
     
     // 实例化 bridge
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:self handler:nil];
     
     // 注册 JS 调用给的方法
     [_bridge registerHandler:@"qdaily::gotoPage" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -504,7 +504,7 @@ static NSString * const separateCell = @"separateCell";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-//    QDLogVerbose(@"%@", request);
+    QDLogVerbose(@"%@", request);
     return YES;
 }
 
