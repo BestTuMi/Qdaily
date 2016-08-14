@@ -8,7 +8,14 @@
 
 #import <objc/runtime.h>
 
-
+static NSString * unicodeTransliterator (NSString *string, NSString *transform, BOOL reverse) {
+    if ([string respondsToSelector:@selector(stringByApplyingTransform:reverse:)]) {
+        return [string stringByApplyingTransform:transform reverse:reverse];
+    }
+    NSMutableString *strM = [string mutableCopy];
+    CFStringTransform((__bridge CFMutableStringRef)(strM), NULL, (__bridge CFStringRef)(transform), reverse);
+    return [strM copy];
+}
 
 @implementation NSArray (Log)
 
@@ -24,7 +31,7 @@
     NSString *des = [self _descriptionWithLocale:locale];
     des = [des stringByReplacingOccurrencesOfString:@"\\U" withString:@"\\u"];
     
-    return [des stringByApplyingTransform:@"Any-Hex" reverse:YES];
+    return unicodeTransliterator(des, @"Any-Hex", YES);
 }
 
 @end
@@ -43,7 +50,7 @@
     NSString *des = [self _descriptionWithLocale:locale];
     des = [des stringByReplacingOccurrencesOfString:@"\\U" withString:@"\\u"];
     
-    return [des stringByApplyingTransform:@"Any-Hex" reverse:YES];
+    return unicodeTransliterator(des, @"Any-Hex", YES);
 }
 
 @end
