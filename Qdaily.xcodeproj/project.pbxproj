@@ -33,7 +33,6 @@
 		8B422C871BD6566B00D4AC8A /* QDSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B422C851BD6566B00D4AC8A /* QDSearchResultCell.xib */; };
 		8B422C8A1BD6677000D4AC8A /* QDResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B422C891BD6677000D4AC8A /* QDResult.m */; };
 		8B4A7F5B1BDD0C8A009FEA49 /* QDSideBarHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B4A7F5A1BDD0C8A009FEA49 /* QDSideBarHeaderView.xib */; };
-		8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */; };
 		8B5BF63D1BD511C1005B75B5 /* QDSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5BF63C1BD511C1005B75B5 /* QDSearchViewController.m */; };
 		8B5BF63F1BD51222005B75B5 /* QDSideBarFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5BF63E1BD51222005B75B5 /* QDSideBarFooterView.xib */; };
 		8B5CBEE41BD2406700A6242F /* QDCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5CBEE31BD2406700A6242F /* QDCollectionView.m */; };
@@ -245,6 +244,7 @@
 		8BC735681BC421F30045226E /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */; };
 		8BC735691BC421F30045226E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC735581BC421F30045226E /* UIView+Extension.m */; };
 		8BC7356C1BC421F30045226E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC7355E1BC421F30045226E /* main.m */; };
+		8BCF65561D600F1E00BBBE8F /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCF65551D600F1E00BBBE8F /* NSArray+Log.m */; };
 		8BDC35AE1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDC35AD1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m */; };
 		8BDD900A1BD5460400E5CA37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BDD90091BD5460400E5CA37 /* Images.xcassets */; };
 		8BDE6CC41BE8FF81007AE5E1 /* QDFeedCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDE6CB81BE8FF81007AE5E1 /* QDFeedCacheTool.m */; };
@@ -325,7 +325,6 @@
 		8B422C881BD6677000D4AC8A /* QDResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDResult.h; sourceTree = "<group>"; };
 		8B422C891BD6677000D4AC8A /* QDResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDResult.m; sourceTree = "<group>"; };
 		8B4A7F5A1BDD0C8A009FEA49 /* QDSideBarHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSideBarHeaderView.xib; sourceTree = "<group>"; };
-		8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+LOG.m"; sourceTree = "<group>"; };
 		8B5BF63B1BD511C1005B75B5 /* QDSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDSearchViewController.h; sourceTree = "<group>"; };
 		8B5BF63C1BD511C1005B75B5 /* QDSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDSearchViewController.m; sourceTree = "<group>"; };
 		8B5BF63E1BD51222005B75B5 /* QDSideBarFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QDSideBarFooterView.xib; sourceTree = "<group>"; };
@@ -618,6 +617,7 @@
 		8BC735581BC421F30045226E /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		8BC7355E1BC421F30045226E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8BC889CF1BFAB91800986C20 /* libPods-MWPhotoBrowser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MWPhotoBrowser.a"; path = "Pods/../build/Debug-iphoneos/libPods-MWPhotoBrowser.a"; sourceTree = "<group>"; };
+		8BCF65551D600F1E00BBBE8F /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		8BDC35AC1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SafeNavigationBar.h"; sourceTree = "<group>"; };
 		8BDC35AD1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SafeNavigationBar.m"; sourceTree = "<group>"; };
 		8BDD90091BD5460400E5CA37 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1363,13 +1363,13 @@
 				8B79DA641BDCE6FE0038EA96 /* MBProgressHUD */,
 				8BC1F2851BE53942007E205B /* NSDate+Extension.h */,
 				8BC1F2861BE53942007E205B /* NSDate+Extension.m */,
+				8BCF65551D600F1E00BBBE8F /* NSArray+Log.m */,
 				8BC735551BC421F30045226E /* UIBarButtonItem+Extension.h */,
 				8BC735561BC421F30045226E /* UIBarButtonItem+Extension.m */,
 				8B8DF3F01BD795F300C5413A /* UIButton+Extension.h */,
 				8B8DF3F11BD795F300C5413A /* UIButton+Extension.m */,
 				8BC735571BC421F30045226E /* UIView+Extension.h */,
 				8BC735581BC421F30045226E /* UIView+Extension.m */,
-				8B5A7EFC1BCB7881001D3F46 /* NSDictionary+LOG.m */,
 				8B090F4E1C0C8A2F00FA9D08 /* UIImageView+Extension.h */,
 				8B090F4F1C0C8A2F00FA9D08 /* UIImageView+Extension.m */,
 				8BDC35AC1CFB4987007225C9 /* UINavigationController+SafeNavigationBar.h */,
@@ -1816,6 +1816,7 @@
 				8B5EB33C1BD087C70078D13A /* QDSideBarCell.m in Sources */,
 				8B090F501C0C8A2F00FA9D08 /* UIImageView+Extension.m in Sources */,
 				8BDE6CC71BE8FF81007AE5E1 /* QDRefreshFooter.m in Sources */,
+				8BCF65561D600F1E00BBBE8F /* NSArray+Log.m in Sources */,
 				8B5EB33E1BD087C70078D13A /* QDSideBarHeaderView.m in Sources */,
 				8BDE6CC81BE8FF81007AE5E1 /* QDRefreshHeader.m in Sources */,
 				8B5EB2FE1BD087830078D13A /* QDFavouriteViewController.m in Sources */,
@@ -1863,7 +1864,6 @@
 				8B79DA721BDCE6FE0038EA96 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8B79DA6B1BDCE6FE0038EA96 /* MASCompositeConstraint.m in Sources */,
 				8BE5488D1BD946FB00ADF5BB /* QDNewFeaturesFlowLayout.m in Sources */,
-				8B5A7EFD1BCB7881001D3F46 /* NSDictionary+LOG.m in Sources */,
 				8B5EB31F1BD0879A0078D13A /* QDFeedBannerCell.m in Sources */,
 				8B40D9341BD9C9FE002B00B5 /* QDSideBarUserGuideView.m in Sources */,
 				8B79DA751BDCE6FE0038EA96 /* MBProgressHUD+Message.m in Sources */,

@@ -117,6 +117,8 @@ static NSString * const paperIdentifier = @"feedPaperCell";
             return;
         }
         
+        QDLogVerbose(@"%@", responseObject);
+        
         // 移除模型数组所有元素
         [self.feeds removeAllObjects];
         
@@ -172,9 +174,11 @@ static NSString * const paperIdentifier = @"feedPaperCell";
         if (error) {
             QDLogVerbose(@"%@", error);
             // 停止上拉加载
-            [self.collectionView.mj_header endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
             return;
         }
+        
+        QDLogVerbose(@"%@", responseObject);
 
         // 保存属性上拉加载发送
         self.has_more = [responseObject[@"response"][@"feeds"][@"has_more"] boolValue];
